@@ -31,14 +31,14 @@
     
   <rule id="mealType">
 	  <one-of>
-		  <item>almoço<tag>out="LUNCH"</tag></item>
-		  <item>jantar<tag>out="DINNER"</tag></item>
+		  <item>almoço<tag>out="Almoço"</tag></item>
+		  <item>jantar<tag>out="Jantar"</tag></item>
 	  </one-of>
 	</rule>
   <rule id="canteens">
 	  <one-of>
-		  <item>San Tiago<tag>out="SANTIAGO"</tag></item>
-		  <item>Crasto<tag>out="CRASTO"</tag></item>
+		  <item>San Tiago<tag>out="Santiago"</tag></item>
+		  <item>Crasto<tag>out="Crasto"</tag></item>
 	  </one-of>
 	</rule>
 
