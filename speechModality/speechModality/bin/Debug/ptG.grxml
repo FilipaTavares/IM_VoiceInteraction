@@ -1,29 +1,87 @@
 ﻿<?xml version="1.0"?>
-<grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
-	<rule id="rootRule" scope="public">
-	  <item>
-		  <item>
-			<ruleref uri="#object"/>
-			<tag>out.shape=rules.latest();</tag>
-		  </item>
-		  <item>
-			<ruleref uri="#color"/>
-			<tag>out.color=rules.latest();</tag>
-		  </item>
-	  </item>
-	</rule>
-	<rule id="object">
+<grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0" root="rootRule">
+ 
+  <rule id="rootRule" >
+    <one-of>
+      <item><ruleref uri="#canteensAPI"/></item>
+      <item><ruleref uri="#sasAPI"/></item>
+      <item><ruleref uri="#sacAPI"/></item>
+      <item><ruleref uri="#newsAPI"/></item>
+      <item><ruleref uri="#weatherAPI"/></item>
+    </one-of>
+   
+  </rule>
+
+  <!-- Rules for comunicate with canteensAPI -->
+  <rule id="canteensAPI">
+    <tag>out.api="CANTEENS";</tag>
+
+    <item>Qual é o</item>
+    <item>
+      <ruleref uri="#mealType"/>
+      <tag>out.mealType=rules.latest();</tag>
+    </item>
+    <item repeat="0-1">na cantina</item>
+    <item>
+      <ruleref uri="#canteens"/>
+      <tag>out.canteens=rules.latest();</tag>
+    </item>
+
+  </rule>
+    
+  <rule id="mealType">
 	  <one-of>
-		<item>quadrado<tag>out="SQUARE"</tag></item>
-		<item>círculo<tag>out="CIRCLE"</tag></item>
-		<item>triângulo<tag>out="TRIANGLE"</tag></item>
+		  <item>almoço<tag>out="LUNCH"</tag></item>
+		  <item>jantar<tag>out="DINNER"</tag></item>
 	  </one-of>
 	</rule>
-	<rule id="color">
+  <rule id="canteens">
 	  <one-of>
-		<item>verde<tag>out="GREEN"</tag></item>
-		<item>azul<tag>out="BLUE"</tag></item>
-		<item>vermelho<tag>out="RED"</tag></item>
+		  <item>San Tiago<tag>out="SANTIAGO"</tag></item>
+		  <item>Crasto<tag>out="CRASTO"</tag></item>
 	  </one-of>
 	</rule>
+
+  <!-- Rules for comunicate with parquesAPI -->
+  <rule id="sasAPI">
+    <tag>out.api="SAS";</tag>
+    <item>
+    Estacionamentos livres
+      
+    </item>
+  </rule>
+
+  <!-- Rules for comunicate with senhasAPI -->
+  <rule id="sacAPI">
+    <tag>out.api="SAC";</tag>
+    <item>
+      Quantas senhas
+      
+    </item>
+  </rule>
+
+  <!-- Rules for comunicate with newsAPI -->
+  <rule id="newsAPI">
+    <tag>out.api="NEWS";</tag>
+    <item>
+      <ruleref uri="#newsStart"/>
+    </item>
+
+  </rule>
+
+  <rule id="newsStart">
+    <one-of>
+      <item>Notícias</item>
+      <item>Novidades</item>
+    </one-of>
+  </rule>
+
+  <!-- Rules for comunicate with tempoAPI -->
+  <rule id="weatherAPI">
+    <tag>out.api="WEATHER";</tag>
+    <item>
+      Tempo
+      
+    </item>
+  </rule>
 </grammar>
