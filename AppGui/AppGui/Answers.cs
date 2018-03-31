@@ -21,7 +21,7 @@ namespace AppGui
         public string getDisableCanteen(string canteenName) {
 
             return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>",canteenName);
-
+            
         }
     }
 }

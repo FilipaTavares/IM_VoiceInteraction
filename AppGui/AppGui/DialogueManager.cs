@@ -66,7 +66,7 @@ namespace AppGui
                 phrase = answers.getDisableCanteen(canteen.Canteen);
             }
 
-
+            
             t.Speak(phrase);
         }
 

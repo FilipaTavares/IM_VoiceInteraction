@@ -61,7 +61,11 @@ namespace speechModality
             string json = "{ \"recognized\": [";
             foreach (var resultSemantic in e.Result.Semantics)
             {
+               
                 json+= "\"" + resultSemantic.Value.Value +"\", ";
+                Console.WriteLine(resultSemantic.Value.Count);
+
+
             }
             json = json.Substring(0, json.Length - 2);
             json += "] }";

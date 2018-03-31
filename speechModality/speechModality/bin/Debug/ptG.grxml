@@ -9,7 +9,6 @@
       <item><ruleref uri="#newsAPI"/></item>
       <item><ruleref uri="#weatherAPI"/></item>
     </one-of>
-   
   </rule>
 
   <!-- Rules for comunicate with canteensAPI -->
@@ -44,13 +43,84 @@
 
   <!-- Rules for comunicate with parquesAPI -->
   <rule id="sasAPI">
+
+    <example> Type1 - Frases que usam o termo "parque de estacionamento" e querem os parques livres </example>
+    <example> Type2 - Frases que usam o termo "parque de estacionamento" e querem quantidade de lugares livres</example>
+    
     <tag>out.api="SAS";</tag>
-    <item>
-    Estacionamentos livres
-      
-    </item>
+    <one-of>
+      <item>
+        <!-- START Type 1 -->
+
+          <tag>out.sasType="TYPE1";</tag> 
+          <item>
+            <ruleref uri="#sasStart"/>
+            <tag>out.sasStart=rules.latest();</tag>
+          </item>
+          <item>
+            <one-of>
+              <item>parques de estacionamento</item>
+              <item>parque de estacionamento</item>
+            </one-of>
+          </item>
+          <item repeat="0-1">
+            <ruleref uri="#sasParkLoc"/>
+            <tag>out.sasParkLoc=rules.latest();</tag>
+          </item>
+          <item repeat="0-1">
+            <one-of>
+              <item>que estão livres</item>
+              <item>que está livre</item>
+              <item>está livre</item>
+            </one-of>
+          </item>
+        <!-- END Type 1 -->
+      </item>
+      <item>
+          <!-- START Type 2 -->
+            <!-- adsf-->
+            <tag>out.sasType="TYPE2";</tag> 
+            <item>
+              Quantos lugares
+            </item>
+            <item>
+              <one-of>
+                <item>estão livres no</item>
+                <item>livres têm o</item>
+              </one-of>
+            </item>
+            <item>parque de estacionamento</item>
+            <item>
+              <ruleref uri="#sasParkLoc"/>
+              <tag>out.sasParkLoc=rules.latest();</tag>
+            </item>
+          <!-- END Type 2 -->
+        </item>
+    </one-of>
+    
   </rule>
 
+    
+  <rule id="sasStart">
+	  <one-of>
+      <item><tag>out="Singular"</tag></item>
+		  <item>Quais os<tag>out="Plural"</tag></item>
+      <item>Quero<tag>out="Singular"</tag></item>
+	  </one-of>
+	</rule>
+  
+  <rule id="sasParkLoc">
+	  <one-of>
+		  <item>da Biblioteca<tag>out="Biblioteca"</tag></item>
+      <item>da Residência<tag>out="Residencias"</tag></item>
+		  <item>Subterraneo<tag>out="Subterraneo"</tag></item>
+      <item>Ceramica<tag>out="Ceramica"</tag></item>
+      <item>Línguas<tag>out="Linguas"</tag></item>
+      <item>Incubadora<tag>out="Incubadora"</tag></item>
+      <item>do Isca<tag>out="ISCAA Publico"</tag></item>
+	  </one-of>
+	</rule>
+  
   <!-- Rules for comunicate with senhasAPI -->
   <rule id="sacAPI">
     <tag>out.api="SAC";</tag>
