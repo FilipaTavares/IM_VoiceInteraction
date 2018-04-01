@@ -64,6 +64,12 @@ namespace speechModality
                                 break;
                             case "<CLOSE>":
                                 server.Close();
+                                sre.RecognizeAsync(RecognizeMode.Multiple);
+                                //text.Text = "[RECOGNIZED RESTARTED]";
+                                textBox.Dispatcher.BeginInvoke((Action)(() => {
+                                    textBox.FontWeight = FontWeights.Normal;
+                                    textBox.Text = "[RECOGNIZED RESTARTED]";
+                                }));
                                 goto connectionLoop;
 
                         }

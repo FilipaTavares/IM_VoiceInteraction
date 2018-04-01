@@ -32,7 +32,7 @@ namespace AppGui
 
             dynamic json = JsonConvert.DeserializeObject(response);
 
-            Console.WriteLine(json.ToString());
+            //Console.WriteLine(json.ToString());
 
             if (args.Length == 1 && args[0].ToString().Equals("TYPE1"))
             {//get all parks

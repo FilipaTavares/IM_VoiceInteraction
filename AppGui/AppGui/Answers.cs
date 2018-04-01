@@ -46,8 +46,7 @@ namespace AppGui
             "Estranho não consegui encontrar nenhum parque de estacionamento",
             "O serviço de parque de estacionamento não parece estar a funcionar"
         };
-
-
+    
         private string[] allParksFreeSTART = new string[] {
             "Ok, encontrei os seguintes parques de estacionamento:",
             "Os seguintes parques de estacionamento estão livres:"
@@ -56,6 +55,25 @@ namespace AppGui
             "O parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> tem <NUM_LIVRES> lugares livres",
             "O parque <NOME_PARQUE_ESTACIONAMENTO> tem <NUM_LIVRES> lugares disponiveis",
             "O estacionamento <NOME_PARQUE_ESTACIONAMENTO> apresenta <NUM_LIVRES> lugares livres"
+        };
+
+        /*
+         * FRASES PARA NEWS 
+         */
+        private string[] newsServiceUnavailable = new string[] {
+            "Estranho não consegui encontrar nenhuma notícia, secalhar existem problemas no servidor.",
+            "O serviço de notícias não parece estar a funcionar, não encontrei nenhuma."
+        };
+
+        private string[] allNewsSTART = new string[] {
+            "Ok, encontrei as seguintes notícias:",
+            "Encontrei as seguintes novidades"
+        };
+        private string[] allNews = new string[] {
+            "<TITULO_NOTICA>, a seguir",
+            "<TITULO_NOTICA>, depois",
+            "<TITULO_NOTICA>, seguidamente",
+            "<TITULO_NOTICA>, em seguida",
         };
 
         public string getDisableCanteen(string canteenName) {return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>",canteenName);}
@@ -78,8 +96,23 @@ namespace AppGui
             }
             return sb.ToString();
         }
-
+    
         public string getParkServiceUnavailable() { return parkServiceUnavailable[random.Next(0, parkServiceUnavailable.Length)]; }
+
+        public string getNewsServiceUnavailable() { return newsServiceUnavailable[random.Next(0, newsServiceUnavailable.Length)]; }
+
+        public string getAllNews(List<NewsData> news)
+        {
+            StringBuilder sb = new StringBuilder(allNewsSTART[random.Next(0, allNewsSTART.Length)]);
+            sb.Append(".\n");
+            //TODO SORT PARK FOR FREE SPACE
+            foreach (var p in news)
+            {
+                sb.Append(allNews[random.Next(0, allNews.Length)].Replace("<TITULO_NOTICA>", p.Title));
+                sb.Append(".\n");//n sei se o speak tem em conta pontuação
+            }
+            return sb.ToString();
+        }
     }
     
 }

@@ -13,6 +13,7 @@ namespace AppGui
 
         private ClientCanteen canteen;
         private ClientSAS parking;
+        private ClientNews news;
         private Tts t;
         private Answers answers;
 
@@ -23,6 +24,7 @@ namespace AppGui
         {
             canteen = new ClientCanteen(this);
             parking = new ClientSAS(this);
+            news = new ClientNews(this);
             t = new Tts();
             answers = new Answers();
 
@@ -56,7 +58,7 @@ namespace AppGui
                     
                     break;
                 case "NEWS":
-
+                    news.request();
                     break;
                 case "WEATHER":
 
@@ -125,6 +127,22 @@ namespace AppGui
                 phrase = answers.getAllParksFree(park);
             } else {
                 phrase = answers.getParkServiceUnavailable();
+            }
+
+            t.Speak(phrase);
+        }
+
+        public void manageDialogueNews(List<NewsData> news)
+        {
+            string phrase = "";
+
+            if (news.Count > 0)
+            {
+                phrase = answers.getAllNews(news);
+            }
+            else
+            {
+                phrase = answers.getNewsServiceUnavailable();
             }
 
             t.Speak(phrase);

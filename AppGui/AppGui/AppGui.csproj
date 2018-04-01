@@ -66,6 +66,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Answers.cs" />
+    <Compile Include="ClientNews.cs" />
+    <Compile Include="Data\NewsData.cs" />
     <Compile Include="SpeachClient.cs" />
     <Compile Include="Data\CanteenData.cs" />
     <Compile Include="ClientCanteen.cs" />

@@ -141,6 +141,13 @@
       <item>Notícias</item>
       <item>Novidades</item>
     </one-of>
+    <item repeat="0-1">
+      <one-of>
+        <item>de Aveiro</item> <!-- humm incorreto talvez-->
+        <item>sobre a Universidade</item>
+        <item>sobre a Universidade de Aveiro</item>
+      </one-of>
+    </item>
   </rule>
 
   <!-- Rules for comunicate with tempoAPI -->
