@@ -58,10 +58,11 @@ namespace speechModality
                                 //text.Text = "[RECOGNIZED RESTARTED]";
                                 textBox.Dispatcher.BeginInvoke((Action)(() => {
                                     textBox.FontWeight = FontWeights.Normal;
-                                    textBox.Text = "[RECOGNIZED RESTARTED]";
+                                    textBox.Text = "[SPEAK]";
                                 }));
 
                                 break;
+                            case null:
                             case "<CLOSE>":
                                 server.Close();
                                 try
@@ -72,7 +73,7 @@ namespace speechModality
                                     textBox.Dispatcher.BeginInvoke((Action)(() =>
                                     {
                                         textBox.FontWeight = FontWeights.Normal;
-                                        textBox.Text = "[RECOGNIZED RESTARTED]";
+                                        textBox.Text = "[SPEAK]";
                                     }));
                                 }
                                 catch (Exception e) { }
