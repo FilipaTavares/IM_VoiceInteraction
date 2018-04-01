@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppGui"
         mc:Ignorable="d"
-        Title="MainWindow" Height="169.052" Width="240.116">
+        Title="MainWindow" Height="169.052" Width="240.116"
+        Closing="Window_Closing">
     <Grid>
         <StackPanel Orientation="Horizontal" Margin="10">
             <Rectangle x:Name="rectangle" Width="50" Height="50" Fill="Gray" Margin="10"></Rectangle>

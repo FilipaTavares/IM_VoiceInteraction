@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using mmisharp;
 using Microsoft.Speech.Recognition;
+using System.Windows.Controls;
 
 namespace speechModality
 {
@@ -13,6 +14,10 @@ namespace speechModality
         private SpeechRecognitionEngine sre;
         private Grammar gr;
         public event EventHandler<SpeechEventArg> Recognized;
+        
+
+        private AppServer appServer;
+
         protected virtual void onRecognized(SpeechEventArg msg)
         {
             EventHandler<SpeechEventArg> handler = Recognized;
@@ -25,8 +30,11 @@ namespace speechModality
         private LifeCycleEvents lce;
         private MmiCommunication mmic;
 
-        public SpeechMod()
+        public SpeechMod(TextBox textBox)
         {
+           
+            
+            Console.WriteLine("OK...");
             //init LifeCycleEvents..
             lce = new LifeCycleEvents("ASR", "FUSION","speech-1", "acoustic", "command"); // LifeCycleEvents(string source, string target, string id, string medium, string mode)
             //mmic = new MmiCommunication("localhost",9876,"User1", "ASR");  //PORT TO FUSION - uncomment this line to work with fusion later
@@ -44,6 +52,10 @@ namespace speechModality
             sre.RecognizeAsync(RecognizeMode.Multiple);
             sre.SpeechRecognized += Sre_SpeechRecognized;
             sre.SpeechHypothesized += Sre_SpeechHypothesized;
+
+            //server to receive commands from APP!!
+            appServer = new AppServer(sre, textBox);
+            appServer.run();
 
         }
 
@@ -63,8 +75,6 @@ namespace speechModality
             {
                
                 json+= "\"" + resultSemantic.Value.Value +"\", ";
-                Console.WriteLine(resultSemantic.Value.Count);
-
 
             }
             json = json.Substring(0, json.Length - 2);

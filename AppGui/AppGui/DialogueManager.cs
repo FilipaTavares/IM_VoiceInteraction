@@ -64,6 +64,12 @@ namespace AppGui
             }
         }
 
+        public void close()
+        {
+            //do some close stuff!!!
+            t.close();
+        }
+
         public void manageDialogueCanteen(CanteenData canteen) {
 
             string phrase = "";

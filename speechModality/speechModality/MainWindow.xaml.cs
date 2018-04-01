@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace speechModality
 {
     /// <summary>
@@ -26,9 +27,12 @@ namespace speechModality
         {
             InitializeComponent();
 
-            _sm = new SpeechMod();
+            _sm = new SpeechMod(result);
             _sm.Recognized += _sm_Recognized;
+           
         }
+
+
 
         private void _sm_Recognized(object sender, SpeechEventArg e)
         {
@@ -37,5 +41,6 @@ namespace speechModality
             if (e.Final) result.FontWeight = FontWeights.Bold;
             else result.FontWeight = FontWeights.Normal;
         }
+
     }
 }

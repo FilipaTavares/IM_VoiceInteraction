@@ -2,19 +2,25 @@
 using System.Media;
 using Microsoft.Speech.Synthesis;
 using Microsoft.Speech.AudioFormat;
+using System.Threading.Tasks;
+
 namespace AppGui
 {
     class Tts
     {
         SpeechSynthesizer tts = null;
         static SoundPlayer player = new SoundPlayer();
-
+        private SpeachClient speachClient;
         /*
          * Text to Speech
          */
         public Tts()
         {
-
+            speachClient = new SpeachClient();
+            
+            speachClient.connect();
+            
+            
 
             Console.WriteLine("TTS constructor called");
 
@@ -88,6 +94,12 @@ namespace AppGui
 
         }
 
+        public void close()
+        {
+            //close some stuff
+            speachClient.close();
+        }
+
         /*
          * Speak
          * 
@@ -104,6 +116,9 @@ namespace AppGui
             player.Stream = new System.IO.MemoryStream();
             tts.SetOutputToWaveStream(player.Stream);
             tts.SpeakAsync(text);
+
+            //attention blocking method, another thread?
+            speachClient.sendTtsStart();
         }
 
         public void Speak(string text, int rate)
@@ -139,10 +154,15 @@ namespace AppGui
         {
             if (player.Stream != null)
             {
-                //play stream
-                player.Stream.Position = 0;
-                player.Play();
-                player.Stream = null;  //  NEW 2015
+                Task.Factory.StartNew(() =>
+                {
+                    //play stream in other thread 
+                    player.Stream.Position = 0;
+                    player.PlaySync();
+                    player.Stream = null;  //  NEW 2015
+                    speachClient.sendTtsStop();
+                });
+                
             }
         }
     }
