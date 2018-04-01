@@ -28,7 +28,7 @@ namespace AppGui
         {
             InitializeComponent();
 
-      
+            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
             dManager = new DialogueManager();
 
             mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
@@ -42,6 +42,11 @@ namespace AppGui
 
         }
 
+        private void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            dManager.close();
+        }
+
         private void MmiC_Message(object sender, MmiEventArgs e)
         {
             Console.WriteLine(e.Message);
@@ -52,9 +57,5 @@ namespace AppGui
 
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            dManager.close();
-        }
     }
 }
