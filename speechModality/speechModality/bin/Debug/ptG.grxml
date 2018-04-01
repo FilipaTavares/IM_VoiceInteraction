@@ -45,17 +45,21 @@
   <rule id="sasAPI">
 
     <example> Type1 - Frases que usam o termo "parque de estacionamento" e querem os parques livres </example>
-    <example> Type2 - Frases que usam o termo "parque de estacionamento" e querem quantidade de lugares livres</example>
+    <example> Type2 - Frases que usam o termo "parque de estacionamento" e querem QUANTIDADE de lugares livres</example>
     
     <tag>out.api="SAS";</tag>
     <one-of>
       <item>
         <!-- START Type 1 -->
-
+          <!-- Parque de estacionamento <ESTACIONAMENTO> está livre? -->
+          <!-- Quais os parque de estacionamento <ESTACIONAMENTO> que estão livres? -->
           <tag>out.sasType="TYPE1";</tag> 
-          <item>
-            <ruleref uri="#sasStart"/>
-            <tag>out.sasStart=rules.latest();</tag>
+          <item repeat="0-1">
+            <one-of>
+              <item></item>
+              <item>O</item>
+              <item>Quais os</item>
+	          </one-of>
           </item>
           <item>
             <one-of>
@@ -72,13 +76,15 @@
               <item>que estão livres</item>
               <item>que está livre</item>
               <item>está livre</item>
+              <item>livres</item>
             </one-of>
           </item>
         <!-- END Type 1 -->
       </item>
       <item>
           <!-- START Type 2 -->
-            <!-- adsf-->
+            <!-- Quantos lugares estão livres no parque de estacionamento <ESTACIONAMENTO>-->
+            <!-- Quantos lugares livres têm o parque de estacionamento <ESTACIONAMENTO>-->
             <tag>out.sasType="TYPE2";</tag> 
             <item>
               Quantos lugares
@@ -100,22 +106,13 @@
     
   </rule>
 
-    
-  <rule id="sasStart">
-	  <one-of>
-      <item><tag>out="Singular"</tag></item>
-		  <item>Quais os<tag>out="Plural"</tag></item>
-      <item>Quero<tag>out="Singular"</tag></item>
-	  </one-of>
-	</rule>
-  
   <rule id="sasParkLoc">
 	  <one-of>
 		  <item>da Biblioteca<tag>out="Biblioteca"</tag></item>
       <item>da Residência<tag>out="Residencias"</tag></item>
 		  <item>Subterraneo<tag>out="Subterraneo"</tag></item>
       <item>Ceramica<tag>out="Ceramica"</tag></item>
-      <item>Línguas<tag>out="Linguas"</tag></item>
+      <item>de Línguas<tag>out="Linguas"</tag></item>
       <item>Incubadora<tag>out="Incubadora"</tag></item>
       <item>do Isca<tag>out="ISCAA Publico"</tag></item>
 	  </one-of>

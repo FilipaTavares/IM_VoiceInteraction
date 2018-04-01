@@ -66,8 +66,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Answers.cs" />
-    <Compile Include="CanteenData.cs" />
+    <Compile Include="Data\CanteenData.cs" />
     <Compile Include="ClientCanteen.cs" />
+    <Compile Include="ClientSAS.cs" />
+    <Compile Include="Data\ParkData.cs" />
     <Compile Include="DialogueManager.cs" />
     <Compile Include="Tts.cs" />
     <Page Include="MainWindow.xaml">
