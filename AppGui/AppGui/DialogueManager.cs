@@ -13,6 +13,7 @@ namespace AppGui
 
         private ClientCanteen canteen;
         private ClientSAS parking;
+        private ClientSAC tickets;
         private ClientNews news;
         private Tts t;
         private Answers answers;
@@ -24,10 +25,10 @@ namespace AppGui
         {
             canteen = new ClientCanteen(this);
             parking = new ClientSAS(this);
+            tickets = new ClientSAC(this);
             news = new ClientNews(this);
             t = new Tts();
             answers = new Answers();
-
 
         }
 
@@ -38,23 +39,30 @@ namespace AppGui
             switch ((string)json.recognized[0].ToString())
             {
                 case "CANTEENS":
-                    
-
                     //use Canteen API
                     canteen.request((string)json.recognized[1].ToString(), (string)json.recognized[2].ToString());
 
                     break;
+
                 case "SAS":
                     Console.WriteLine("SAS");
 
                     string[] array = new string[json.recognized.Count-1];
-                    for (int i = 1; i < json.recognized.Count; i++)//0 alredy handle
+                    for (int i = 1; i < json.recognized.Count; i++)          //0 alredy handled
                         array[i-1] = (string)json.recognized[i].ToString();
 
                     parking.request(array);
                     
                     break;
+
                 case "SAC":
+                    Console.WriteLine("SAC");
+
+                    string[] array2 = new string[json.recognized.Count-1];
+                    for (int i = 1; i < json.recognized.Count; i++)         
+                        array2[i-1] = (string)json.recognized[i].ToString();
+
+                    tickets.request(array2);
                     
                     break;
                 case "NEWS":
@@ -125,10 +133,26 @@ namespace AppGui
 
             if (park.Count > 0) {
                 phrase = answers.getAllParksFree(park);
+
             } else {
                 phrase = answers.getParkServiceUnavailable();
             }
 
+            t.Speak(phrase);
+        }
+
+
+        public void manageDialogueSAC(List<TicketData> tickets, string[] args) {
+            string phrase = "Estou a ver a informação de todas as filas";
+
+            t.Speak(phrase);
+        }
+
+
+         public void manageDialogueSAC(TicketData ticket, string[] args) {
+
+            string phrase = "Estou a consultar só uma fila";
+            
             t.Speak(phrase);
         }
 

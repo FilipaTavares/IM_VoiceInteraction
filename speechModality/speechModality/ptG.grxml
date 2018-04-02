@@ -1,140 +1,158 @@
 ﻿<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0" root="rootRule">
- 
-  <rule id="rootRule" >
-    <one-of>
-      <item><ruleref uri="#canteensAPI"/></item>
-      <item><ruleref uri="#sasAPI"/></item>
-      <item><ruleref uri="#sacAPI"/></item>
-      <item><ruleref uri="#newsAPI"/></item>
-      <item><ruleref uri="#weatherAPI"/></item>
-    </one-of>
-  </rule>
 
-  <!-- Rules for comunicate with canteensAPI -->
-  <rule id="canteensAPI">
-    <tag>out.api="CANTEENS";</tag>
-
-    <item>Qual é o</item>
-    <item>
-      <ruleref uri="#mealType"/>
-      <tag>out.mealType=rules.latest();</tag>
-    </item>
-    <item repeat="0-1">na cantina</item>
-    <item>
-      <ruleref uri="#canteens"/>
-      <tag>out.canteens=rules.latest();</tag>
-    </item>
-
-  </rule>
-    
-  <rule id="mealType">
-	  <one-of>
-		  <item>almoço<tag>out="Almoço"</tag></item>
-		  <item>jantar<tag>out="Jantar"</tag></item>
-	  </one-of>
-	</rule>
-  <rule id="canteens">
-	  <one-of>
-		  <item>San Tiago<tag>out="Santiago"</tag></item>
-		  <item>Crasto<tag>out="Crasto"</tag></item>
-	  </one-of>
+	<rule id="rootRule" >
+		
+			<!--frase de ativação da app-->
+				
+		<one-of>
+			<item>
+				<ruleref uri="#canteensAPI"/>
+			</item>
+			<item>
+				<ruleref uri="#sasAPI"/>
+			</item>
+			<item>
+				<ruleref uri="#sacAPI"/>
+			</item>
+			<item>
+				<ruleref uri="#newsAPI"/>
+			</item>
+			<item>
+				<ruleref uri="#weatherAPI"/>
+			</item>
+		</one-of>
 	</rule>
 
-  <!-- Rules for comunicate with parquesAPI -->
-  <rule id="sasAPI">
+	<!-- Rules for comunicate with canteensAPI -->
+	<rule id="canteensAPI">
+		<tag>out.api="CANTEENS";</tag>
 
-    <example> Type1 - Frases que usam o termo "parque de estacionamento" e querem os parques livres </example>
-    <example> Type2 - Frases que usam o termo "parque de estacionamento" e querem QUANTIDADE de lugares livres</example>
-    
-    <tag>out.api="SAS";</tag>
-    <one-of>
-      <item>
-        <!-- START Type 1 -->
-          <!-- Parque de estacionamento <ESTACIONAMENTO> está livre? -->
-          <!-- Quais os parque de estacionamento <ESTACIONAMENTO> que estão livres? -->
-          <tag>out.sasType="TYPE1";</tag> 
-          <item repeat="0-1">
-            <one-of>
-              <item></item>
-              <item>O</item>
-              <item>Quais os</item>
-	          </one-of>
-          </item>
-          <item>
-            <one-of>
-              <item>parques de estacionamento</item>
-              <item>parque de estacionamento</item>
-            </one-of>
-          </item>
-          <item repeat="0-1">
-            <ruleref uri="#sasParkLoc"/>
-            <tag>out.sasParkLoc=rules.latest();</tag>
-          </item>
-          <item repeat="0-1">
-            <one-of>
-              <item>que estão livres</item>
-              <item>que está livre</item>
-              <item>está livre</item>
-              <item>livres</item>
-            </one-of>
-          </item>
-        <!-- END Type 1 -->
-      </item>
-      <item>
-          <!-- START Type 2 -->
-            <!-- Quantos lugares estão livres no parque de estacionamento <ESTACIONAMENTO>-->
-            <!-- Quantos lugares livres têm o parque de estacionamento <ESTACIONAMENTO>-->
-            <tag>out.sasType="TYPE2";</tag> 
-            <item>
-              Quantos lugares
-            </item>
-            <item>
-              <one-of>
-                <item>estão livres no</item>
-                <item>livres têm o</item>
-              </one-of>
-            </item>
-            <item>parque de estacionamento</item>
-            <item>
-              <ruleref uri="#sasParkLoc"/>
-              <tag>out.sasParkLoc=rules.latest();</tag>
-            </item>
-          <!-- END Type 2 -->
-        </item>
-    </one-of>
-    
-  </rule>
-
-  <rule id="sasParkLoc">
-	  <one-of>
-		  <item>da Biblioteca<tag>out="Biblioteca"</tag></item>
-      <item>da Residência<tag>out="Residencias"</tag></item>
-		  <item>Subterraneo<tag>out="Subterraneo"</tag></item>
-      <item>Ceramica<tag>out="Ceramica"</tag></item>
-      <item>de Línguas<tag>out="Linguas"</tag></item>
-      <item>Incubadora<tag>out="Incubadora"</tag></item>
-      <item>do Isca<tag>out="ISCAA Publico"</tag></item>
-	  </one-of>
+		<item>Qual é o</item>
+		<item>
+			<ruleref uri="#mealType"/>
+			<tag>out.mealType=rules.latest();</tag>
+		</item>
+		<item repeat="0-1">na cantina</item>
+		<item>
+			<ruleref uri="#canteens"/>
+			<tag>out.canteens=rules.latest();</tag>
+		</item>
 	</rule>
-  
-  <!-- Rules for comunicate with senhasAPI -->
-  <rule id="sacAPI">
-    <tag>out.api="SAC";</tag>
-    <item>
-      Quantas senhas
-      
-    </item>
-  </rule>
 
-  <!-- Rules for comunicate with newsAPI -->
-  <rule id="newsAPI">
-    <tag>out.api="NEWS";</tag>
-    <item>
-      <ruleref uri="#newsStart"/>
-    </item>
+	<rule id="mealType">
+		<one-of>
+			<item>
+				almoço<tag>out="Almoço"</tag>
+			</item>
+			<item>
+				jantar<tag>out="Jantar"</tag>
+			</item>
+		</one-of>
+	</rule>
 
-  </rule>
+	<rule id="canteens">
+		<one-of>
+			<item>
+				San Tiago<tag>out="Santiago"</tag>
+			</item>
+			<item>
+				Crasto<tag>out="Crasto"</tag>
+			</item>
+		</one-of>
+	</rule>
+
+	<!-- Rules for comunicate with parquesAPI -->
+	<rule id="sasAPI">
+
+		<example> Type1 - Frases que usam o termo "parque de estacionamento" e querem os parques livres </example>
+		<example> Type2 - Frases que usam o termo "parque de estacionamento" e querem QUANTIDADE de lugares livres</example>
+
+		<tag>out.api="SAS";</tag>
+		<one-of>
+			<item>
+				<!-- START Type 1 -->
+				<!-- Parque de estacionamento <ESTACIONAMENTO> está livre? -->
+				<!-- Quais os parque de estacionamento <ESTACIONAMENTO> que estão livres? -->
+				<tag>out.sasType="TYPE1";</tag>
+				<item repeat="0-1">
+					<one-of>
+						<item></item>
+						<item>O</item>
+						<item>Quais os</item>
+					</one-of>
+				</item>
+				<item>
+					<one-of>
+						<item>parques de estacionamento</item>
+						<item>parque de estacionamento</item>
+					</one-of>
+				</item>
+				<item repeat="0-1">
+					<ruleref uri="#sasParkLoc"/>
+					<tag>out.sasParkLoc=rules.latest();</tag>
+				</item>
+				<item repeat="0-1">
+					<one-of>
+						<item>que estão livres</item>
+						<item>que está livre</item>
+						<item>está livre</item>
+						<item>livres</item>
+					</one-of>
+				</item>
+				<!-- END Type 1 -->
+			</item>
+			<item>
+				<!-- START Type 2 -->
+				<!-- Quantos lugares estão livres no parque de estacionamento <ESTACIONAMENTO>-->
+				<!-- Quantos lugares livres têm o parque de estacionamento <ESTACIONAMENTO>-->
+				<tag>out.sasType="TYPE2";</tag>
+				<item>
+					Quantos lugares
+				</item>
+				<item>
+					<one-of>
+						<item>estão livres no</item>
+						<item>livres tem o</item>
+					</one-of>
+				</item>
+				<item>parque de estacionamento</item>
+				<item>
+					<ruleref uri="#sasParkLoc"/>
+					<tag>out.sasParkLoc=rules.latest();</tag>
+				</item>
+				<!-- END Type 2 -->
+			</item>
+		</one-of>
+
+	</rule>
+
+	<rule id="sasParkLoc">
+		<one-of>
+			<item>
+				da Biblioteca<tag>out="Biblioteca"</tag>
+			</item>
+			<item>
+				da Residência<tag>out="Residencias"</tag>
+			</item>
+			<item>
+				Subterraneo<tag>out="Subterraneo"</tag>
+			</item>
+			<item>
+				Ceramica<tag>out="Ceramica"</tag>
+			</item>
+			<item>
+				de Línguas<tag>out="Linguas"</tag>
+			</item>
+			<item>
+				Incubadora<tag>out="Incubadora"</tag>
+			</item>
+			<item>
+				do Isca<tag>out="ISCAA Publico"</tag>
+			</item>
+		</one-of>
+	</rule>
+
 
   <rule id="newsStart">
     <one-of>
@@ -150,12 +168,111 @@
     </item>
   </rule>
 
-  <!-- Rules for comunicate with tempoAPI -->
-  <rule id="weatherAPI">
-    <tag>out.api="WEATHER";</tag>
-    <item>
-      Tempo
-      
-    </item>
-  </rule>
+	<!-- Rules for comunicate with senhasAPI -->
+	<rule id="sacAPI">
+		<tag>out.api="SAC";</tag>
+		<one-of>
+			
+			<item>
+				<tag>out.sacType="TYPE1";</tag>
+				<one-of>
+					<item>Quais são as senhas disponíveis?</item>
+					<item>Que tipo de senhas existem?</item>
+					<item>Preciso de ajuda com as senhas</item>
+				</one-of>
+			</item>
+
+			<item>
+				<tag>out.sacType="TYPE2";</tag>
+				
+				<item>
+					<one-of>
+						<item>Qual foi a última senha atendida da fila</item>
+						<item>Em que número vai a senha da fila</item>
+						<item>Qual o último número atendido da fila</item>
+					</one-of>
+				</item>
+				<item>
+					<ruleref uri="#sacTickets"/>
+					<tag>out.sacTickets=rules.latest();</tag>
+				</item>
+			</item>
+			
+			<item>
+				<tag>out.sacType="TYPE3";</tag>
+				
+				<item>
+					<one-of>
+						<item>Qual é o tempo médio de espera da fila</item>
+						<item>Quanto tempo tenho de esperar na fila</item>
+						<item>Demora muito tempo ser atendido na fila</item>
+					</one-of>
+				</item>
+				<item>
+					<ruleref uri="#sacTickets"/>
+					<tag>out.sacTickets=rules.latest();</tag>
+				</item>
+			</item>
+			
+			<item>
+				<tag>out.sacType="TYPE4";</tag>
+				
+				<item>
+					<one-of>
+						<item>Quantas pessoas estão à espera na fila</item>
+					</one-of>
+				</item>
+				<item>
+					<ruleref uri="#sacTickets"/>
+					<tag>out.sacTickets=rules.latest();</tag>
+				</item>
+			</item>
+		</one-of>
+	</rule>
+
+
+	<rule id="sacTickets">
+		<one-of>
+			<item>
+				<tag> out="a"; </tag>
+				<one-of>
+					<item>A</item>
+					<item>de licenciatura</item>
+				</one-of>
+			</item>
+			<item>
+				<tag> out="b"; </tag>
+				<one-of>
+					<item>B</item>
+					<item>de Mestrado</item>
+				</one-of>
+			</item>
+		</one-of>
+	</rule>
+
+
+	<!-- Rules for comunicate with newsAPI -->
+	<rule id="newsAPI">
+		<tag>out.api="NEWS";</tag>
+		<item>
+			<ruleref uri="#newsStart"/>
+		</item>
+
+	</rule>
+
+	<rule id="newsStart">
+		<one-of>
+			<item>Notícias</item>
+			<item>Novidades</item>
+		</one-of>
+	</rule>
+
+	<!-- Rules for comunicate with tempoAPI -->
+	<rule id="weatherAPI">
+		<tag>out.api="WEATHER";</tag>
+		<item>
+			Tempo
+
+		</item>
+	</rule>
 </grammar>

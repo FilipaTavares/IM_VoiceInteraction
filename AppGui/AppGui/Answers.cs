@@ -51,11 +51,58 @@ namespace AppGui
             "Ok, encontrei os seguintes parques de estacionamento:",
             "Os seguintes parques de estacionamento estão livres:"
         };
+
         private string[] allParksFree = new string[] {
             "O parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> tem <NUM_LIVRES> lugares livres",
             "O parque <NOME_PARQUE_ESTACIONAMENTO> tem <NUM_LIVRES> lugares disponiveis",
             "O estacionamento <NOME_PARQUE_ESTACIONAMENTO> apresenta <NUM_LIVRES> lugares livres"
         };
+
+          private string[] ticketsDescriptionStart = new string[] {
+            "Ok, encontrei as seguintes filas em atendimento:",
+            "Estas são as filas que estão a atender:"
+          };
+
+        private string[] ticketDescription = new string[] {
+            "A fila <NOME_DA_FILA> que trata de assuntos de <DESCRIÇÃO> vai no número <NÚMERO_DA_SENHA>." +
+            "Em média o tempo de espera é de <TEMPO_ESPERA> minutos e de atendimento é de <TEMPO_ATENDIMENTO> minutos." +
+            "Neste momento estão à espera <CLIENTES_EM_ESPERA> pessoas."
+        };
+
+         private string[] ticketNotFound = new string[] {
+            "Lamento informar mas não encontrei nenhuma senha da fila <NOME_DA_FILA> em funcionamento",
+            "Infelizmente não encontrei nenhuma fila em atendimento com a descrição <NOME_DA_FILA>"
+        };
+
+        private string[] ticketsServiceUnavailable = new string[] {
+            "Estranho não consegui encontrar nenhuma fila em atendimento",
+            "O serviço de atendimento da universidade parece não estar em funcionamento"
+        };
+
+        private string[] lastTicketNumber = new string[] {
+            "Para a fila <NOME_DA_FILA> foi o número <NÚMERO_DA_SENHA>",
+            "A fila de atendimento <NOME_DA_FILA> vai no número <NÚMERO_DA_SENHA>",
+            "Neste momento, a última senha atendida da fila <NOME_DA_FILA> tem o número <NÚMERO_DA_SENHA>"
+        };
+
+        // ver plural e singular
+         private string[] ticketAverageWaitingTime = new string[] {
+            "Na fila <NOME_DA_FILA> o tempo médio de espera é de <TEMPO_ESPERA> minutos e o tempo médio de atendimento é de <TEMPO_ATENDIMENTO> minutos",
+            "Na fila de atendimento <NOME_DA_FILA> demora-se cerca de <TEMPO_ESPERA> minutos à espera e <TEMPO_ATENDIMENTO> minutos a ser atendido",
+            "Neste momento, na fila <NOME_DA_FILA> espera-se cerca de <TEMPO_ESPERA> minutos e é-se atendido em <TEMPO_ATENDIMENTO> minutos",
+            "Vais ter de esperar <TEMPO_ESPERA> minutos na fila <NOME_DA_FILA> para seres atendido em cerca de <TEMPO_ATENDIMENTO> minutos"
+        };
+
+        private string[] ticketPeopleWaiting = new string[] {
+            "Para a fila <NOME_DA_FILA> estão à espera <CLIENTES_EM_ESPERA> pessoas",
+            "<CLIENTES_EM_ESPERA> pessoas estão à espera de serem atendida na fila <NOME_DA_FILA>",
+            "Neste momento, a fila <NOME_DA_FILA> tem <CLIENTES_EM_ESPERA> à espera"
+        };
+
+
+
+
+     
 
         /*
          * FRASES PARA NEWS 
@@ -98,6 +145,22 @@ namespace AppGui
         }
     
         public string getParkServiceUnavailable() { return parkServiceUnavailable[random.Next(0, parkServiceUnavailable.Length)]; }
+        
+        public string getTicketsInfo(List<TicketData> tickets) { 
+            StringBuilder sb = new StringBuilder(ticketsDescriptionStart[0]); // meter mais opções
+
+            return "";
+        }
+
+        public string getTicketNotFound(string letter){ return ticketNotFound[random.Next(0, ticketNotFound.Length)].Replace("<NOME_DA_FILA>", letter);}
+
+        public string getTicketsServiceUnavailable() { return ticketsServiceUnavailable[random.Next(0, ticketsServiceUnavailable.Length)]; }
+
+        public string getlastTicketNumber(string letter, int ticketNumber) { return lastTicketNumber[random.Next(0, lastTicketNumber.Length)].Replace("NOME_DA_FILA", letter).Replace("NÚMERO_DA_SENHA", ticketNumber.ToString()); }
+        
+        public string getTicketAverageWaitingTime(string letter, int waitingTime, int attendanceTime) { return ticketAverageWaitingTime[random.Next(0, ticketAverageWaitingTime.Length)].Replace("NOME_DA_FILA", letter).Replace("TEMPO_ESPERA", waitingTime.ToString()).Replace("TEMPO_ATENDIMENTO", attendanceTime.ToString()); }
+        
+        public string getTicketPeopleWaiting(string letter, int clientsWaiting) { return ticketPeopleWaiting[random.Next(0, ticketPeopleWaiting.Length)].Replace("NOME_DA_FILA", letter).Replace("CLIENTES_EM_ESPERA", clientsWaiting.ToString()); }
 
         public string getNewsServiceUnavailable() { return newsServiceUnavailable[random.Next(0, newsServiceUnavailable.Length)]; }
 
