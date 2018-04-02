@@ -264,9 +264,62 @@
 	<!-- Rules for comunicate with tempoAPI -->
 	<rule id="weatherAPI">
 		<tag>out.api="WEATHER";</tag>
-		<item>
-			Tempo
+		<one-of>
 
-		</item>
+			<item>
+				<tag>out.sacType="TYPE1";</tag>
+				<one-of>
+					<item>Como vai estar o tempo</item>					
+					<item>Qual a previsão do tempo</item>
+				</one-of>
+				
+				<item>
+					<ruleref uri="#weatherDays"/>
+					<tag>out.weatherDays=rules.latest();</tag>
+				</item>
+				
+			</item>
+
+		</one-of>
+	
 	</rule>
+
+	<rule id="weatherDays">
+		<one-of>
+			<item>hoje<tag> out="hoje"; </tag> </item>
+				
+			<item>amanhã<tag> out="amanhã"; </tag> </item>
+
+			<item>
+				<tag> out="dia da semana"; </tag>
+				<one-of>
+					<item>na segunda <tag> out="segunda"; </tag></item>
+					
+					<item>na terça <tag> out="terça"; </tag></item>
+					
+					<item>na quarta <tag> out="quarta"; </tag></item>
+					
+					<item>na quinta <tag> out="quinta"; </tag></item>
+					
+					<item>na sexta <tag> out="sexta"; </tag></item>
+					
+					<item>no sábado <tag> out="sábado"; </tag></item>
+					
+					<item>no domingo <tag> out="domingo"; </tag></item>
+				</one-of>
+			</item>
+
+			<item>
+			<one-of>
+				<item>
+					um <tag> out = 1; </tag>
+				</item>
+				
+			</one-of>
+			</item>
+			
+		</one-of>
+	</rule>
+
+
 </grammar>

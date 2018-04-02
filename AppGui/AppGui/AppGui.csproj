@@ -67,7 +67,9 @@
     </ApplicationDefinition>
     <Compile Include="Answers.cs" />
     <Compile Include="ClientNews.cs" />
+    <Compile Include="ClientWeather.cs" />
     <Compile Include="Data\NewsData.cs" />
+    <Compile Include="Data\WeatherData.cs" />
     <Compile Include="SpeachClient.cs" />
     <Compile Include="ClientSAC.cs" />
     <Compile Include="Data\CanteenData.cs" />
