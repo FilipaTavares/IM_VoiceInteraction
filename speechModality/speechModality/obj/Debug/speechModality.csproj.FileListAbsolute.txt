@@ -102,8 +102,6 @@ C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\bin\De
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\bin\Debug\speechModality.exe
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\bin\Debug\speechModality.pdb
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\bin\Debug\Microsoft.Speech.dll
-C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\bin\Debug\mmisharp.pdb
-C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\speechModality.csprojResolveAssemblyReference.cache
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\MainWindow.g.cs
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\App.g.cs
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\speechModality_Content.g.cs
@@ -117,3 +115,4 @@ C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\De
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\speechModality.csproj.CopyComplete
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\speechModality.exe
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\speechModality.pdb
+C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\speechModality.csprojResolveAssemblyReference.cache

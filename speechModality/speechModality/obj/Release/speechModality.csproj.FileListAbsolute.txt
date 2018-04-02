@@ -1,0 +1,6 @@
+C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Release\speechModality.csprojResolveAssemblyReference.cache
+C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Release\MainWindow.g.cs
+C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Release\App.g.cs
+C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Release\speechModality_Content.g.cs
+C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Release\speechModality_MarkupCompile.cache
+C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Release\speechModality_MarkupCompile.lref

@@ -2,9 +2,9 @@
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0" root="rootRule">
 
 	<rule id="rootRule" >
-		
-			<!--frase de ativação da app-->
-				
+
+		<!--frase de ativação da app-->
+
 		<one-of>
 			<item>
 				<ruleref uri="#canteensAPI"/>
@@ -154,25 +154,11 @@
 	</rule>
 
 
-  <rule id="newsStart">
-    <one-of>
-      <item>Notícias</item>
-      <item>Novidades</item>
-    </one-of>
-    <item repeat="0-1">
-      <one-of>
-        <item>de Aveiro</item> <!-- humm incorreto talvez-->
-        <item>sobre a Universidade</item>
-        <item>sobre a Universidade de Aveiro</item>
-      </one-of>
-    </item>
-  </rule>
-
 	<!-- Rules for comunicate with senhasAPI -->
 	<rule id="sacAPI">
 		<tag>out.api="SAC";</tag>
 		<one-of>
-			
+
 			<item>
 				<tag>out.sacType="TYPE1";</tag>
 				<one-of>
@@ -184,7 +170,7 @@
 
 			<item>
 				<tag>out.sacType="TYPE2";</tag>
-				
+
 				<item>
 					<one-of>
 						<item>Qual foi a última senha atendida da fila</item>
@@ -197,10 +183,10 @@
 					<tag>out.sacTickets=rules.latest();</tag>
 				</item>
 			</item>
-			
+
 			<item>
 				<tag>out.sacType="TYPE3";</tag>
-				
+
 				<item>
 					<one-of>
 						<item>Qual é o tempo médio de espera da fila</item>
@@ -213,10 +199,10 @@
 					<tag>out.sacTickets=rules.latest();</tag>
 				</item>
 			</item>
-			
+
 			<item>
 				<tag>out.sacType="TYPE4";</tag>
-				
+
 				<item>
 					<one-of>
 						<item>Quantas pessoas estão à espera na fila</item>
@@ -265,6 +251,14 @@
 			<item>Notícias</item>
 			<item>Novidades</item>
 		</one-of>
+		<item repeat="0-1">
+			<one-of>
+				<item>de Aveiro</item>
+				<!-- humm incorreto talvez-->
+				<item>sobre a Universidade</item>
+				<item>sobre a Universidade de Aveiro</item>
+			</one-of>
+		</item>
 	</rule>
 
 	<!-- Rules for comunicate with tempoAPI -->
