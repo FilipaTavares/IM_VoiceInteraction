@@ -311,7 +311,6 @@
 	<rule id="weatherAPI">
 		<tag>out.api="WEATHER";</tag>
 		<one-of>
-
 			<item>
 				<tag>out.sacType="TYPE1";</tag>
 				<one-of>
@@ -321,67 +320,96 @@
 
 				<item>
 					<ruleref uri="#weatherDays"/>
-					<tag>out.weatherDays=rules.latest();</tag>
+					<tag>out.dayType=rules.weatherDays.dayType;</tag>
+					<tag>out.dayDesc=rules.weatherDays.day;</tag>
 				</item>
-
 			</item>
-
 		</one-of>
-
 	</rule>
 
 	<rule id="weatherDays">
 		<one-of>
 			<item>
-				hoje<tag> out="hoje"; </tag>
+				hoje
+				<tag> out.dayType="today"; </tag>
+				<tag> out.day="today"; </tag>
+			</item>
+			<item>
+				amanhã
+				<tag> out.dayType="tomorrow"; </tag>
+				<tag> out.day="tomorrow"; </tag>
 			</item>
 
 			<item>
-				amanhã<tag> out="amanhã"; </tag>
-			</item>
-
-			<item>
-				<tag> out="dia da semana"; </tag>
+				<tag> out.dayType="dayOfWeek"; </tag>
 				<one-of>
 					<item>
-						na segunda <tag> out="segunda"; </tag>
+						na segunda <tag> out.day="segunda"; </tag>
 					</item>
 
 					<item>
-						na terça <tag> out="terça"; </tag>
+						na terça <tag> out.day="terça"; </tag>
 					</item>
 
 					<item>
-						na quarta <tag> out="quarta"; </tag>
+						na quarta <tag> out.day="quarta"; </tag>
 					</item>
 
 					<item>
-						na quinta <tag> out="quinta"; </tag>
+						na quinta <tag> out.day="quinta"; </tag>
 					</item>
 
 					<item>
-						na sexta <tag> out="sexta"; </tag>
+						na sexta <tag> out.day="sexta"; </tag>
 					</item>
 
 					<item>
-						no sábado <tag> out="sábado"; </tag>
+						no sábado <tag> out.day="sábado"; </tag>
 					</item>
 
 					<item>
-						no domingo <tag> out="domingo"; </tag>
+						no domingo <tag> out.day="domingo"; </tag>
 					</item>
 				</one-of>
 			</item>
 
 			<item>
+				<tag> out.dayType="numberOfDay"; </tag>
+				<item>no dia</item>
 				<one-of>
-					<item>
-						um <tag> out = 1; </tag>
-					</item>
-
+					<item> um <tag>out.day = 1; </tag> </item>
+					<item> dois <tag>out.day = 2; </tag> </item>
+					<item> três <tag>out.day = 3; </tag> </item>
+					<item> quatro <tag>out.day = 4; </tag> </item>
+					<item> cinco <tag>out.day = 5; </tag> </item>
+					<item> seis <tag>out.day = 6; </tag> </item> 
+					<item> sete <tag>out.day = 7; </tag> </item>
+					<item> oito <tag>out.day = 8; </tag> </item>
+					<item> nove <tag>out.day = 9; </tag> </item>
+					<item> dez <tag>out.day = 10; </tag> </item>
+					<item> onze <tag>out.day = 11; </tag> </item>
+					<item> doze <tag>out.day = 12; </tag> </item>
+					<item> treze <tag>out.day = 13; </tag> </item>
+					<item> quatorze <tag>out.day = 14; </tag> </item>
+					<item> quinze <tag>out.day = 15; </tag> </item>
+					<item> dezasseis <tag>out.day = 16; </tag> </item>
+					<item> dezassete <tag>out.day = 17; </tag> </item>
+					<item> dezoito <tag>out.day = 18; </tag> </item>
+					<item> dezanove <tag>out.day = 19; </tag> </item>
+					<item> vinte <tag>out.day = 20; </tag> </item>
+					<item> vinte e um <tag>out.day = 21; </tag> </item>
+					<item> vinte e dois <tag>out.day = 22; </tag> </item>
+					<item> vinte e três <tag>out.day = 23; </tag> </item>
+					<item> vinte e quatro <tag>out.day = 24; </tag> </item>
+					<item> vinte e cinco <tag>out.day = 25; </tag> </item>
+					<item> vinte e seis <tag>out.day = 26; </tag> </item>
+					<item> vinte e sete <tag>out.day = 27; </tag> </item>
+					<item> vinte e oito <tag>out.day = 28; </tag> </item>
+					<item> vinte e nove <tag>out.day = 29; </tag> </item>
+					<item> trinta <tag>out.day = 30; </tag> </item>
+					<item> trinta e um <tag>out.day = 31; </tag> </item>
 				</one-of>
 			</item>
-
 		</one-of>
 	</rule>
 </grammar>

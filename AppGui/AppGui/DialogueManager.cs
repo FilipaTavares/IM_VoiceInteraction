@@ -15,6 +15,7 @@ namespace AppGui
         private ClientSAS parking;
         private ClientSAC tickets;
         private ClientNews news;
+        private ClientWeather weather;
         private Tts t;
         private Answers answers;
 
@@ -27,6 +28,7 @@ namespace AppGui
             parking = new ClientSAS(this);
             tickets = new ClientSAC(this);
             news = new ClientNews(this);
+            weather = new ClientWeather(this);
             t = new Tts();
             answers = new Answers();
 
@@ -68,8 +70,15 @@ namespace AppGui
                 case "NEWS":
                     news.request();
                     break;
-                case "WEATHER":
 
+                case "WEATHER":
+                    Console.WriteLine("WEATHER");
+
+                    string[] array3 = new string[json.recognized.Count - 1];
+                    for (int i = 1; i < json.recognized.Count; i++)
+                        array3[i - 1] = (string)json.recognized[i].ToString();
+
+                    weather.request(array3);
                     break;
             }
         }

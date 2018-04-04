@@ -25,5 +25,12 @@ namespace AppGui.Data
         public string Description { get => description; set => description = value; }
         public string DayDescription { get => dayDescription; set => dayDescription = value; }
         public DateTime Date { get => date; set => date = value; }
+
+        public override string ToString()
+        {
+            return minTemp + " " + maxTemp + " " + windSpeed + " " + humidity + " " + description + " " + dayDescription
+                + " " + date.ToString();
+        }
+
     }
 }
