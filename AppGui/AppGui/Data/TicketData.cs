@@ -9,12 +9,13 @@
         private int averageAtendingTime; // ver se minutos ou segundos  
         private int averageWaitingTime;
         private int clientsWaiting;
-        private bool found;
+        private bool enabled;
 
-        public TicketData(string letter, bool found)
+        public TicketData(string letter, string description, bool enabled)
         {
             this.letter = letter;
-            this.found = found;
+            this.description = description;
+            this.enabled = enabled;
         }
 
         public string Letter { get => letter; set => letter = value; }
@@ -29,6 +30,6 @@
 
         public int ClientsWaiting { get => clientsWaiting; set => clientsWaiting = value; }
 
-        public bool Found { get => found; set => found = value; }
+        public bool Enabled { get => enabled; set => enabled = value; }
     }
 }

@@ -26,47 +26,119 @@ namespace AppGui
         {
             string queryParams = "?format=json";
 
-            if (args.Length == 1 && args[0].ToString().Equals("TYPE1"))
-                client.GetStringAsync(queryParams).ContinueWith((response) => handleResponse(response.Result, args));
+            client.GetStringAsync(queryParams).ContinueWith((response) => handleResponse(response.Result, args));
+
+        }
+
+
+        private void handleResponse(string response, string[] args)
+        {
+            dynamic json = JsonConvert.DeserializeObject(response);
+
+            if (!isServiceAvailable(json))
+            {
+                dManager.manageDialogueSAC();
+            }
 
             else
             {
-                queryParams += "&letter=" + args[1];
-                client.GetStringAsync(queryParams).ContinueWith((response) => handleSingleResponse(response.Result, args));
+
+                if (args.Length == 1 && args[0].ToString().Equals("TYPE1"))
+                {
+                    dManager.manageDialogueSAC(getAllTicketsInfo(json));
+                }
+
+                else
+                {
+                    dManager.manageDialogueSAC(getTicket(json, args[1], args[2]), args[1]);
+                }
 
             }
         }
 
-        private void handleSingleResponse(string response, string[] args)
+        private bool isServiceAvailable(dynamic json)
         {
-            dynamic json = JsonConvert.DeserializeObject(response);
+            if (json.items["@attributes"].count == 0)
+                return false;
 
-            Console.WriteLine(json.ToString());
-
-            dManager.manageDialogueSAC(getTicket(json, args[1]), args);
+            return true;
         }
 
-        private void handleResponse(string response, string[] args)
+        private TicketData getTicket(dynamic json, string letter, string description)
         {
+            Console.WriteLine("TESTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+            Console.WriteLine(json.items.item[0]["@attributes"].enabled);
 
-            dynamic json = JsonConvert.DeserializeObject(response);
+            string s = json.items.item[0]["@attributes"].enabled;
+            for (int i = 0; i < json.items.item.Count; i++)
+            {
+                if (int.Parse(json.items.item[i]["@attributes"].enabled.ToString()) == 1 && json.items.item[i].letter.toString().Equals(letter))
+                {
+                    TicketData ticket = new TicketData(letter, description, true);
+                    ticket.Latest = int.Parse(json.items.item[i].latest);
+                    ticket.AverageAtendingTime = int.Parse(json.items.item[i].ast);
+                    ticket.AverageWaitingTime = int.Parse(json.items.item[i].awt);
+                    ticket.ClientsWaiting = int.Parse(json.items.item[i].wc);
+                    return ticket;
+                }
+            }
 
-            Console.WriteLine(json.ToString());
-
-            // TODO 
-            dManager.manageDialogueSAC(getAllTicketsInfo(json), args);
-
-        }
-
-        private TicketData getTicket(dynamic json, string letter)
-        {
-            return new TicketData(letter, false);
+            return new TicketData(letter, description, false);
         }
 
         private List<TicketData> getAllTicketsInfo(dynamic json)
         {
             List<TicketData> list = new List<TicketData>();
+
+            for (int i = 0; i < json.items.item.Count; i++)
+            {
+                if (int.Parse(json.items.item[i]["@attributes"].enabled.ToString()) == 1)
+                {
+                    string letter = json.items.item[i].letter.toString();
+                    string description = cleanTicketDescriptionName(json.items.item[i].desc.toString());
+                    TicketData ticket = new TicketData(letter, description, true);
+
+                    ticket.Latest = int.Parse(json.items.item[i].latest);
+                    double averageAtendingTime = (double)int.Parse(json.items.item[i].ast) / 60;
+                    ticket.AverageAtendingTime = (int) Math.Round(averageAtendingTime, MidpointRounding.AwayFromZero);
+                    double averageWaitingTime = (double)int.Parse(json.items.item[i].awt) / 60;
+                    ticket.AverageWaitingTime = (int)Math.Round(averageWaitingTime, MidpointRounding.AwayFromZero);
+                    ticket.ClientsWaiting = int.Parse(json.items.item[i].wc);
+
+                    list.Add(ticket);
+                }
+            }
+
             return list;
+        }
+
+        private string cleanTicketDescriptionName(string desc)
+        {
+            Console.WriteLine(desc);
+
+            if (desc.Equals("Lic. (1º ciclo), Mestrado (2º ciclo)"))
+                return "de licentiatura e mestrado";
+
+            else if (desc.Equals("Atendimento Prioritário"))
+                return "de atendimento prioritário";
+
+            else if (desc.Equals("Doutoramentos, Agregações"))
+                return "de doutoramentos e agregações";
+
+            else if (desc.Equals("Exchange / Intercâmbio (Incoming)"))
+                return "de intercâmbio";
+
+            else if (desc.Equals("Estágios Internacionais"))
+                return "de estágios internacionais";
+
+            else if (desc.Equals("Mobilidade Erasmus (Alunos UA)"))
+                return "de erasmus";
+
+            else
+            {
+                return "de inserção profissional";
+            }
+
         }
     }
 }

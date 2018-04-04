@@ -180,7 +180,8 @@
 				</item>
 				<item>
 					<ruleref uri="#sacTickets"/>
-					<tag>out.sacTickets=rules.latest();</tag>
+					<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
+					<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
 				</item>
 			</item>
 
@@ -196,7 +197,8 @@
 				</item>
 				<item>
 					<ruleref uri="#sacTickets"/>
-					<tag>out.sacTickets=rules.latest();</tag>
+					<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
+					<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
 				</item>
 			</item>
 
@@ -210,27 +212,71 @@
 				</item>
 				<item>
 					<ruleref uri="#sacTickets"/>
-					<tag>out.sacTickets=rules.latest();</tag>
+					<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
+					<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
 				</item>
 			</item>
 		</one-of>
 	</rule>
 
-
 	<rule id="sacTickets">
 		<one-of>
 			<item>
-				<tag> out="a"; </tag>
+				<tag> out.letter="A"; </tag>
 				<one-of>
-					<item>A</item>
-					<item>de licenciatura</item>
+					<item>A <tag> out.description="A"; </tag></item>
+					<item>de licenciatura <tag> out.description="de licenciatura"; </tag></item>
+					<item>de mestrado <tag> out.description="de mestrado"; </tag></item>
+					<item>de licenciatura e mestrado <tag> out.description="de licenciatura e mestrado"; </tag></item>
 				</one-of>
 			</item>
 			<item>
-				<tag> out="b"; </tag>
+				<tag> out.letter="C"; </tag>
 				<one-of>
-					<item>B</item>
-					<item>de Mestrado</item>
+					<item>C <tag> out.description="C"; </tag></item>
+					<item>de doutoramento <tag> out.description="de doutoramento"; </tag></item>
+					<item>de agregações <tag> out.description="de agregações"; </tag></item>
+					<item>de doutoramento e agregações <tag> out.description="de doutoramento e agregações"; </tag></item>
+				</one-of>
+			</item>
+			<item>
+				<tag> out.letter="D"; </tag>
+				<one-of>
+					<item>D <tag> out.description="D"; </tag></item>
+					<item>de atendimento prioritário <tag> out.description="de atendimento prioritário"; </tag></item>
+				</one-of>
+			</item>
+			<item>
+				<tag> out.letter="F"; </tag>
+				<one-of>
+					<item>F <tag> out.description="F"; </tag></item>
+					<item>de inserção profissional <tag> out.description="de inserção profissional"; </tag></item>
+				</one-of>
+			</item>
+			
+			<item>
+				<tag> out.letter="G"; </tag>
+				<one-of>
+					<item>G <tag> out.description="G"; </tag></item>
+					<item>de mobilidade erasmus <tag> out.description="de mobilidade erasmus"; </tag></item>
+					<item>de erasmus <tag> out.description="de erasmus"; </tag></item>
+				</one-of>
+			</item>
+			
+			<item>
+				<tag> out.letter="H"; </tag>
+				<one-of>
+					<item>H <tag> out.description="H"; </tag></item>
+					<item>de estágios internacionais <tag> out.description="de estágios internacionais"; </tag></item>
+				</one-of>
+			</item>
+			
+			<item>
+				<tag> out.letter="X"; </tag>
+				<one-of>
+					<item>X <tag> out.description="X"; </tag></item>
+					<item>de exchange <tag> out.description="de exchange"; </tag></item>
+					<item>de intercâmbio <tag> out.description="de intercâmbio"; </tag></item>
 				</one-of>
 			</item>
 		</one-of>
@@ -269,76 +315,73 @@
 			<item>
 				<tag>out.sacType="TYPE1";</tag>
 				<one-of>
-					<item>Como vai estar o tempo</item>					
+					<item>Como vai estar o tempo</item>
 					<item>Qual a previsão do tempo</item>
 				</one-of>
-				
+
 				<item>
 					<ruleref uri="#weatherDays"/>
 					<tag>out.weatherDays=rules.latest();</tag>
 				</item>
-				
+
 			</item>
 
 		</one-of>
-	
+
 	</rule>
 
 	<rule id="weatherDays">
 		<one-of>
 			<item>
-				<tag> out="hoje"; </tag>
-				hoje
+				hoje<tag> out="hoje"; </tag>
 			</item>
-				
+
 			<item>
-				<tag> out="amanhã"; </tag>
-				amanhã
+				amanhã<tag> out="amanhã"; </tag>
 			</item>
 
 			<item>
 				<tag> out="dia da semana"; </tag>
 				<one-of>
 					<item>
-						<tag> out="segunda"; </tag>
-						na segunda
+						na segunda <tag> out="segunda"; </tag>
 					</item>
-					
+
 					<item>
-						<tag> out="terça"; </tag>
-						na terça
+						na terça <tag> out="terça"; </tag>
 					</item>
-					
+
 					<item>
-						<tag> out="quarta"; </tag>
-						na quarta
+						na quarta <tag> out="quarta"; </tag>
 					</item>
-					
+
 					<item>
-						<tag> out="quinta"; </tag>	
-						na quinta
+						na quinta <tag> out="quinta"; </tag>
 					</item>
-					
+
 					<item>
-						<tag> out="sexta"; </tag>	
-						na sexta
+						na sexta <tag> out="sexta"; </tag>
 					</item>
-					
+
 					<item>
-						<tag> out="sábado"; </tag>	
-						no sábado
+						no sábado <tag> out="sábado"; </tag>
 					</item>
-					
+
 					<item>
-						<tag> out="domingo"; </tag>	
-						no domingo
+						no domingo <tag> out="domingo"; </tag>
 					</item>
-					
 				</one-of>
 			</item>
-			
+
+			<item>
+				<one-of>
+					<item>
+						um <tag> out = 1; </tag>
+					</item>
+
+				</one-of>
+			</item>
+
 		</one-of>
 	</rule>
-
-
 </grammar>

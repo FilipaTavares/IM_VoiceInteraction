@@ -141,19 +141,67 @@ namespace AppGui
             t.Speak(phrase);
         }
 
-
-        public void manageDialogueSAC(List<TicketData> tickets, string[] args) {
-            string phrase = "Estou a ver a informação de todas as filas";
+        public void manageDialogueSAC()
+        {
+            string phrase = answers.getTicketsServiceUnavailable();
 
             t.Speak(phrase);
+
+            Console.WriteLine(phrase);
+        }
+
+        public void manageDialogueSAC(List<TicketData> tickets) {
+
+            string phrase = "";
+
+            bool isEmpty = !tickets.Any();  
+
+            if (isEmpty)
+            {
+                phrase = answers.getTicketsServiceUnavailable();
+            }
+
+            else
+            {
+                phrase = answers.getTicketsInfo(tickets);
+            }
+
+            t.Speak(phrase);
+            Console.WriteLine(phrase);
         }
 
 
-         public void manageDialogueSAC(TicketData ticket, string[] args) {
+         public void manageDialogueSAC(TicketData ticket, string type) {
 
-            string phrase = "Estou a consultar só uma fila";
+            string phrase = "";
+
+            if (ticket.Enabled)
+            {
+
+                if (type.Equals("TYPE2"))
+                {
+                    phrase = answers.getlastTicketNumber(ticket);
+                }
+
+                else if (type.Equals("TYPE3"))
+                {
+                    phrase = answers.getTicketAverageWaitingTime(ticket);
+                }
+
+                else if (type.Equals("TYPE4"))
+                {
+                    phrase = answers.getTicketPeopleWaiting(ticket);
+                }
+
+            }
+
+            else
+            {
+                phrase = answers.getTicketNotFound(ticket);
+            }
             
             t.Speak(phrase);
+            Console.WriteLine(phrase);
         }
 
         public void manageDialogueNews(List<NewsData> news)
@@ -170,6 +218,7 @@ namespace AppGui
             }
 
             t.Speak(phrase);
+            Console.WriteLine(phrase);
         }
 
     }

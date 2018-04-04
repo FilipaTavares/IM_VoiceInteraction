@@ -75,8 +75,8 @@ namespace AppGui
         };
 
         private string[] ticketsServiceUnavailable = new string[] {
-            "Estranho não consegui encontrar nenhuma fila em atendimento",
-            "O serviço de atendimento da universidade parece não estar em funcionamento"
+            "Não consegui encontrar nenhuma fila em atendimento. O serviço deve estar fechado.",
+            "Estás com azar, o serviço de atendimento da universidade não está em funcionamento."
         };
 
         private string[] lastTicketNumber = new string[] {
@@ -98,11 +98,6 @@ namespace AppGui
             "<CLIENTES_EM_ESPERA> pessoas estão à espera de serem atendida na fila <NOME_DA_FILA>",
             "Neste momento, a fila <NOME_DA_FILA> tem <CLIENTES_EM_ESPERA> à espera"
         };
-
-
-
-
-     
 
         /*
          * FRASES PARA NEWS 
@@ -145,22 +140,33 @@ namespace AppGui
         }
     
         public string getParkServiceUnavailable() { return parkServiceUnavailable[random.Next(0, parkServiceUnavailable.Length)]; }
-        
-        public string getTicketsInfo(List<TicketData> tickets) { 
-            StringBuilder sb = new StringBuilder(ticketsDescriptionStart[0]); // meter mais opções
 
-            return "";
+        public string getTicketsInfo(List<TicketData> tickets) { 
+            StringBuilder sb = new StringBuilder(ticketsDescriptionStart[0]);
+
+            foreach(TicketData ticket in tickets)
+            {
+                sb.Append(ticketDescription[random.Next(0, ticketDescription.Length)]
+                    .Replace("<NOME_DA_FILA>", ticket.Letter).Replace("<DESCRIÇÃO>", ticket.Description)
+                    .Replace("<NÚMERO_DA_SENHA>", ticket.Latest.ToString())
+                    .Replace("<TEMPO_ESPERA>", ticket.AverageWaitingTime.ToString())
+                    .Replace("<TEMPO_ATENDIMENTO>", ticket.AverageAtendingTime.ToString())
+                    .Replace("<CLIENTES_EM_ESPERA>", ticket.ClientsWaiting.ToString()));
+                sb.Append(".\n");//n sei se o speak tem em conta pontuação
+            }
+            
+            return sb.ToString();
         }
 
-        public string getTicketNotFound(string letter){ return ticketNotFound[random.Next(0, ticketNotFound.Length)].Replace("<NOME_DA_FILA>", letter);}
+        public string getTicketNotFound(TicketData ticket) { return ticketNotFound[random.Next(0, ticketNotFound.Length)].Replace("<NOME_DA_FILA>", ticket.Description);}
 
         public string getTicketsServiceUnavailable() { return ticketsServiceUnavailable[random.Next(0, ticketsServiceUnavailable.Length)]; }
 
-        public string getlastTicketNumber(string letter, int ticketNumber) { return lastTicketNumber[random.Next(0, lastTicketNumber.Length)].Replace("NOME_DA_FILA", letter).Replace("NÚMERO_DA_SENHA", ticketNumber.ToString()); }
+        public string getlastTicketNumber(TicketData ticket) { return lastTicketNumber[random.Next(0, lastTicketNumber.Length)].Replace("NOME_DA_FILA", ticket.Description).Replace("NÚMERO_DA_SENHA", ticket.Latest.ToString()); }
         
-        public string getTicketAverageWaitingTime(string letter, int waitingTime, int attendanceTime) { return ticketAverageWaitingTime[random.Next(0, ticketAverageWaitingTime.Length)].Replace("NOME_DA_FILA", letter).Replace("TEMPO_ESPERA", waitingTime.ToString()).Replace("TEMPO_ATENDIMENTO", attendanceTime.ToString()); }
+        public string getTicketAverageWaitingTime(TicketData ticket) { return ticketAverageWaitingTime[random.Next(0, ticketAverageWaitingTime.Length)].Replace("NOME_DA_FILA", ticket.Description).Replace("TEMPO_ESPERA", ticket.AverageWaitingTime.ToString()).Replace("TEMPO_ATENDIMENTO", ticket.AverageAtendingTime.ToString()); }
         
-        public string getTicketPeopleWaiting(string letter, int clientsWaiting) { return ticketPeopleWaiting[random.Next(0, ticketPeopleWaiting.Length)].Replace("NOME_DA_FILA", letter).Replace("CLIENTES_EM_ESPERA", clientsWaiting.ToString()); }
+        public string getTicketPeopleWaiting(TicketData ticket) { return ticketPeopleWaiting[random.Next(0, ticketPeopleWaiting.Length)].Replace("NOME_DA_FILA", ticket.Description).Replace("CLIENTES_EM_ESPERA", ticket.ClientsWaiting.ToString()); }
 
         public string getNewsServiceUnavailable() { return newsServiceUnavailable[random.Next(0, newsServiceUnavailable.Length)]; }
 
