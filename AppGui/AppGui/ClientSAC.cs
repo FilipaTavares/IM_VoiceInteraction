@@ -66,19 +66,16 @@ namespace AppGui
 
         private TicketData getTicket(dynamic json, string letter, string description)
         {
-            Console.WriteLine("TESTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-            Console.WriteLine(json.items.item[0]["@attributes"].enabled);
-
             string s = json.items.item[0]["@attributes"].enabled;
             for (int i = 0; i < json.items.item.Count; i++)
             {
-                if (int.Parse(json.items.item[i]["@attributes"].enabled.ToString()) == 1 && json.items.item[i].letter.toString().Equals(letter))
+                if (int.Parse(json.items.item[i]["@attributes"].enabled.ToString()) == 1 && json.items.item[i].letter.ToString().Equals(letter))
                 {
                     TicketData ticket = new TicketData(letter, description, true);
-                    ticket.Latest = int.Parse(json.items.item[i].latest);
-                    ticket.AverageAtendingTime = int.Parse(json.items.item[i].ast);
-                    ticket.AverageWaitingTime = int.Parse(json.items.item[i].awt);
-                    ticket.ClientsWaiting = int.Parse(json.items.item[i].wc);
+                    ticket.Latest = int.Parse(json.items.item[i].latest.ToString());
+                    ticket.AverageAtendingTime = int.Parse(json.items.item[i].ast.ToString());
+                    ticket.AverageWaitingTime = int.Parse(json.items.item[i].awt.ToString());
+                    ticket.ClientsWaiting = int.Parse(json.items.item[i].wc.ToString());
                     return ticket;
                 }
             }
@@ -94,16 +91,16 @@ namespace AppGui
             {
                 if (int.Parse(json.items.item[i]["@attributes"].enabled.ToString()) == 1)
                 {
-                    string letter = json.items.item[i].letter.toString();
-                    string description = cleanTicketDescriptionName(json.items.item[i].desc.toString());
+                    string letter = json.items.item[i].letter;
+                    string description = cleanTicketDescriptionName(json.items.item[i].desc.ToString());
                     TicketData ticket = new TicketData(letter, description, true);
 
-                    ticket.Latest = int.Parse(json.items.item[i].latest);
-                    double averageAtendingTime = (double)int.Parse(json.items.item[i].ast) / 60;
+                    ticket.Latest = int.Parse(json.items.item[i].latest.ToString());
+                    double averageAtendingTime = (double)int.Parse(json.items.item[i].ast.ToString()) / 60;
                     ticket.AverageAtendingTime = (int) Math.Round(averageAtendingTime, MidpointRounding.AwayFromZero);
-                    double averageWaitingTime = (double)int.Parse(json.items.item[i].awt) / 60;
+                    double averageWaitingTime = (double)int.Parse(json.items.item[i].awt.ToString()) / 60;
                     ticket.AverageWaitingTime = (int)Math.Round(averageWaitingTime, MidpointRounding.AwayFromZero);
-                    ticket.ClientsWaiting = int.Parse(json.items.item[i].wc);
+                    ticket.ClientsWaiting = int.Parse(json.items.item[i].wc.ToString());
 
                     list.Add(ticket);
                 }

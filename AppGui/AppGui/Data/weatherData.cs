@@ -29,7 +29,7 @@ namespace AppGui.Data
         public override string ToString()
         {
             return minTemp + " " + maxTemp + " " + windSpeed + " " + humidity + " " + description + " " + dayDescription
-                + " " + date.ToString();
+                + " " + Date.ToString();
         }
 
     }

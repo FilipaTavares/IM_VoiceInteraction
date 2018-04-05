@@ -31,19 +31,21 @@ namespace AppGui
         {
             dynamic json = JsonConvert.DeserializeObject(response);
 
+            WeatherData weather;
+
             if (args[0].ToString().Equals("TYPE1"))
             {
                 if (args[1].ToString().Equals("today"))
-                    getDay(json, 0, "hoje", DateTime.Today);
+                    weather = GetWeather(json, 0, "hoje", DateTime.Today);
 
                 else if (args[1].ToString().Equals("tomorrow"))
-                    getDay(json, 1, "amanhã", DateTime.Today.AddDays(1));
+                    weather = GetWeather(json, 1, "amanhã", DateTime.Today.AddDays(1));
 
                 else if (args[1].ToString().Equals("dayOfWeek"))
                 {
                     DateTime today = DateTime.Today;
-                    int daysToAdd = getWeekday(today, int.Parse(args[3].ToString()));
-                    getDay(json, 1, args[2].ToString(), today.AddDays(daysToAdd));
+                    int daysToAdd = getNextWeekday(today, int.Parse(args[3].ToString()));
+                    weather = GetWeather(json, 1, args[2].ToString(), today.AddDays(daysToAdd));
                 }
 
                 else
@@ -64,11 +66,16 @@ namespace AppGui
 
                     DateTime date;
 
-                    if (DateTime.TryParse(month + "/" + month + "/" + year, out date))
-                        Console.WriteLine("yay");
+                    if (DateTime.TryParse(month + "/" + day + "/" + year, out date))
+                    {
+                        TimeSpan diff1 = date.Subtract(today);
+                        weather = GetWeather(json, diff1.Days, "no dia " + day , date);
+                    }
 
                     else
-                        Console.WriteLine("no");
+                    {
+                        // chamar dialogue manager data nao existente
+                    }
 
                     Console.WriteLine(date);
                     Console.WriteLine(today);
@@ -77,7 +84,7 @@ namespace AppGui
             }
         }
 
-        private WeatherData getDay(dynamic json, int index, string dayDescription, DateTime date)
+        private WeatherData GetWeather(dynamic json, int index, string dayDescription, DateTime date)
         {
             WeatherData weather = new WeatherData();
             weather.DayDescription = dayDescription;
@@ -94,10 +101,9 @@ namespace AppGui
             return weather;
         }
 
-        public static int getWeekday(DateTime start, int day)
+        public static int getNextWeekday(DateTime start, int day)
         {
             return ((day - (int)start.DayOfWeek + 7) % 7) + 1; // [1, 7]
         }
-
     }
 }

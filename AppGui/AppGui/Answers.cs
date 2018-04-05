@@ -64,9 +64,7 @@ namespace AppGui
           };
 
         private string[] ticketDescription = new string[] {
-            "A fila <NOME_DA_FILA> que trata de assuntos de <DESCRIÇÃO> vai no número <NÚMERO_DA_SENHA>." +
-            "Em média o tempo de espera é de <TEMPO_ESPERA> minutos e de atendimento é de <TEMPO_ATENDIMENTO> minutos." +
-            "Neste momento estão à espera <CLIENTES_EM_ESPERA> pessoas."
+            "A fila <NOME_DA_FILA> que trata de assuntos de <DESCRIÇÃO> vai no número <NÚMERO_DA_SENHA>. \n"
         };
 
          private string[] ticketNotFound = new string[] {
@@ -118,6 +116,10 @@ namespace AppGui
             "<TITULO_NOTICA>, em seguida",
         };
 
+        /*
+         * Fr
+         */
+
         public string getDisableCanteen(string canteenName) {return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>",canteenName);}
         public string getParkNotFound(string parkName){return parkNotFound[random.Next(0, parkNotFound.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", parkName);}
         public string getParkIsFree(ParkData park) {return parkIsFree[random.Next(0, parkIsFree.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", park.Nome).Replace("<NUM_LIVRES>", park.Livre.ToString());}
@@ -148,11 +150,7 @@ namespace AppGui
             {
                 sb.Append(ticketDescription[random.Next(0, ticketDescription.Length)]
                     .Replace("<NOME_DA_FILA>", ticket.Letter).Replace("<DESCRIÇÃO>", ticket.Description)
-                    .Replace("<NÚMERO_DA_SENHA>", ticket.Latest.ToString())
-                    .Replace("<TEMPO_ESPERA>", ticket.AverageWaitingTime.ToString())
-                    .Replace("<TEMPO_ATENDIMENTO>", ticket.AverageAtendingTime.ToString())
-                    .Replace("<CLIENTES_EM_ESPERA>", ticket.ClientsWaiting.ToString()));
-                sb.Append(".\n");//n sei se o speak tem em conta pontuação
+                    .Replace("<NÚMERO_DA_SENHA>", ticket.Latest.ToString()));
             }
             
             return sb.ToString();

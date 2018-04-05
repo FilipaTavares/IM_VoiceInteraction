@@ -344,31 +344,45 @@
 				<tag> out.dayType="dayOfWeek"; </tag>
 				<one-of>
 					<item>
-						na segunda <tag> out.day="segunda"; </tag>
+						na segunda 
+						<tag> out.day="segunda"; </tag>
+						<tag> out.weekdayNumber=1; </tag>
 					</item>
 
 					<item>
-						na terça <tag> out.day="terça"; </tag>
+						na terça
+						<tag> out.day="terça"; </tag>
+						<tag> out.weekdayNumber=2; </tag>
 					</item>
 
 					<item>
-						na quarta <tag> out.day="quarta"; </tag>
+						na quarta
+						<tag> out.day="quarta"; </tag>
+						<tag> out.weekdayNumber=3; </tag>
 					</item>
 
 					<item>
-						na quinta <tag> out.day="quinta"; </tag>
+						na quinta
+						<tag> out.day="quinta"; </tag>
+						<tag> out.weekdayNumber=4; </tag>
 					</item>
 
 					<item>
-						na sexta <tag> out.day="sexta"; </tag>
+						na sexta
+						<tag> out.day="sexta"; </tag>
+						<tag> out.weekdayNumber=5; </tag>
 					</item>
 
 					<item>
-						no sábado <tag> out.day="sábado"; </tag>
+						no sábado
+						<tag> out.day="sábado"; </tag>
+						<tag> out.weekdayNumber=6; </tag>
 					</item>
 
 					<item>
-						no domingo <tag> out.day="domingo"; </tag>
+						no domingo
+						<tag> out.day="domingo"; </tag>
+						<tag> out.weekdayNumber=0; </tag>
 					</item>
 				</one-of>
 			</item>
