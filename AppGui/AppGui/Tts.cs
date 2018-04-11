@@ -3,6 +3,7 @@ using System.Media;
 using Microsoft.Speech.Synthesis;
 using Microsoft.Speech.AudioFormat;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace AppGui
 {
@@ -145,6 +146,10 @@ namespace AppGui
 
             Console.WriteLine("done  SpeakSsmlAsync().\n");
 
+        }
+
+        public void addNewsToGrammar(List<string> news) {
+            speachClient.sendDynamicNews(news);
         }
 
         /*

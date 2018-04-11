@@ -66,7 +66,13 @@ namespace AppGui
                     
                     break;
                 case "NEWS":
-                    news.request();
+
+                    string[] array3 = new string[json.recognized.Count - 1];
+                    for (int i = 1; i < json.recognized.Count; i++)
+                        array3[i - 1] = (string)json.recognized[i].ToString();
+
+                    news.request(array3);
+
                     break;
                 case "WEATHER":
 
@@ -156,13 +162,24 @@ namespace AppGui
             t.Speak(phrase);
         }
 
-        public void manageDialogueNews(List<NewsData> news)
+        public void manageDialogueNews(List<NewsData> news, string[] args)
         {
             string phrase = "";
 
-            if (news.Count > 0)
+            if (news.Count > 0 && args.Length == 0)
             {
                 phrase = answers.getAllNews(news);
+
+                List<string> lNews = new List<string>();
+                foreach (NewsData nD in news)
+                {
+                    lNews.Add(nD.Title);
+                }
+
+                t.addNewsToGrammar(lNews);
+            }else if (news.Count > 0 && args.Length == 1)
+            {
+                phrase = answers.getNewsDescription(news[int.Parse(args[0])]);
             }
             else
             {

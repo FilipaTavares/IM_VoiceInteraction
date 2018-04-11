@@ -99,10 +99,12 @@ namespace AppGui
             "Neste momento, a fila <NOME_DA_FILA> tem <CLIENTES_EM_ESPERA> à espera"
         };
 
+        
 
 
 
-     
+
+
 
         /*
          * FRASES PARA NEWS 
@@ -117,10 +119,14 @@ namespace AppGui
             "Encontrei as seguintes novidades"
         };
         private string[] allNews = new string[] {
-            "<TITULO_NOTICA>, a seguir",
-            "<TITULO_NOTICA>, depois",
-            "<TITULO_NOTICA>, seguidamente",
-            "<TITULO_NOTICA>, em seguida",
+            "<TITULO_NOTICA>",
+            "<TITULO_NOTICA>",
+            "<TITULO_NOTICA>",
+            "<TITULO_NOTICA>",
+        };
+
+        private string[] newsDescription = new string[] {
+            "<DESCRICAO>"
         };
 
         public string getDisableCanteen(string canteenName) {return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>",canteenName);}
@@ -176,6 +182,8 @@ namespace AppGui
             }
             return sb.ToString();
         }
+
+        public string getNewsDescription(NewsData newsData) { return newsDescription[random.Next(0, newsDescription.Length)].Replace("<DESCRICAO>",newsData.Description); ; }
     }
     
 }

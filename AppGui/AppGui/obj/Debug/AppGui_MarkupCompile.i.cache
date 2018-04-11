@@ -4,22 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Filipa\Desktop\IM_VoiceInteraction\AppGui\AppGui\obj\Debug\
+D:\Repositorio\IM_VoiceInteraction\AppGui\AppGui\obj\Debug\
 AppGui
 none
 false
 DEBUG;TRACE
-C:\Users\Filipa\Desktop\IM_VoiceInteraction\AppGui\AppGui\App.xaml
+D:\Repositorio\IM_VoiceInteraction\AppGui\AppGui\App.xaml
 11151548125
 
-<<<<<<< HEAD
-19-1172824045
+21-197403317
 16-470968094
-=======
-18-44669842
-16-1577635053
->>>>>>> sac_tickets
 MainWindow.xaml;
 
-True
+False
 
