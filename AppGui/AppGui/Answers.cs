@@ -64,7 +64,7 @@ namespace AppGui
           };
 
         private string[] ticketDescription = new string[] {
-            "A fila <NOME_DA_FILA> que trata de assuntos de <DESCRIÇÃO> vai no número <NÚMERO_DA_SENHA>. \n"
+            "A fila <NOME_DA_FILA> que trata de assuntos <DESCRIÇÃO> vai no número <NÚMERO_DA_SENHA>. \n"
         };
 
          private string[] ticketNotFound = new string[] {

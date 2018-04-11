@@ -187,9 +187,12 @@ namespace AppGui
             if (ticket.Enabled)
             {
 
+                Console.WriteLine("ENABLED");
+
                 if (type.Equals("TYPE2"))
                 {
                     phrase = answers.getlastTicketNumber(ticket);
+                    Console.WriteLine("GET LAST TICKET NUMBER");
                 }
 
                 else if (type.Equals("TYPE3"))

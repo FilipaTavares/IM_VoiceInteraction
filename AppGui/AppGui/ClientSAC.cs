@@ -67,10 +67,13 @@ namespace AppGui
         private TicketData getTicket(dynamic json, string letter, string description)
         {
             string s = json.items.item[0]["@attributes"].enabled;
+            Console.WriteLine("TESTEEE");
+            Console.WriteLine(letter);
             for (int i = 0; i < json.items.item.Count; i++)
             {
                 if (int.Parse(json.items.item[i]["@attributes"].enabled.ToString()) == 1 && json.items.item[i].letter.ToString().Equals(letter))
                 {
+                    Console.WriteLine("entrou");
                     TicketData ticket = new TicketData(letter, description, true);
                     ticket.Latest = int.Parse(json.items.item[i].latest.ToString());
                     ticket.AverageAtendingTime = int.Parse(json.items.item[i].ast.ToString());
@@ -89,6 +92,7 @@ namespace AppGui
 
             for (int i = 0; i < json.items.item.Count; i++)
             {
+
                 if (int.Parse(json.items.item[i]["@attributes"].enabled.ToString()) == 1)
                 {
                     string letter = json.items.item[i].letter;
