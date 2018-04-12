@@ -50,7 +50,7 @@ namespace AppGui
 
                 else
                 {
-                    dManager.manageDialogueSAC(getTicket(json, args[1], args[2]), args[1]);
+                    dManager.manageDialogueSAC(getTicket(json, args[1], args[2]), args[0]);
                 }
 
             }
@@ -76,8 +76,12 @@ namespace AppGui
                     Console.WriteLine("entrou");
                     TicketData ticket = new TicketData(letter, description, true);
                     ticket.Latest = int.Parse(json.items.item[i].latest.ToString());
-                    ticket.AverageAtendingTime = int.Parse(json.items.item[i].ast.ToString());
-                    ticket.AverageWaitingTime = int.Parse(json.items.item[i].awt.ToString());
+
+                    double atendingTime = Double.Parse(json.items.item[i].ast.ToString()) / 60.0;
+                    double waitingTime = Double.Parse(json.items.item[i].awt.ToString()) / 60.0;
+
+                    ticket.AverageAtendingTime = (int) Math.Round(atendingTime, MidpointRounding.AwayFromZero);
+                    ticket.AverageWaitingTime = (int) Math.Round(waitingTime, MidpointRounding.AwayFromZero);
                     ticket.ClientsWaiting = int.Parse(json.items.item[i].wc.ToString());
                     return ticket;
                 }
@@ -118,7 +122,7 @@ namespace AppGui
             Console.WriteLine(desc);
 
             if (desc.Equals("Lic. (1º ciclo), Mestrado (2º ciclo)"))
-                return "de licentiatura e mestrado";
+                return "de licenciatura e mestrado";
 
             else if (desc.Equals("Atendimento Prioritário"))
                 return "de atendimento prioritário";

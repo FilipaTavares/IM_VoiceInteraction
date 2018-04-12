@@ -6,7 +6,7 @@
         private string letter;
         private string description;
         private int latest;
-        private int averageAtendingTime; // ver se minutos ou segundos  
+        private int averageAtendingTime; 
         private int averageWaitingTime;
         private int clientsWaiting;
         private bool enabled;

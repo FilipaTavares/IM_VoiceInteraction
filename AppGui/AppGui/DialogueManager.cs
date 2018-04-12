@@ -198,11 +198,13 @@ namespace AppGui
                 else if (type.Equals("TYPE3"))
                 {
                     phrase = answers.getTicketAverageWaitingTime(ticket);
+                    Console.WriteLine("GET AVERAGE WAITING TICKET NUMBER");
                 }
 
                 else if (type.Equals("TYPE4"))
                 {
                     phrase = answers.getTicketPeopleWaiting(ticket);
+                    Console.WriteLine("GET PEOPLE WAITING TICKET NUMBER");
                 }
 
             }
@@ -210,6 +212,7 @@ namespace AppGui
             else
             {
                 phrase = answers.getTicketNotFound(ticket);
+                Console.WriteLine("TICKET NOT FOUND");
             }
             
             t.Speak(phrase);
@@ -231,6 +234,39 @@ namespace AppGui
 
             t.Speak(phrase);
             Console.WriteLine(phrase);
+        }
+
+        public void manageDialogueWeather(WeatherData weather, string type)
+        {
+            string phrase = "";
+
+            if (type.Equals("TYPE1"))
+            {
+                phrase = answers.getWeatherInDay(weather);
+            }
+
+            else
+            {
+                phrase = answers.getWeatherRain(weather);
+            }
+
+            t.Speak(phrase);
+            Console.WriteLine(phrase);
+        }
+
+        public void manageDialogueWeather(DateTime date, string flag)
+        {
+            string phrase = "";
+            if (flag.Equals("invalid"))
+                phrase = answers.getWeatherDayInvalid(date);
+        
+            else
+            {
+                phrase = answers.getWeatherDayOutOfRange(date);
+            }
+            t.Speak(phrase);
+            Console.WriteLine(phrase);
+
         }
 
     }

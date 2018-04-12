@@ -103,6 +103,7 @@
 				<!-- END Type 1 -->
 			</item>
 			<item>
+				
 				<!-- START Type 2 -->
 				<!-- Quantos lugares estão livres no parque de estacionamento <ESTACIONAMENTO>-->
 				<!-- Quantos lugares livres têm o parque de estacionamento <ESTACIONAMENTO>-->
@@ -158,62 +159,187 @@
 	<rule id="sacAPI">
 		<tag>out.api="SAC";</tag>
 		<one-of>
-
 			<item>
 				<tag>out.sacType="TYPE1";</tag>
+				
+				<!-- Quais são as senhas (que) estão disponíveis
+				     Quais são as senhas que existem
+					 Que senhas existem
+					 Que senhas estão disponiveis
+					 Preciso de ajuda com as senhas
+					 Ajuda-me com as senhas 
+				-->	
+				
 				<one-of>
-					<item>Quais são as senhas disponíveis?</item>
-					<item>Que tipo de senhas existem?</item>
-					<item>Preciso de ajuda com as senhas</item>
+					<item>
+						Quais
+						<item repeat="0-1">são</item>
+						as senhas
+						<item>
+							<one-of>
+								<item>que existem</item>
+								<item>
+									<item repeat="0-1">que estão</item>
+									<item>disponíveis</item>
+								</item>
+							</one-of>
+						</item>
+					</item>
+					
+					<item>
+						Que senhas
+						<item>
+							<one-of>
+								<item>existem</item>
+								<item>estão disponíveis</item>
+							</one-of>
+						</item>
+					</item>
+					
+					<item>
+						<one-of>
+							<item>Preciso de ajuda</item>
+							<item>Ajuda-me</item>
+						</one-of>
+						com as senhas		
+					</item>			
+			
 				</one-of>
 			</item>
-
+			
 			<item>
 				<tag>out.sacType="TYPE2";</tag>
+				
+				<!-- A fila X vai em que senha
+					 A fila X vai em que número
+					 Em que número vai a fila X
+					 Em que senha vai a fila X
+				-->
 
 				<item>
 					<one-of>
-						<item>Qual foi a última senha atendida da fila</item>
-						<item>Em que número vai a senha da fila</item>
-						<item>Qual o último número atendido da fila</item>
+						<item>
+							A fila	
+							<item>
+								<ruleref uri="#sacTickets"/>
+								<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
+								<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
+							</item>
+							vai em que 
+							<one-of>
+								<item>senha</item>
+								<item>número</item>
+							</one-of>
+						</item>
+						
+						<item>
+							Em que
+							<one-of>
+								<item>número</item>
+								<item>senha</item>
+							</one-of>
+							vai a fila
+							<item>
+								<ruleref uri="#sacTickets"/>
+								<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
+								<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
+							</item>
+						</item>
 					</one-of>
-				</item>
-				<item>
-					<ruleref uri="#sacTickets"/>
-					<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
-					<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
 				</item>
 			</item>
 
 			<item>
 				<tag>out.sacType="TYPE3";</tag>
+				<one-of>
+					<item>
 
-				<item>
-					<one-of>
-						<item>Qual é o tempo médio de espera da fila</item>
-						<item>Quanto tempo tenho de esperar na fila</item>
-						<item>Demora muito tempo ser atendido na fila</item>
-					</one-of>
-				</item>
-				<item>
-					<ruleref uri="#sacTickets"/>
-					<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
-					<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
-				</item>
+						<!-- Tempo (médio de espera) na/da/para a fila
+							 Qual o tempo (médio de espera) da/na/para a fila
+							 Quanto tempo (médio de espera) da/na/para a fila
+							 A fila X está (muito) atrasada
+							 A fila X está (muito) demorada
+						-->
+						
+						<item repeat="0-1"> 
+							<one-of>
+								<item>Qual</item>
+								<item>Qual o</item>
+								<item>Qual é o</item>
+								<item>Quanto</item>
+							</one-of>
+						</item>			
+				
+						<item>tempo</item>
+				
+						<item repeat="0-1"> 
+							<one-of>
+								<item>médio</item>
+								<item>de espera</item>
+								<item>médio de espera</item>
+							</one-of>
+						</item>
+											
+						<item>
+							<one-of>
+								<item>da</item>
+								<item>na</item>
+								<item>para a</item>
+							</one-of>
+						</item>
+				
+						<item>fila</item>
+	
+						<item>
+							<ruleref uri="#sacTickets"/>
+							<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
+							<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
+						</item>
+					</item>
+
+					<item>
+						A fila
+						<item>
+							<ruleref uri="#sacTickets"/>
+							<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
+							<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
+						</item>
+
+						<item>está</item>
+						<item repeat="0-1">muito</item>
+						<item>
+							<one-of>
+								<item>atrasada</item>
+								<item>demorada</item>
+							</one-of>
+						</item>
+					</item>
+				</one-of>
 			</item>
 
 			<item>
 				<tag>out.sacType="TYPE4";</tag>
-
 				<item>
 					<one-of>
-						<item>Quantas pessoas estão à espera na fila</item>
+						<item>
+							Quantas pessoas estão à espera na fila
+							<item>
+								<ruleref uri="#sacTickets"/>
+								<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
+								<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
+							</item>
+						</item>
+						
+						<item>
+							A fila
+							<item>
+								<ruleref uri="#sacTickets"/>
+								<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
+								<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
+							</item>
+							tem quantas pessoas à espera
+						</item>
 					</one-of>
-				</item>
-				<item>
-					<ruleref uri="#sacTickets"/>
-					<tag>out.sacTicketsLetter=rules.sacTickets.letter;</tag>
-					<tag>out.sacTicketsDesc=rules.sacTickets.description;</tag>
 				</item>
 			</item>
 		</one-of>
@@ -322,8 +448,28 @@
 					<ruleref uri="#weatherDays"/>
 					<tag>out.dayType=rules.weatherDays.dayType;</tag>
 					<tag>out.dayDesc=rules.weatherDays.day;</tag>
+					<tag>out.weekDayNumber=rules.weatherDays.weekdayNumber;</tag> <!--só usado no caso do dos dias da semana -->
 				</item>
 			</item>
+		
+			<item>
+				<tag>out.sacType="TYPE2";</tag>
+				<one-of>
+					<item>Preciso do meu guarda-chuva</item>
+					<item>Chove</item>
+					<item>Vai chover</item>
+					<item>Dão chuva></item>
+				</one-of>
+
+				<item>
+					<ruleref uri="#weatherDays"/>
+					<tag>out.dayType=rules.weatherDays.dayType;</tag>
+					<tag>out.dayDesc=rules.weatherDays.day;</tag>
+					<tag>out.weekDayNumber=rules.weatherDays.weekdayNumber;</tag> <!--só usado no caso do dos dias da semana -->
+				</item>
+			</item>
+	
+	
 		</one-of>
 	</rule>
 
