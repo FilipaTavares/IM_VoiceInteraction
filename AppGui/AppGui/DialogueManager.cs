@@ -15,6 +15,7 @@ namespace AppGui
         private ClientSAS parking;
         private ClientSAC tickets;
         private ClientNews news;
+        private ClientWeather weather;
         private Tts t;
         private Answers answers;
 
@@ -27,6 +28,7 @@ namespace AppGui
             parking = new ClientSAS(this);
             tickets = new ClientSAC(this);
             news = new ClientNews(this);
+            weather = new ClientWeather(this);
             t = new Tts();
             answers = new Answers();
 
@@ -68,8 +70,15 @@ namespace AppGui
                 case "NEWS":
                     news.request();
                     break;
-                case "WEATHER":
 
+                case "WEATHER":
+                    Console.WriteLine("WEATHER");
+
+                    string[] array3 = new string[json.recognized.Count - 1];
+                    for (int i = 1; i < json.recognized.Count; i++)
+                        array3[i - 1] = (string)json.recognized[i].ToString();
+
+                    weather.request(array3);
                     break;
             }
         }
@@ -141,19 +150,73 @@ namespace AppGui
             t.Speak(phrase);
         }
 
-
-        public void manageDialogueSAC(List<TicketData> tickets, string[] args) {
-            string phrase = "Estou a ver a informação de todas as filas";
+        public void manageDialogueSAC()
+        {
+            string phrase = answers.getTicketsServiceUnavailable();
 
             t.Speak(phrase);
+
+            Console.WriteLine(phrase);
+        }
+
+        public void manageDialogueSAC(List<TicketData> tickets) {
+
+            string phrase = "";
+
+            bool isEmpty = !tickets.Any();  
+
+            if (isEmpty)
+            {
+                phrase = answers.getTicketsServiceUnavailable();
+            }
+
+            else
+            {
+                phrase = answers.getTicketsInfo(tickets);
+            }
+
+            t.Speak(phrase);
+            Console.WriteLine(phrase);
         }
 
 
-         public void manageDialogueSAC(TicketData ticket, string[] args) {
+         public void manageDialogueSAC(TicketData ticket, string type) {
 
-            string phrase = "Estou a consultar só uma fila";
+            string phrase = "";
+
+            if (ticket.Enabled)
+            {
+
+                Console.WriteLine("ENABLED");
+
+                if (type.Equals("TYPE2"))
+                {
+                    phrase = answers.getlastTicketNumber(ticket);
+                    Console.WriteLine("GET LAST TICKET NUMBER");
+                }
+
+                else if (type.Equals("TYPE3"))
+                {
+                    phrase = answers.getTicketAverageWaitingTime(ticket);
+                    Console.WriteLine("GET AVERAGE WAITING TICKET NUMBER");
+                }
+
+                else if (type.Equals("TYPE4"))
+                {
+                    phrase = answers.getTicketPeopleWaiting(ticket);
+                    Console.WriteLine("GET PEOPLE WAITING TICKET NUMBER");
+                }
+
+            }
+
+            else
+            {
+                phrase = answers.getTicketNotFound(ticket);
+                Console.WriteLine("TICKET NOT FOUND");
+            }
             
             t.Speak(phrase);
+            Console.WriteLine(phrase);
         }
 
         public void manageDialogueNews(List<NewsData> news)
@@ -170,6 +233,40 @@ namespace AppGui
             }
 
             t.Speak(phrase);
+            Console.WriteLine(phrase);
+        }
+
+        public void manageDialogueWeather(WeatherData weather, string type)
+        {
+            string phrase = "";
+
+            if (type.Equals("TYPE1"))
+            {
+                phrase = answers.getWeatherInDay(weather);
+            }
+
+            else
+            {
+                phrase = answers.getWeatherRain(weather);
+            }
+
+            t.Speak(phrase);
+            Console.WriteLine(phrase);
+        }
+
+        public void manageDialogueWeather(DateTime date, string flag)
+        {
+            string phrase = "";
+            if (flag.Equals("invalid"))
+                phrase = answers.getWeatherDayInvalid(date);
+        
+            else
+            {
+                phrase = answers.getWeatherDayOutOfRange(date);
+            }
+            t.Speak(phrase);
+            Console.WriteLine(phrase);
+
         }
 
     }
