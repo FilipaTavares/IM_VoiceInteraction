@@ -55,16 +55,16 @@ namespace AppGui
         }
         private void send(string message)
         {
-            if (client.IsConnected)
-            {
+            //if (client.IsConnected)
+            //{
                 try
                 {
                     writer.WriteLine(message);
                     writer.Flush();
                 }
                 catch (Exception e) { Console.WriteLine("ATENçÃO esta execao aconteceu!!!! linha 65 nSpeachClient ver "); }
-            }
-            else { Console.WriteLine("Não estou connectado ao server"); }
+            //}
+            //else { Console.WriteLine("Não estou connectado ao server"); }
         }
 
         public void sendTtsStop() {
