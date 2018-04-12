@@ -18,9 +18,6 @@ namespace AppGui
     public partial class MainWindow : Window
     {
         private MmiCommunication mmiC;
-        private HttpClient ementasClient;
-        private HttpClient sacClient;
-        private HttpClient sasClient;
 
         private DialogueManager dManager;
 
@@ -34,10 +31,6 @@ namespace AppGui
             mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
             mmiC.Message += MmiC_Message;
             mmiC.Start();
-
-            ementasClient = new HttpClient();
-            ementasClient.BaseAddress = new Uri("http://services.web.ua.pt/sas/ementas");
-
             
 
         }

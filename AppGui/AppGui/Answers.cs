@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppGui.Data;
+using System.Text.RegularExpressions;
 
 namespace AppGui
 {
@@ -135,6 +136,10 @@ namespace AppGui
             "<TITULO_NOTICA> \n\n\n"
         };
 
+        private string[] newsDescription = new string[] {
+            "<DESCRICAO>"
+        };
+
         // 13 14 31 0 chuva moderada domingo 15/04/2018 00:00:00
         // return minTemp + " " + maxTemp + " " + windSpeed + " " + humidity + " " + description + " " + dayDescription
             //    + " " + Date.ToString();
@@ -232,6 +237,8 @@ namespace AppGui
             }
             return sb.ToString();
         }
+
+        public string getNewsDescription(NewsData newsData) { return newsDescription[random.Next(0, newsDescription.Length)].Replace("<DESCRICAO>", Regex.Replace(newsData.Description, "<.*?>", String.Empty)); ; }
 
         public string getWeatherInDay(WeatherData weather)
         {

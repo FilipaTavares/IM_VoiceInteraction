@@ -63,6 +63,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppServer.cs" />
+    <Compile Include="NewsGrammarModifier.cs" />
     <Compile Include="SpeechEventArg.cs" />
     <Compile Include="SpeechMod.cs" />
     <Page Include="MainWindow.xaml">
@@ -102,6 +103,7 @@
     </None>
     <Content Include="ptG.grxml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -25,6 +25,7 @@ namespace AppGui
         public void request(string[] args)
         {
             client.GetStringAsync("").ContinueWith((response) => handleResponse(response.Result, args));
+
         }
 
         private void handleResponse(string response, string[] args)

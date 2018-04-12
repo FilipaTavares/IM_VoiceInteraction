@@ -11,25 +11,100 @@
         private int clientsWaiting;
         private bool enabled;
 
-        public TicketData(string letter, string description, bool enabled)
-        {
+        public TicketData(string letter, string description, bool enabled) {
             this.letter = letter;
             this.description = description;
             this.enabled = enabled;
         }
+        public string Letter
+        {
+            get
+            {
+                return letter;
+            }
 
-        public string Letter { get => letter; set => letter = value; }
+            set
+            {
+                letter = value;
+            }
+        }
 
-        public string Description { get => description; set => description = value; }
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
 
-        public int Latest { get => latest; set => latest = value; }
+            set
+            {
+                description = value;
+            }
+        }
 
-        public int AverageAtendingTime { get => averageAtendingTime; set => averageAtendingTime = value; }
+        public int Latest
+        {
+            get
+            {
+                return latest;
+            }
 
-        public int AverageWaitingTime { get => averageWaitingTime; set => averageWaitingTime = value; }
+            set
+            {
+                latest = value;
+            }
+        }
 
-        public int ClientsWaiting { get => clientsWaiting; set => clientsWaiting = value; }
+        public int AverageAtendingTime
+        {
+            get
+            {
+                return averageAtendingTime;
+            }
 
-        public bool Enabled { get => enabled; set => enabled = value; }
+            set
+            {
+                averageAtendingTime = value;
+            }
+        }
+
+        public bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+
+            set
+            {
+                enabled = value;
+            }
+        }
+
+        public int AverageWaitingTime
+        {
+            get
+            {
+                return averageWaitingTime;
+            }
+
+            set
+            {
+                averageWaitingTime = value;
+            }
+        }
+
+        public int ClientsWaiting
+        {
+            get
+            {
+                return clientsWaiting;
+            }
+
+            set
+            {
+                clientsWaiting = value;
+            }
+        }
     }
 }
