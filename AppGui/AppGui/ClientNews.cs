@@ -21,6 +21,7 @@ namespace AppGui
             client = new HttpClient();
             client.BaseAddress = new Uri("http://services.sapo.pt/UA/Online/contents_xml");
             this.dManager = dManager;
+            this.newsList = new List<NewsData>();
         }
 
         public void request(string[] args) {

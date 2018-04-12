@@ -28,7 +28,7 @@ root="rootRule">
 			</item>
 		</one-of>
 	</rule>
-
+  
 	<!-- Rules for comunicate with canteensAPI -->
 	<rule id="canteensAPI">
 		<tag>out.api="CANTEENS";</tag>
@@ -423,7 +423,8 @@ root="rootRule">
 		  </item>
       <item>
         <one-of>
-          <item>Detalha-me</item>
+          <item>Quero saber mais sobre</item>
+          <item>Lê-me sobre</item>
           <item>Diz-me mais sobre</item>
         </one-of>
         <item>

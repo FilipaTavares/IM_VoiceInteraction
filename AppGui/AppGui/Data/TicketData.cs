@@ -11,12 +11,13 @@
         private int clientsWaiting;
         private bool enabled;
 
-        public TicketData(string letter, string description, bool enabled)
-        public string Letter
-        {
+        public TicketData(string letter, string description, bool enabled) {
             this.letter = letter;
             this.description = description;
             this.enabled = enabled;
+        }
+        public string Letter
+        {
             get
             {
                 return letter;
@@ -67,6 +68,43 @@
             }
         }
 
-        public bool Enabled { get => enabled; set => enabled = value; }
+        public bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+
+            set
+            {
+                enabled = value;
+            }
+        }
+
+        public int AverageWaitingTime
+        {
+            get
+            {
+                return averageWaitingTime;
+            }
+
+            set
+            {
+                averageWaitingTime = value;
+            }
+        }
+
+        public int ClientsWaiting
+        {
+            get
+            {
+                return clientsWaiting;
+            }
+
+            set
+            {
+                clientsWaiting = value;
+            }
+        }
     }
 }

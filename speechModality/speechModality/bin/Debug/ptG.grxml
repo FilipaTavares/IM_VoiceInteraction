@@ -28,7 +28,7 @@ root="rootRule">
 			</item>
 		</one-of>
 	</rule>
-
+  
 	<!-- Rules for comunicate with canteensAPI -->
 	<rule id="canteensAPI">
 		<tag>out.api="CANTEENS";</tag>
@@ -423,7 +423,8 @@ root="rootRule">
 		  </item>
       <item>
         <one-of>
-          <item>Detalha-me</item>
+          <item>Quero saber mais sobre</item>
+          <item>Lê-me sobre</item>
           <item>Diz-me mais sobre</item>
         </one-of>
         <item>
@@ -489,18 +490,6 @@ root="rootRule">
 	
 		</one-of>
 	</rule>
-
-
-<rule id="dynamicNews">
-<one-of>
-<item><sapi:subset sapi:match="ordered-subset">Beacon permite o aumento da capacidade de transmissão de dados por satélite</sapi:subset><tag>out="0"</tag></item>
-<item><sapi:subset sapi:match="ordered-subset">Bolsa de Gestão de Ciência e Tecnologia no âmbito do projeto/instituição de I e D Centro de Investigação Didática e Tecnologia na Formação de Formadores</sapi:subset><tag>out="1"</tag></item>
-<item><sapi:subset sapi:match="ordered-subset">Bootcamp IERA</sapi:subset><tag>out="2"</tag></item>
-<item><sapi:subset sapi:match="ordered-subset">Bolsa de Pós-doutoramento na área da Física dos Materiais</sapi:subset><tag>out="3"</tag></item>
-<item><sapi:subset sapi:match="ordered-subset">Bolsa de Investigação (Licenciado) no âmbito do Projeto INTERREG EUROPE PGI01611 CISMOB</sapi:subset><tag>out="4"</tag></item>
-<item><sapi:subset sapi:match="ordered-subset">Provas do Programa Doutoral em Ciências e Engenharia do Ambiente de Ana Patrícia da Silva Fernandes</sapi:subset><tag>out="5"</tag></item>
-</one-of>
-</rule>
 
 	<rule id="weatherDays">
 		<one-of>
@@ -601,4 +590,16 @@ root="rootRule">
 			</item>
 		</one-of>
 	</rule>
+
+
+<rule id="dynamicNews">
+<one-of>
+<item><sapi:subset sapi:match="ordered-subset">Bolsa de Pós-doutoramento no âmbito do Projeto Europeu SIDERWIN</sapi:subset><tag>out="0"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Aprender a programar</sapi:subset><tag>out="1"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">HTML e CSS</sapi:subset><tag>out="2"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Nuno Gusmão (P-06 Atelier) e Manuel Estrada serão keynote speakers no UD18</sapi:subset><tag>out="3"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Biochemistry Day@UA 2018 debate Bioquímica pelo mundo</sapi:subset><tag>out="4"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Gestão de Privacidade  a resposta integrada ao RGPD  Regulamento Geral de Proteção de Dados</sapi:subset><tag>out="5"</tag></item>
+</one-of>
+</rule>
 </grammar>

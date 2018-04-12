@@ -12,7 +12,6 @@ namespace AppGui
     {
         private NamedPipeClientStream client;
         private StreamWriter writer;
-        private StreamReader reader;
         public SpeachClient()
         {
          

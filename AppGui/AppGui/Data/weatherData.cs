@@ -18,17 +18,100 @@ namespace AppGui.Data
         private string dayDescription;   // hoje, amanhã, na segunda, dia 23
         private DateTime date;
 
-        public int MinTemp { get => minTemp; set => minTemp = value; }
-        public int MaxTemp { get => maxTemp; set => maxTemp = value; }
-        public int WindSpeed { get => windSpeed; set => windSpeed = value; }
-        public int Humidity { get => humidity; set => humidity = value; }
-        public string Description { get => description; set => description = value; }
-        public string DayDescription { get => dayDescription; set => dayDescription = value; }
-        public DateTime Date { get => date; set => date = value; }
+        public int MinTemp
+        {
+            get
+            {
+                return minTemp;
+            }
+
+            set
+            {
+                minTemp = value;
+            }
+        }
+
+        public int MaxTemp
+        {
+            get
+            {
+                return maxTemp;
+            }
+
+            set
+            {
+                maxTemp = value;
+            }
+        }
+
+        public int WindSpeed
+        {
+            get
+            {
+                return windSpeed;
+            }
+
+            set
+            {
+                windSpeed = value;
+            }
+        }
+
+        public int Humidity
+        {
+            get
+            {
+                return humidity;
+            }
+
+            set
+            {
+                humidity = value;
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+
+            set
+            {
+                description = value;
+            }
+        }
+
+        public string DayDescription
+        {
+            get
+            {
+                return dayDescription;
+            }
+
+            set
+            {
+                dayDescription = value;
+            }
+        }
+
+        public DateTime Date
+        {
+            get
+            {
+                return date;
+            }
+
+            set
+            {
+                date = value;
+            }
+        }
 
         public override string ToString()
         {
-            return minTemp + " " + maxTemp + " " + windSpeed + " " + humidity + " " + description + " " + dayDescription
+            return MinTemp + " " + MaxTemp + " " + WindSpeed + " " + Humidity + " " + Description + " " + DayDescription
                 + " " + Date.ToString();
         }
 

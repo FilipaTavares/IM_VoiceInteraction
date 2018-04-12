@@ -37,7 +37,7 @@ namespace AppGui
         public void handleIMcommand(string command)
         {
             dynamic json = JsonConvert.DeserializeObject(command);
-
+            string[] array;
             switch ((string)json.recognized[0].ToString())
             {
                 case "CANTEENS":
@@ -49,7 +49,7 @@ namespace AppGui
                 case "SAS":
                     Console.WriteLine("SAS");
 
-                    string[] array = new string[json.recognized.Count-1];
+                    array = new string[json.recognized.Count-1];
                     for (int i = 1; i < json.recognized.Count; i++)          //0 alredy handled
                         array[i-1] = (string)json.recognized[i].ToString();
 
@@ -60,31 +60,31 @@ namespace AppGui
                 case "SAC":
                     Console.WriteLine("SAC");
 
-                    string[] array2 = new string[json.recognized.Count-1];
+                    array = new string[json.recognized.Count-1];
                     for (int i = 1; i < json.recognized.Count; i++)         
-                        array2[i-1] = (string)json.recognized[i].ToString();
+                        array[i-1] = (string)json.recognized[i].ToString();
 
-                    tickets.request(array2);
+                    tickets.request(array);
                     
                     break;
                 case "NEWS":
 
-                    string[] array3 = new string[json.recognized.Count - 1];
+                    array = new string[json.recognized.Count - 1];
                     for (int i = 1; i < json.recognized.Count; i++)
-                        array3[i - 1] = (string)json.recognized[i].ToString();
+                        array[i - 1] = (string)json.recognized[i].ToString();
 
-                    news.request(array3);
+                    news.request(array);
 
                     break;
 
                 case "WEATHER":
                     Console.WriteLine("WEATHER");
 
-                    string[] array3 = new string[json.recognized.Count - 1];
+                    array = new string[json.recognized.Count - 1];
                     for (int i = 1; i < json.recognized.Count; i++)
-                        array3[i - 1] = (string)json.recognized[i].ToString();
+                        array[i - 1] = (string)json.recognized[i].ToString();
 
-                    weather.request(array3);
+                    weather.request(array);
                     break;
             }
         }
