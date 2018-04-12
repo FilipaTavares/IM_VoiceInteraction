@@ -4,16 +4,21 @@
 winexe
 C#
 .cs
-C:\Users\Filipa\Desktop\IM_VoiceInteraction\AppGui\AppGui\obj\Debug\
+D:\Repositorio\IM_VoiceInteraction\AppGui\AppGui\obj\Debug\
 AppGui
 none
 false
 DEBUG;TRACE
-C:\Users\Filipa\Desktop\IM_VoiceInteraction\AppGui\AppGui\App.xaml
+D:\Repositorio\IM_VoiceInteraction\AppGui\AppGui\App.xaml
 11151548125
 
+<<<<<<< HEAD
 19121072622
 16-1577635053
+=======
+17-1888944250
+16-470968094
+>>>>>>> newsDynamic
 MainWindow.xaml;
 
 False

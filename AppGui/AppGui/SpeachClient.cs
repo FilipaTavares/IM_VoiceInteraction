@@ -32,8 +32,8 @@ namespace AppGui
         }
 
         private void send(string message, Action f) {
-            if (client.IsConnected)
-            {
+            //if (client.IsConnected)
+            //{
                 try
                 {
                     writer.WriteLine(message);
@@ -50,21 +50,21 @@ namespace AppGui
                         f();
                     });
                 }
-            }
-            else { Console.WriteLine("Não estou connectado ao server"); }
+            //}
+            //else { Console.WriteLine("Não estou connectado ao server"); }
         }
         private void send(string message)
         {
-            if (client.IsConnected)
-            {
+            //if (client.IsConnected)
+            //{
                 try
                 {
                     writer.WriteLine(message);
                     writer.Flush();
                 }
                 catch (Exception e) { Console.WriteLine("ATENçÃO esta execao aconteceu!!!! linha 65 nSpeachClient ver "); }
-            }
-            else { Console.WriteLine("Não estou connectado ao server"); }
+            //}
+            //else { Console.WriteLine("Não estou connectado ao server"); }
         }
 
         public void sendTtsStop() {
@@ -74,6 +74,10 @@ namespace AppGui
         public void sendTtsStart()
         {
             send("<START>", sendTtsStart);
+        }
+
+        public void sendDynamicNews(List<string> news) {
+            send("<DYNAMICADD>"+String.Join("|",news));
         }
 
         public void close() {

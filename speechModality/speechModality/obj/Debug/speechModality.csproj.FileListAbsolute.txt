@@ -86,7 +86,6 @@ D:\Repositorio\IM_VoiceInteraction\speechModality\speechModality\bin\Debug\ptG.g
 D:\Repositorio\IM_VoiceInteraction\speechModality\speechModality\bin\Debug\speechModality.exe
 D:\Repositorio\IM_VoiceInteraction\speechModality\speechModality\bin\Debug\speechModality.pdb
 D:\Repositorio\IM_VoiceInteraction\speechModality\speechModality\bin\Debug\Microsoft.Speech.dll
-D:\Repositorio\IM_VoiceInteraction\speechModality\speechModality\bin\Debug\mmisharp.pdb
 D:\Repositorio\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\speechModality.csprojResolveAssemblyReference.cache
 D:\Repositorio\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\MainWindow.g.cs
 D:\Repositorio\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\App.g.cs

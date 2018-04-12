@@ -17,70 +17,79 @@ namespace speechModality
         private StreamReader reader;
         private SpeechRecognitionEngine sre;
         public TextBox textBox;
+        private NewsGrammarModifier grammarModifier;
+
         public AppServer(SpeechRecognitionEngine sre, TextBox textBox)
         {
             this.sre = sre;
             this.textBox = textBox;
-            
+
+            grammarModifier = new NewsGrammarModifier(sre);
         }
 
         public void run()
         {
-            Task.Factory.StartNew(()=> {
-                connectionLoop: while (true) {
+            Task.Factory.StartNew(() => {
+        connectionLoop: while (true) {
 
-                    server = new NamedPipeServerStream("APPCALLBACK");
-                    reader = new StreamReader(server);
-                    server.WaitForConnection();
-                    Console.WriteLine("NOVA CONEXAO");
+                server = new NamedPipeServerStream("APPCALLBACK");
+                reader = new StreamReader(server);
+                server.WaitForConnection();
+                Console.WriteLine("NOVA CONEXAO");
 
 
-                    while (true)
+                while (true)
+                {
+
+                    var line = reader.ReadLine();
+                    Console.WriteLine("RECEBI " + line);
+
+                    //contais
+                    if (line != null && line.StartsWith("<DYNAMICADD>")) {
+                        grammarModifier.addGrammar(line.Substring(12).Split('|'));
+                        continue;
+                    }
+
+                    switch (line)
                     {
+                        case "<START>":
+                            sre.RecognizeAsyncStop();//try stop rec
+                            //text.Text = "[RECOGNIZED STOPED]";
+                            textBox.Dispatcher.BeginInvoke((Action)(() => {
+                                textBox.FontWeight = FontWeights.Normal;
+                                textBox.Text = "[RECOGNIZED STOPED]";
+                            }));
 
-                        var line = reader.ReadLine();
-                        switch (line)
-                        {
-                            case "<START>":
-                                sre.RecognizeAsyncStop();//try stop rec
-                                //text.Text = "[RECOGNIZED STOPED]";
-                                textBox.Dispatcher.BeginInvoke((Action)(() => {
-                                    textBox.FontWeight = FontWeights.Normal;
-                                    textBox.Text = "[RECOGNIZED STOPED]";
-                                }));
+                            break;
+                        case "<STOP>":
+                            sre.RecognizeAsync(RecognizeMode.Multiple);
+                            //text.Text = "[RECOGNIZED RESTARTED]";
+                            textBox.Dispatcher.BeginInvoke((Action)(() => {
+                                textBox.FontWeight = FontWeights.Normal;
+                                textBox.Text = "[SPEAK]";
+                            }));
 
+                            break;
 
-
-
-                                break;
-                            case "<STOP>":
+                        case null:
+                        case "<CLOSE>":
+                            server.Close();
+                            try
+                            {
                                 sre.RecognizeAsync(RecognizeMode.Multiple);
+
                                 //text.Text = "[RECOGNIZED RESTARTED]";
-                                textBox.Dispatcher.BeginInvoke((Action)(() => {
+                                textBox.Dispatcher.BeginInvoke((Action)(() =>
+                                {
                                     textBox.FontWeight = FontWeights.Normal;
                                     textBox.Text = "[SPEAK]";
                                 }));
-
-                                break;
-                            case null:
-                            case "<CLOSE>":
-                                server.Close();
-                                try
-                                {
-                                    sre.RecognizeAsync(RecognizeMode.Multiple);
-
-                                    //text.Text = "[RECOGNIZED RESTARTED]";
-                                    textBox.Dispatcher.BeginInvoke((Action)(() =>
-                                    {
-                                        textBox.FontWeight = FontWeights.Normal;
-                                        textBox.Text = "[SPEAK]";
-                                    }));
-                                }
-                                catch (Exception e) { }
-                                goto connectionLoop;
+                            }
+                            catch (Exception e) { }
+                            goto connectionLoop;
 
                         }
-                        Console.WriteLine("RECEBI " + line);
+                        
   
                     }
                 }

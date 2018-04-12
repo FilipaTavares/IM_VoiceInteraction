@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0"?>
-<grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0" root="rootRule">
+<grammar xml:lang="pt-PT" 
+         version="1.0" 
+         xmlns="http://www.w3.org/2001/06/grammar"
+         xmlns:sapi="http://schemas.microsoft.com/Speech/2002/06/SRGSExtensions"
+tag-format="semantics/1.0"
+root="rootRule">
 
-	<rule id="rootRule" >
+<rule id="rootRule" >
 
 		<!--frase de ativação da app-->
 
@@ -412,9 +417,21 @@
 	<!-- Rules for comunicate with newsAPI -->
 	<rule id="newsAPI">
 		<tag>out.api="NEWS";</tag>
-		<item>
-			<ruleref uri="#newsStart"/>
-		</item>
+    <one-of>
+		  <item>
+			  <ruleref uri="#newsStart"/>
+		  </item>
+      <item>
+        <one-of>
+          <item>Detalha-me</item>
+          <item>Diz-me mais sobre</item>
+        </one-of>
+        <item>
+          <ruleref uri="#dynamicNews"/>
+          <tag>out.dynamicNews=rules.latest();</tag>
+        </item>
+      </item>
+    </one-of>
 
 	</rule>
 
@@ -572,4 +589,10 @@
 			</item>
 		</one-of>
 	</rule>
+
+
+  <rule id="dynamicNews">
+    <item>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</item>
+  </rule>
+
 </grammar>

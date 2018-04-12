@@ -12,23 +12,60 @@
         private bool enabled;
 
         public TicketData(string letter, string description, bool enabled)
+        public string Letter
         {
             this.letter = letter;
             this.description = description;
             this.enabled = enabled;
+            get
+            {
+                return letter;
+            }
+
+            set
+            {
+                letter = value;
+            }
         }
 
-        public string Letter { get => letter; set => letter = value; }
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
 
-        public string Description { get => description; set => description = value; }
+            set
+            {
+                description = value;
+            }
+        }
 
-        public int Latest { get => latest; set => latest = value; }
+        public int Latest
+        {
+            get
+            {
+                return latest;
+            }
 
-        public int AverageAtendingTime { get => averageAtendingTime; set => averageAtendingTime = value; }
+            set
+            {
+                latest = value;
+            }
+        }
 
-        public int AverageWaitingTime { get => averageWaitingTime; set => averageWaitingTime = value; }
+        public int AverageAtendingTime
+        {
+            get
+            {
+                return averageAtendingTime;
+            }
 
-        public int ClientsWaiting { get => clientsWaiting; set => clientsWaiting = value; }
+            set
+            {
+                averageAtendingTime = value;
+            }
+        }
 
         public bool Enabled { get => enabled; set => enabled = value; }
     }

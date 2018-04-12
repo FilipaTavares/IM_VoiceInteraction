@@ -14,6 +14,7 @@ namespace speechModality
         private SpeechRecognitionEngine sre;
         private Grammar gr;
         public event EventHandler<SpeechEventArg> Recognized;
+
         
 
         private AppServer appServer;
@@ -32,7 +33,8 @@ namespace speechModality
 
         public SpeechMod(TextBox textBox)
         {
-           
+
+            
             
             Console.WriteLine("OK...");
             //init LifeCycleEvents..
@@ -45,6 +47,8 @@ namespace speechModality
             //load pt recognizer
             sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("pt-PT"));
             gr = new Grammar(Environment.CurrentDirectory + "\\ptG.grxml");
+
+            
             sre.LoadGrammar(gr);
 
             
@@ -57,8 +61,11 @@ namespace speechModality
             appServer = new AppServer(sre, textBox);
             appServer.run();
 
-        }
+            
 
+            
+        }
+        
         private void Sre_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
         {
             onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = false });

@@ -14,6 +14,7 @@ namespace AppGui
 
         private HttpClient client;
         private DialogueManager dManager;
+        private List<NewsData> newsList;
 
         public ClientNews(DialogueManager dManager)
         {
@@ -22,19 +23,29 @@ namespace AppGui
             this.dManager = dManager;
         }
 
-        public void request() {
+        public void request(string[] args) {
             string queryParams = "?jsonText=true";
-            //because of utf-8
-            client.GetByteArrayAsync(queryParams).ContinueWith((response) => handle(Encoding.UTF8.GetString(response.Result)));
+
+            if (args.Length > 0 && newsList.Count < int.Parse(args[0]))
+            {
+                dManager.manageDialogueNews(newsList, args);
+            }
+            else {
+                //because of utf-8
+                client.GetByteArrayAsync(queryParams).ContinueWith((response) => handle(Encoding.UTF8.GetString(response.Result), args));
+            }
+            
+            
             //client.GetStringAsync(queryParams).ContinueWith((response) => handle(response.Result));
         }
 
-        private void handle(string response)
+        private void handle(string response, string[] args)
         {
             Console.WriteLine("Handle");
+
             dynamic json = JsonConvert.DeserializeObject(response);
 
-            List<NewsData> newsList = new List<NewsData>();
+            newsList = new List<NewsData>();
             foreach (dynamic item in json.rss.channel.item) {
                 NewsData news = new NewsData();
                 news.Title = item.title;
@@ -44,7 +55,7 @@ namespace AppGui
                 newsList.Add(news);
             }
 
-            dManager.manageDialogueNews(newsList);
+            dManager.manageDialogueNews(newsList, args);
         }
     }
 }

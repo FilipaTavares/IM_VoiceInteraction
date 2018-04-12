@@ -1,7 +1,12 @@
-﻿<?xml version="1.0"?>
-<grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0" root="rootRule">
+<?xml version="1.0"?>
+<grammar xml:lang="pt-PT" 
+         version="1.0" 
+         xmlns="http://www.w3.org/2001/06/grammar"
+         xmlns:sapi="http://schemas.microsoft.com/Speech/2002/06/SRGSExtensions"
+tag-format="semantics/1.0"
+root="rootRule">
 
-	<rule id="rootRule" >
+<rule id="rootRule" >
 
 		<!--frase de ativação da app-->
 
@@ -412,9 +417,21 @@
 	<!-- Rules for comunicate with newsAPI -->
 	<rule id="newsAPI">
 		<tag>out.api="NEWS";</tag>
-		<item>
-			<ruleref uri="#newsStart"/>
-		</item>
+    <one-of>
+		  <item>
+			  <ruleref uri="#newsStart"/>
+		  </item>
+      <item>
+        <one-of>
+          <item>Detalha-me</item>
+          <item>Diz-me mais sobre</item>
+        </one-of>
+        <item>
+          <ruleref uri="#dynamicNews"/>
+          <tag>out.dynamicNews=rules.latest();</tag>
+        </item>
+      </item>
+    </one-of>
 
 	</rule>
 
@@ -472,6 +489,18 @@
 	
 		</one-of>
 	</rule>
+
+
+<rule id="dynamicNews">
+<one-of>
+<item><sapi:subset sapi:match="ordered-subset">Beacon permite o aumento da capacidade de transmissão de dados por satélite</sapi:subset><tag>out="0"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Bolsa de Gestão de Ciência e Tecnologia no âmbito do projeto/instituição de I e D Centro de Investigação Didática e Tecnologia na Formação de Formadores</sapi:subset><tag>out="1"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Bootcamp IERA</sapi:subset><tag>out="2"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Bolsa de Pós-doutoramento na área da Física dos Materiais</sapi:subset><tag>out="3"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Bolsa de Investigação (Licenciado) no âmbito do Projeto INTERREG EUROPE PGI01611 CISMOB</sapi:subset><tag>out="4"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Provas do Programa Doutoral em Ciências e Engenharia do Ambiente de Ana Patrícia da Silva Fernandes</sapi:subset><tag>out="5"</tag></item>
+</one-of>
+</rule>
 
 	<rule id="weatherDays">
 		<one-of>
