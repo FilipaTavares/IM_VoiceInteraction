@@ -207,6 +207,12 @@ namespace AppGui
                     Console.WriteLine("GET PEOPLE WAITING TICKET NUMBER");
                 }
 
+                else if (type.Equals("TYPE5"))
+                {
+                    //phrase = answers.getTicketPeopleWaiting(ticket);
+                    Console.WriteLine("GET INFO ABOUT TICKET A TO PAY FEES");
+                }
+
             }
 
             else

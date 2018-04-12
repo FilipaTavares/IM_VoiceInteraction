@@ -48,9 +48,14 @@ namespace AppGui
                     dManager.manageDialogueSAC(getAllTicketsInfo(json));
                 }
 
+                else if (args.Length == 1 && args[0].ToString().Equals("TYPE5"))
+                {
+                    dManager.manageDialogueSAC(getTicket(json, "A", "licenciatura e mestrado"), args[0]);
+                }
+
                 else
                 {
-                    dManager.manageDialogueSAC(getTicket(json, args[1], args[2]), args[0]);
+                    dManager.manageDialogueSAC(getTicket(json, "A", args[2]), args[0]);
                 }
 
             }

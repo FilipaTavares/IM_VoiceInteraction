@@ -84,7 +84,7 @@ namespace AppGui
         };
 
         private string[] lastTicketNumber = new string[] {
-            "Para a fila <NOME_DA_FILA> foi o número <NÚMERO_DA_SENHA>",
+            "Para a fila <NOME_DA_FILA> a senha vai no número <NÚMERO_DA_SENHA>",
             "A fila de atendimento <NOME_DA_FILA> vai no número <NÚMERO_DA_SENHA>",
             "Neste momento, a última senha atendida da fila <NOME_DA_FILA> tem o número <NÚMERO_DA_SENHA>"
         };
@@ -97,11 +97,27 @@ namespace AppGui
             "Vais ter de esperar <TEMPO_ESPERA> minutos na fila <NOME_DA_FILA> para seres atendido em cerca de <TEMPO_ATENDIMENTO> minutos"
         };
 
-        private string[] ticketPeopleWaiting = new string[] {
+        private string[] ticketPeopleWaiting = new string[] 
+        {
             "Para a fila <NOME_DA_FILA> estão à espera <CLIENTES_EM_ESPERA> pessoas",
             "<CLIENTES_EM_ESPERA> pessoas estão à espera na fila <NOME_DA_FILA>",
             "Neste momento, a fila <NOME_DA_FILA> tem <CLIENTES_EM_ESPERA> à espera"
         };
+
+        // PARA AS PROPINAS
+
+        private string[] ticketLineA = new string[]
+        {
+            "Para pagares as propinas podes tirar uma senha da fila <NOME_DA_FILA> que trata de assuntos de <DESC>," +
+            " e que vai no número <NÚMERO_DA_SENHA>",
+            "Podes pagar as propinas "
+        };
+
+        private string[] ticketLineAClosed = new string[]
+        {
+
+        };
+
 
         /*
          * FRASES PARA NEWS 

@@ -342,6 +342,18 @@
 					</one-of>
 				</item>
 			</item>
+
+			<item>
+				<tag>out.sacType="TYPE5";</tag>
+				<one-of>
+					<item>Tenho de</item>
+					<item>Esqueci-me de</item>
+					<item>Tenho de</item>
+				</one-of>
+
+				<item>pagar as propinas</item>
+				
+			</item>
 		</one-of>
 	</rule>
 
