@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,14 +23,35 @@ namespace AppGui
             this.dManager = dManager;
         }
 
-        public void request(string[] args)
+        public async void request(string[] args)
         {
-            string queryParams = "?format=json";
+            try
+            {
+                client.Timeout = TimeSpan.FromMilliseconds(1);
+                string response = await client.GetStringAsync("?format=json");
 
-            client.GetStringAsync(queryParams).ContinueWith((response) => handleResponse(response.Result, args));
+                Console.WriteLine(response);
+                Console.WriteLine("COMPUTE RESPOSTA");
+                handleResponse(response, args);
+            }
+            catch (HttpRequestException e)
+            {
+                if (e.InnerException is WebException)
+                {
+                    //dManager.manageDialogueSACExceptions("webException");
+                    Console.WriteLine("WEB EXCEPTION");
+                }
 
+            }
+
+            catch (TaskCanceledException e)
+            {
+                //ver tipo 5 segundos timeout e aos 3 chamar
+
+                //dManager.manageDialogueSACExceptions("timeout");
+                Console.WriteLine("CATCH TIMEOUT");
+            }
         }
-
 
         private void handleResponse(string response, string[] args)
         {

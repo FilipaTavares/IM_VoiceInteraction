@@ -202,7 +202,6 @@ namespace AppGui
 
             if (ticket.Enabled)
             {
-
                 Console.WriteLine("ENABLED");
 
                 if (type.Equals("TYPE2"))
@@ -225,7 +224,7 @@ namespace AppGui
 
                 else if (type.Equals("TYPE5"))
                 {
-                    //phrase = answers.getTicketPeopleWaiting(ticket);
+                    phrase = answers.getTicketLineA(ticket);
                     Console.WriteLine("GET INFO ABOUT TICKET A TO PAY FEES");
                 }
 
@@ -233,8 +232,17 @@ namespace AppGui
 
             else
             {
-                phrase = answers.getTicketNotFound(ticket);
-                Console.WriteLine("TICKET NOT FOUND");
+                if (type.Equals("TYPE5"))
+                {
+                    phrase = answers.getTicketLineAClosed(ticket);
+                    Console.WriteLine("TICKET A CLOSED - PROPINAS");
+                }
+
+                else
+                {
+                    phrase = answers.getTicketNotFound(ticket);
+                    Console.WriteLine("TICKET NOT FOUND");
+                }
             }
             
             t.Speak(phrase);

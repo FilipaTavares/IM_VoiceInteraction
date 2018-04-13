@@ -113,14 +113,16 @@ namespace AppGui
         {
             "Para pagares as propinas podes tirar uma senha da fila <NOME_DA_FILA> que trata de assuntos de <DESC>," +
             " e que vai no número <NÚMERO_DA_SENHA>",
-            "Podes pagar as propinas "
+            "Podes pagar as propinas com uma senha da fila <NOME_DA_FILA> que trata de assuntos de <DESC>," +
+            " e que vai no número <NÚMERO_DA_SENHA>"
         };
 
         private string[] ticketLineAClosed = new string[]
         {
-
+            "Estás com azar, a fila <NOME_DA_FILA> que trata de assuntos de <DESC> não está aberta",
+            "Estás com azar, a fila <NOME_DA_FILA> que trata de assuntos de <DESC> está fechada",
+            "A fila <NOME_DA_FILA> que trata de assuntos de <DESC> não está em atendimento"
         };
-
 
         /*
          * FRASES PARA NEWS 
@@ -288,10 +290,8 @@ namespace AppGui
             {
                 return getWeatherRainAnswer(weather, weatherRainFalse);
             }
-           
-               
-
-            }
+                 
+        }
 
         private string getWeatherRainAnswer(WeatherData weather, string[] rainArray)
         {
@@ -305,6 +305,17 @@ namespace AppGui
                 return rainArray[random.Next(0, rainArray.Length)].Replace("<DIA>", weather.DayDescription + ", no dia " + weather.Date.Day).Replace("<DESC>", weather.Description);
             }
         }
-    }
 
+        public string getTicketLineA(TicketData ticket)
+        {
+            return ticketLineA[random.Next(0, ticketLineA.Length)].Replace("<NOME_DA_FILA>", ticket.Letter)
+                .Replace("<DESC>", ticket.Description).Replace("<NÚMERO_DA_SENHA>", ticket.Latest.ToString());
+        }
+
+        public string getTicketLineAClosed(TicketData ticket)
+        {
+            return ticketLineAClosed[random.Next(0, ticketLineAClosed.Length)].Replace("<NOME_DA_FILA>", ticket.Letter)
+                .Replace("<DESC>", ticket.Description);
+        }
     }
+}
