@@ -12,14 +12,12 @@ namespace AppGui
         SpeechSynthesizer tts = null;
         static SoundPlayer player = new SoundPlayer();
         private SpeachClient speachClient;
+
         /*
          * Text to Speech
          */
-        public Tts()
+        public Tts(Action greathingsCallback)
         {
-            speachClient = new SpeachClient();
-            
-            speachClient.connect();
             
             
 
@@ -92,6 +90,9 @@ namespace AppGui
             //set function to play audio after synthesis is complete
             tts.SpeakCompleted += new EventHandler<SpeakCompletedEventArgs>(tts_SpeakCompleted);
 
+            speachClient = new SpeachClient(greathingsCallback);
+
+            speachClient.connect();
 
         }
 

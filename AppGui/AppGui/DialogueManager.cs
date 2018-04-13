@@ -21,6 +21,10 @@ namespace AppGui
 
         //state of the dialogue like memory :)
         //private ...
+        private void greathingsCallback()
+        {
+            t.Speak(answers.getGreathings());
+        }
 
         public DialogueManager()
         {
@@ -29,7 +33,7 @@ namespace AppGui
             tickets = new ClientSAC(this);
             news = new ClientNews(this);
             weather = new ClientWeather(this);
-            t = new Tts();
+            t = new Tts(greathingsCallback);
             answers = new Answers();
 
         }
@@ -85,6 +89,12 @@ namespace AppGui
                         array[i - 1] = (string)json.recognized[i].ToString();
 
                     weather.request(array);
+                    break;
+                case "HELP":
+                    Console.WriteLine("HELP");
+                    manageDialogueHelp();
+
+
                     break;
             }
         }
@@ -290,6 +300,10 @@ namespace AppGui
             t.Speak(phrase);
             Console.WriteLine(phrase);
 
+        }
+
+        public void manageDialogueHelp() {
+            t.Speak(answers.getHelp());
         }
 
     }

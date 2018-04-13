@@ -12,11 +12,14 @@ namespace AppGui
     {
         private NamedPipeClientStream client;
         private StreamWriter writer;
-        public SpeachClient()
+        private Action ttsGreatingsCallback;
+
+        public SpeachClient(Action ttsGreatingsCallback)
         {
          
             client = new NamedPipeClientStream("APPCALLBACK");
             writer = new StreamWriter(client);
+            this.ttsGreatingsCallback = ttsGreatingsCallback;
 
         }
 
@@ -25,6 +28,7 @@ namespace AppGui
                 Console.WriteLine("Wait connection");
                 client.Connect();
                 Console.WriteLine("Connected");
+                ttsGreatingsCallback();
             });
             
             
@@ -41,6 +45,7 @@ namespace AppGui
                 catch (Exception e)
                 { //Para o caso do server ter levado reboot a meio da conexao
                     Console.WriteLine("Retry connect because of error: " + e.Message);
+                
                     Task.Factory.StartNew(() =>
                     {
                         Console.WriteLine("Wait connection");

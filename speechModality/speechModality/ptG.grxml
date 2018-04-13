@@ -26,10 +26,25 @@ root="rootRule">
 			<item>
 				<ruleref uri="#weatherAPI"/>
 			</item>
+      <item>
+        <ruleref uri="#help"/>
+      </item>
 		</one-of>
 	</rule>
+
+  <!-- Rules for get some help -->
+  <rule id="help">
+    <tag>out.api="HELP";</tag>
+    <item>
+      <one-of>
+        <item>Ajuda</item>
+        <item>Sinto-me perdido</item>
+      </one-of>
+    </item>
+  </rule>
   
-	<!-- Rules for comunicate with canteensAPI -->
+  
+  <!-- Rules for comunicate with canteensAPI -->
 	<rule id="canteensAPI">
 		<tag>out.api="CANTEENS";</tag>
 
@@ -80,9 +95,9 @@ root="rootRule">
 				<!-- Parque de estacionamento <ESTACIONAMENTO> está livre? -->
 				<!-- Quais os parque de estacionamento <ESTACIONAMENTO> que estão livres? -->
 				<tag>out.sasType="TYPE1";</tag>
+        
 				<item repeat="0-1">
 					<one-of>
-						<item></item>
 						<item>O</item>
 						<item>Quais os</item>
 					</one-of>
@@ -113,20 +128,36 @@ root="rootRule">
 				<!-- Quantos lugares estão livres no parque de estacionamento <ESTACIONAMENTO>-->
 				<!-- Quantos lugares livres têm o parque de estacionamento <ESTACIONAMENTO>-->
 				<tag>out.sasType="TYPE2";</tag>
-				<item>
-					Quantos lugares
-				</item>
-				<item>
-					<one-of>
-						<item>estão livres no</item>
-						<item>livres tem o</item>
-					</one-of>
-				</item>
-				<item>parque de estacionamento</item>
-				<item>
-					<ruleref uri="#sasParkLoc"/>
-					<tag>out.sasParkLoc=rules.latest();</tag>
-				</item>
+        <one-of>
+          <item>
+				    <item>
+					    Quantos lugares
+				    </item>
+				    <item>
+					    <one-of>
+						    <item>estão livres no</item>
+						    <item>livres tem o</item>
+					    </one-of>
+				    </item>
+				    <item>parque de estacionamento</item>
+				    <item>
+					    <ruleref uri="#sasParkLoc"/>
+					    <tag>out.sasParkLoc=rules.latest();</tag>
+				    </item>
+          </item>
+          <item>
+            <item>
+              Posso deixar o meu carro no parque
+            </item>
+            <item repeat="0-1">
+              de estacionamento
+            </item>
+            <item>
+              <ruleref uri="#sasParkLoc"/>
+              <tag>out.sasParkLoc=rules.latest();</tag>
+            </item>
+          </item>
+        </one-of>
 				<!-- END Type 2 -->
 			</item>
 		</one-of>

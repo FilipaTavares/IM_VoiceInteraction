@@ -25,6 +25,8 @@ namespace AppGui
             "Infelizmente a cantina do <NOME_CANTINA> está encerrada"
         };
 
+       
+
         private string[] parkNotFound = new string[] {
             "Lamento informar mas não encontrei nenhum parque de estacionamento com o nome <NOME_PARQUE_ESTACIONAMENTO>",
             "Infelizmente não localizei o parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO>"
@@ -177,6 +179,22 @@ namespace AppGui
         * Fr
         */
 
+        /*
+         * Greathings
+         */
+        private string[] greathings = new string[]{
+            "Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"", 
+        };
+
+        /*
+         * HELP
+         */
+
+        private string[] help = new string[]{
+            "Podes questionar-me acerca das refeições nas cantinas.\nEstado das filas das senhas académicas.\nLotação dos parques de estacionamento do campos.\n As últimas notícias acerca da Universidade.\n E o estado do tempo\n",
+        };
+        public string getHelp() { return help[random.Next(0, help.Length)]; }
+        public string getGreathings() { return greathings[random.Next(0, greathings.Length)]; }
         public string getDisableCanteen(string canteenName) {return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>",canteenName);}
         public string getParkNotFound(string parkName){return parkNotFound[random.Next(0, parkNotFound.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", parkName);}
         public string getParkIsFree(ParkData park) {return parkIsFree[random.Next(0, parkIsFree.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", park.Nome).Replace("<NUM_LIVRES>", park.Livre.ToString());}
