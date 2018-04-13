@@ -57,10 +57,15 @@ namespace AppGui
                 if (day > today.Day && day > DateTime.DaysInMonth(year, month) && month != 12)
                     month += 1;
 
-                else if (day > today.Day && day > DateTime.DaysInMonth(year, month) && month == 12)
+                else if (day < today.Day && month == 12)
                 {
                     month = 1;
                     year += 1;
+                }
+
+                else if (day < today.Day && month != 12)
+                {
+                    month += 1;
                 }
 
                 Console.WriteLine(month + "/" + day + "/" + year);
@@ -73,6 +78,7 @@ namespace AppGui
 
                     if (diff1.Days > 16)
                     {
+                        Console.WriteLine(diff1.Days);
                         dManager.manageDialogueWeather(date, "out of range");
                         return;
                     }
