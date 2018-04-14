@@ -20,36 +20,48 @@ namespace AppGui
         {
             client = new HttpClient();
             client.BaseAddress = new Uri("http://services.web.ua.pt/sac/senhas");
+            client.Timeout = TimeSpan.FromSeconds(6);
             this.dManager = dManager;
         }
 
-        public async void request(string[] args)
+        public void request(string[] args)
+        {
+            getResponse(args);
+        }
+
+        async void getResponse(string[] args)
         {
             try
             {
-                client.Timeout = TimeSpan.FromMilliseconds(1);
-                string response = await client.GetStringAsync("?format=json");
+                Task<string> getResponseTask = client.GetStringAsync("?format=json");
 
-                Console.WriteLine(response);
-                Console.WriteLine("COMPUTE RESPOSTA");
+                anotherTask(getResponseTask);
+
+                string response = await getResponseTask;
                 handleResponse(response, args);
+
             }
             catch (HttpRequestException e)
             {
                 if (e.InnerException is WebException)
                 {
-                    //dManager.manageDialogueSACExceptions("webException");
-                    Console.WriteLine("WEB EXCEPTION");
+                    dManager.manageDialogueWeatherConnectionErrors("web exception", "das senhas académicas");
                 }
 
             }
 
             catch (TaskCanceledException e)
             {
-                //ver tipo 5 segundos timeout e aos 3 chamar
+                dManager.manageDialogueWeatherConnectionErrors("timeout", "das senhas académicas");
+            }
+        }
 
-                //dManager.manageDialogueSACExceptions("timeout");
-                Console.WriteLine("CATCH TIMEOUT");
+        private async void anotherTask(Task<string> getResponseTask)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(3));
+            if (!getResponseTask.IsCompleted)
+            {
+                dManager.manageDialogueWeatherConnectionErrors("warning timeout", "das senhas académicas");
             }
         }
 

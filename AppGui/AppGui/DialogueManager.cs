@@ -314,5 +314,27 @@ namespace AppGui
             t.Speak(answers.getHelp());
         }
 
+        public void manageDialogueWeatherConnectionErrors(string error, string description)
+        {
+            string phrase = "";
+
+            switch (error)
+            {
+                case "web exception":
+                    phrase = answers.getConnectionError(description);
+                    break;
+
+                case "warning timeout":
+                    phrase = answers.getWarningSlowConnection(description);
+                    break;
+
+                case "timeout":
+                    phrase = answers.getConnectionTimeoutError(description);
+                    break;
+            }
+
+            t.Speak(phrase);
+        }
+
     }
 }
