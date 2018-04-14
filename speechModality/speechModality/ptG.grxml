@@ -241,14 +241,14 @@ root="rootRule">
         <!-- START Type 3 -->
         <tag>out.sasType="TYPE3";</tag>
         <item>
-            <one-of>
-              <item>Ajuda</item>
-              <item>Ajuda-me</item>
-              <item>Preciso de ajuda</item>
-            </one-of>
-            <item>com os parques</item>
-            <item repeat="0-1">de estacionamento</item>
-          </item>
+          <one-of>
+            <item>Ajuda</item>
+            <item>Ajuda-me</item>
+            <item>Preciso de ajuda</item>
+          </one-of>
+          <item>com os parques</item>
+          <item repeat="0-1">de estacionamento</item>
+        </item>
         <!-- End Type 3 -->
       </item>
 		</one-of>
@@ -552,7 +552,9 @@ root="rootRule">
 	<rule id="newsAPI">
     <example> Type1 - Todas as noticias e update da gramatica</example>
     <example> Type2 - Detalhar uma noticias</example>
+    <example> Type3 - Ajuda com noticias</example>
 
+    
     <tag>out.api="NEWS";</tag>
     <one-of>
 		  <item>
@@ -606,6 +608,15 @@ root="rootRule">
           <ruleref uri="#dynamicNews"/>
           <tag>out.dynamicNews=rules.latest();</tag>
         </item>
+      </item>
+      <item>
+        <tag>out.newsType="TYPE3";</tag>
+        <one-of>
+          <item>Ajuda</item>
+          <item>Ajuda-me</item>
+          <item>Preciso de ajuda</item>
+        </one-of>
+        <item>com as notícias</item>
       </item>
     </one-of>
 

@@ -152,6 +152,17 @@ namespace AppGui
             "Ok, encontrei as seguintes notícias:",
             "Encontrei as seguintes novidades"
         };
+
+        private string[] helpNewsTrue = new string[] {
+            "Posso dizer-te as notícias actuais acerca do campos, basta perguntar.\nO serviço de notícias neste momento está disponível",
+            "Consigo-te dizer quais são as novidades recentes sobre o campos.\nNeste momento o serviço de notícia encontra-se disponível",
+        };
+
+        private string[] helpNewsFalse = new string[] {
+            "Posso dizer-te as notícias, actuais acerca do campos.\nO serviço neste momento está indisponível",
+            "Consigo-te dizer quais são as novidades recentes sobre o campos.\nNeste momento o serviço encontra-se indisponível",
+        };
+
         private string[] allNews = new string[] {
             "<TITULO_NOTICA> \n\n\n"
         };
@@ -310,6 +321,8 @@ namespace AppGui
         }
 
         public string getNewsDescription(NewsData newsData) { return newsDescription[random.Next(0, newsDescription.Length)].Replace("<DESCRICAO>", Regex.Replace(newsData.Description, "<.*?>", String.Empty)); ; }
+
+        public string getHelpNews(bool v){ return v?helpNewsTrue[random.Next(0, helpNewsTrue.Length)]: helpNewsFalse[random.Next(0, helpNewsFalse.Length)];}
 
         public string getWeatherInDay(WeatherData weather)
         {

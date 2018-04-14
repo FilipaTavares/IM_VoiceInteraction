@@ -42,7 +42,12 @@ namespace AppGui
         public void handleIMcommand(string command)
         {
             dynamic json = JsonConvert.DeserializeObject(command);
+
             string[] array;
+            array = new string[json.recognized.Count - 1];
+            for (int i = 1; i < json.recognized.Count; i++)          //0 alredy handled
+                array[i - 1] = (string)json.recognized[i].ToString();
+
             switch ((string)json.recognized[0].ToString())
             {
                 case "CANTEENS":
@@ -53,31 +58,18 @@ namespace AppGui
 
                 case "SAS":
                     Console.WriteLine("SAS");
-
-                    array = new string[json.recognized.Count-1];
-                    for (int i = 1; i < json.recognized.Count; i++)          //0 alredy handled
-                        array[i-1] = (string)json.recognized[i].ToString();
-
                     parking.request(array);
                     
                     break;
 
                 case "SAC":
                     Console.WriteLine("SAC");
-
-                    array = new string[json.recognized.Count-1];
-                    for (int i = 1; i < json.recognized.Count; i++)         
-                        array[i-1] = (string)json.recognized[i].ToString();
-
                     tickets.request(array);
                     
                     break;
                 case "NEWS":
 
-                    array = new string[json.recognized.Count - 1];
-                    for (int i = 1; i < json.recognized.Count; i++)
-                        array[i - 1] = (string)json.recognized[i].ToString();
-
+                    Console.WriteLine("NEWS");
                     news.request(array);
 
                     break;
@@ -260,7 +252,13 @@ namespace AppGui
         {
             string phrase = "";
 
-            if (news.Count > 0) { 
+            if (news.Count < 0){
+                if (args[0].Equals("TYPE3"))
+                    phrase = answers.getHelpNews(true);
+                else
+                    phrase = answers.getNewsServiceUnavailable();
+            }
+            else { 
                 switch (args[0]) {
                     case "TYPE1":
                         phrase = answers.getAllNews(news);
@@ -278,10 +276,12 @@ namespace AppGui
                     case "TYPE2":
                         phrase = answers.getNewsDescription(news[int.Parse(args[1])]);
                         break;
-
+                    case "TYPE3":
+                        phrase = answers.getHelpNews(true);
+                        break;
                 }
-            }else
-                phrase = answers.getNewsServiceUnavailable();
+            }
+
 
             t.Speak(phrase);
             Console.WriteLine(phrase);
