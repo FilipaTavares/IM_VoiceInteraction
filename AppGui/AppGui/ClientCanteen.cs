@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Xml.Linq;
+using System.IO;
 
 namespace AppGui
 {
@@ -15,41 +17,53 @@ namespace AppGui
         private DialogueManager dManager;
 
         public ClientCanteen(DialogueManager dManager) {
-            client = new HttpClient();
-            client.BaseAddress = new Uri("http://services.web.ua.pt/sas/ementas");
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://services.web.ua.pt/sas/ementas?date=week&place=santiago");
             this.dManager = dManager;
         }
 
         public void request(string mealType, string canteen) {
-            string queryParams = "?format=json";
-            client.GetStringAsync(queryParams).ContinueWith((response) => handleCanteenResponse(response.Result,mealType,canteen));
+            client.GetStringAsync("").ContinueWith((response) => handleResponse(response.Result,mealType,canteen));
         }
 
 
-        private void handleCanteenResponse(string response, string mealType, string canteen)
+        private void handleResponse(string response, string mealType, string canteen)
         {
- 
-            dynamic json = JsonConvert.DeserializeObject(response);
+            XDocument document = XDocument.Load(new StringReader(response));
+            List<CanteenData> meals = (from r in document.Descendants("menu")
+                                       where ((string)r.Attribute("canteen")).Equals("Refeitório de Santiago") || ((string)r.Attribute("canteen")).Equals("Refeitório do Crasto")
+                                       from d in r.Elements("items")
+                                       where !d.IsEmpty // elimina cantinas fechadas - vê se items = <items />
+                                       select new CanteenData
+                                       {
+                                           // Atenção usar (string) e nao toString senao vêm as ""
+                                           Canteen = (string)r.Attribute("canteen"),
+                                           Meal = (string)r.Attribute("meal"),
+                                           Date = (string)r.Attribute("date"),
+                                           Weekday = (string)r.Attribute("weekday"),
+                                           WeekdayNr = int.Parse((string)r.Attribute("weekdayNr")),
+                                           Disabled = (string)r.Attribute("disabled"),
+                                           Meat = d.Descendants("item").ElementAt(1).IsEmpty ? "0" : (string)d.Descendants("item").ElementAt(1).Value,
+                                           Fish = d.Descendants("item").ElementAt(2).IsEmpty ? "0" : (string)d.Descendants("item").ElementAt(2).Value,
+                                           Diet = d.Descendants("item").ElementAt(3).IsEmpty ? "0" : (string)d.Descendants("item").ElementAt(3).Value,
+                                           Vegetarian = d.Descendants("item").ElementAt(4).IsEmpty ? "0" : (string)d.Descendants("item").ElementAt(4).Value
+                                       }).ToList<CanteenData>();
 
-            foreach (dynamic canteenResponse in json.menus.menu)
+
+            foreach (var r in meals)
             {
-                //just testing
-                if ((canteenResponse["@attributes"].canteen.ToString().Contains(canteen)) && (canteenResponse["@attributes"].meal.ToString().Equals(mealType)))
-                {
-                    
-                    CanteenData canteenObj = new CanteenData();
-                    canteenObj.Canteen = canteen;
-                    canteenObj.Meal = canteenResponse["@attributes"].meal.ToString();
-                    canteenObj.Date = canteenResponse["@attributes"].date.ToString();
-                    canteenObj.Weekday = canteenResponse["@attributes"].weekday.ToString();
-                    canteenObj.WeekdayNr = int.Parse(canteenResponse["@attributes"].weekdayNr.ToString());
-                    canteenObj.Disabled = canteenResponse["@attributes"].disabled.ToString();
-
-                    dManager.manageDialogueCanteen(canteenObj);
-
-                    break;
-                }
+                Console.WriteLine("---------------------------------------------- " + r.Canteen);
+                Console.WriteLine("---------------------------------------------- " + r.Meal);
+                Console.WriteLine("---------------------------------------------- " + r.Date);
+                Console.WriteLine("---------------------------------------------- " + r.Weekday);
+                Console.WriteLine("---------------------------------------------- " + r.WeekdayNr);
+                Console.WriteLine("---------------------------------------------- " + r.Disabled);
+                Console.WriteLine("---------------------------------------------- " + r.Meat);
+                Console.WriteLine("---------------------------------------------- " + r.Fish);
+                Console.WriteLine("---------------------------------------------- " + r.Diet);
+                Console.WriteLine("---------------------------------------------- " + r.Vegetarian);
             }
+
         }
     }
 }

@@ -14,6 +14,10 @@ namespace AppGui
         private string weekday;
         private int weekdayNr;
         private string disabled;
+        private string meat;
+        private string fish;
+        private string diet;
+        private string vegetarian;
 
         public string Canteen
         {
@@ -90,6 +94,58 @@ namespace AppGui
             set
             {
                 disabled = value;
+            }
+        }
+
+        public string Meat
+        {
+            get
+            {
+                return meat;
+            }
+
+            set
+            {
+                meat = value;
+            }
+        }
+
+        public string Fish
+        {
+            get
+            {
+                return fish;
+            }
+
+            set
+            {
+                fish = value;
+            }
+        }
+
+        public string Diet
+        {
+            get
+            {
+                return diet;
+            }
+
+            set
+            {
+                diet = value;
+            }
+        }
+
+        public string Vegetarian
+        {
+            get
+            {
+                return vegetarian;
+            }
+
+            set
+            {
+                vegetarian = value;
             }
         }
     }
