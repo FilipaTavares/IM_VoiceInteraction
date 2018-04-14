@@ -128,19 +128,22 @@ namespace AppGui
             
             if (park.Found)
             {
-                switch (args[0])
+                switch (args[1])
                 {
-                    case ("TYPE1"):
+                    case ("SUBTYPE1"):
+                    case ("SUBTYPE2"):
                         if (park.Livre > 0)
-                        {
                             phrase = answers.getParkIsFree(park);
-                        }
-                        else {
+                        else
                             phrase = answers.getParkIsNotFree(park);
-                        }
+                        
                         break;
-                    case ("TYPE2"):
+                    case ("SUBTYPE3"):
+                        if (park.Livre > 0)
                             phrase = answers.getParkFreeSpots(park);
+                        else
+                            phrase = answers.getParkNoFreeSpots(park);
+                        
                         break;
                 }
             }
@@ -157,7 +160,10 @@ namespace AppGui
             string phrase = "";
 
             if (park.Count > 0) {
-                phrase = answers.getAllParksFree(park);
+                if (args[0].Equals("TYPE1"))
+                    phrase = answers.getAllParksFree(park);
+                else //TYPE3
+                    phrase = answers.getPraksHelp(park);
 
             } else {
                 phrase = answers.getParkServiceUnavailable();
@@ -245,25 +251,28 @@ namespace AppGui
         {
             string phrase = "";
 
-            if (news.Count > 0 && args.Length == 0)
-            {
-                phrase = answers.getAllNews(news);
+            if (news.Count > 0) { 
+                switch (args[0]) {
+                    case "TYPE1":
+                        phrase = answers.getAllNews(news);
 
-                List<string> lNews = new List<string>();
-                foreach (NewsData nD in news)
-                {
-                    lNews.Add(nD.Title);
+                        List<string> lNews = new List<string>();
+                        foreach (NewsData nD in news)
+                        {
+                            lNews.Add(nD.Title);
+                        }
+
+                        Console.WriteLine("UPDATE GRAMMAR");
+                        t.addNewsToGrammar(lNews);
+
+                        break;
+                    case "TYPE2":
+                        phrase = answers.getNewsDescription(news[int.Parse(args[1])]);
+                        break;
+
                 }
-
-                t.addNewsToGrammar(lNews);
-            }else if (news.Count > 0 && args.Length == 1)
-            {
-                phrase = answers.getNewsDescription(news[int.Parse(args[0])]);
-            }
-            else
-            {
+            }else
                 phrase = answers.getNewsServiceUnavailable();
-            }
 
             t.Speak(phrase);
             Console.WriteLine(phrase);

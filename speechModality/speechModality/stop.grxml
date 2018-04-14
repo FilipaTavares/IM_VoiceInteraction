@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<grammar xml:lang="pt-PT"
+         version="1.0"
+         xmlns="http://www.w3.org/2001/06/grammar"
+tag-format="semantics/1.0"
+root="rootRule">
+
+  <rule id="rootRule" >
+    <item>
+      <ruleref uri="#stop"/>
+    </item>
+  </rule>
+
+  <rule id="help">
+    <tag>out.api="STOPSPEAK";</tag>
+    <item>
+      Para de falar
+    </item>
+  </rule>
+  
+</grammar>

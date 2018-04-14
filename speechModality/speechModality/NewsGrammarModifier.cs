@@ -23,10 +23,12 @@ namespace speechModality
         }
 
         private string replaceXMLinvalidCaracters(string phrase) {
-            return phrase.Replace("&", " e ").Replace("<","").Replace(">", "").Replace("�","");
+            // limit to 10 words and replace
+            return String.Join(" ",phrase.Split(' ').Take(10)).Replace("&", " e ").Replace("<","").Replace(">", "").Replace("�","");
         }
 
         public void addGrammar(string[] news) {
+            Console.WriteLine("ADD TO GRAMMAR");
 
             StringBuilder sb = new StringBuilder();
 
@@ -37,11 +39,9 @@ namespace speechModality
 
             }
 
-            //NOT EFFICIENT !!!!!! TODO small prioraty
+           
             StringBuilder xmlOutput = new StringBuilder();
-            //string text = File.ReadAllText(xmlFile + "\\ptG.grxml");
-            //text = text.Replace("<!-- PLACEHOLD FOR DYNAMIC NEWS HERE DYNAMIC GENERATE -->\n<rule id=\"dynamicNews\">", sb.ToString());
-            //File.WriteAllText(xmlFile, text);
+
 
             string line;
             StreamReader reader = new StreamReader(xmlFile);
@@ -68,7 +68,12 @@ namespace speechModality
             File.WriteAllText(xmlFile, xmlOutput.ToString());
             Grammar gr=new Grammar(xmlFile);
 
-            
+            Console.WriteLine("GRAMATICAS CARREGADAS " + sr.Grammars.Count);
+            foreach (Grammar grIn in sr.Grammars) {
+                grIn.Enabled = false;
+                
+            }
+            gr.Name = "Main Grammar";
             sr.LoadGrammar(gr);
         }
 

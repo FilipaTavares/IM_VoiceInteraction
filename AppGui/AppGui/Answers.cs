@@ -33,21 +33,25 @@ namespace AppGui
         };
 
         private string[] parkIsFree = new string[] {
-            "Sim,",
             "Sim, o parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> tem <NUM_LIVRES> lugares livres",
             "Afirmativo, o parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> ainda tem <NUM_LIVRES> lugares livres",
         };
 
         private string[] parkIsNotFree = new string[] {
-            "Não",
             "Não, o parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> está completamente ocupado",
             "Estás com azar, o parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> está completamente ocupado",
-            "Que infortunio, parece que o parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> está completamente ocupado"
+            "Que infortunio, parece que o parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> está ocupado"
         };
 
         private string[] parkFreeSpots = new string[] {
             "O parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> tem <NUM_LIVRES> lugares livres",
             "Existem <NUM_LIVRES> lugares livres no parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO>"
+        };
+
+        private string[] parkNoFreeSpots = new string[] {
+            "O parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> está completamente ocupado",
+            "O parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO> está cheio",
+            "Não existem lugares livres no parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO>"
         };
 
         private string[] parkServiceUnavailable = new string[] {
@@ -56,7 +60,7 @@ namespace AppGui
         };
     
         private string[] allParksFreeSTART = new string[] {
-            "Ok, encontrei os seguintes parques de estacionamento:",
+            "Podes estacionar nos seguintes parques:",
             "Os seguintes parques de estacionamento estão livres:"
         };
 
@@ -66,7 +70,18 @@ namespace AppGui
             "O estacionamento <NOME_PARQUE_ESTACIONAMENTO> apresenta <NUM_LIVRES> lugares livres"
         };
 
-          private string[] ticketsDescriptionStart = new string[] {
+        private string[] parksHelpSTART = new string[] {
+            "Podes efectuar qualquer questão, acerca da disponibilidade ou lotação, dos parques de estacionamento do campos.\nConheço os seguintes parques de estacionamento:",
+            "Consigo-te dizer, a disponibildiade ou lotação, dos seguintes parques de estacionamento ao redor do campos.\n"
+        };
+
+        private string[] allParks = new string[] {
+            "O parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO>",
+            "O parque <NOME_PARQUE_ESTACIONAMENTO>",
+            "O estacionamento <NOME_PARQUE_ESTACIONAMENTO>"
+        };
+
+        private string[] ticketsDescriptionStart = new string[] {
             "Ok, encontrei as seguintes filas em atendimento:",
             "Estas são as filas que estão a atender:"
           };
@@ -203,6 +218,8 @@ namespace AppGui
 
         public string getParkFreeSpots(ParkData park){return parkFreeSpots[random.Next(0, parkFreeSpots.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", park.Nome).Replace("<NUM_LIVRES>", park.Livre.ToString()); }
 
+        public string getParkNoFreeSpots(ParkData park) { return parkNoFreeSpots[random.Next(0, parkNoFreeSpots.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", park.Nome); }
+
         public string getAllParksFree(List<ParkData> park)
         {
             StringBuilder sb = new StringBuilder(allParksFreeSTART[random.Next(0, allParksFreeSTART.Length)]);
@@ -210,12 +227,27 @@ namespace AppGui
             //TODO SORT PARK FOR FREE SPACE
             foreach (var p in park)
             {
+                if (p.Livre <= 0) continue;
                 sb.Append(allParksFree[random.Next(0, allParksFree.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", p.Nome).Replace("<NUM_LIVRES>", p.Livre.ToString()));
                 sb.Append(".\n");//n sei se o speak tem em conta pontuação
             }
             return sb.ToString();
         }
-    
+
+        public string getPraksHelp(List<ParkData> park)
+        {
+            StringBuilder sb = new StringBuilder(parksHelpSTART[random.Next(0, parksHelpSTART.Length)]);
+            sb.Append(".\n");
+            foreach (var p in park)
+            {
+                if (p.Livre <= 0) continue;
+                sb.Append(allParks[random.Next(0, allParks.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", p.Nome));
+                sb.Append(".\n");
+            }
+            return sb.ToString();
+        }
+        
+
         public string getParkServiceUnavailable() { return parkServiceUnavailable[random.Next(0, parkServiceUnavailable.Length)]; }
 
         public string getTicketsInfo(List<TicketData> tickets) { 

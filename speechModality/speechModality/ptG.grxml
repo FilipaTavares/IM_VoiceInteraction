@@ -38,6 +38,7 @@ root="rootRule">
     <item>
       <one-of>
         <item>Ajuda</item>
+        <item>Preciso de ajuda</item>
         <item>Sinto-me perdido</item>
       </one-of>
     </item>
@@ -85,70 +86,95 @@ root="rootRule">
 	<!-- Rules for comunicate with parquesAPI -->
 	<rule id="sasAPI">
 
-		<example> Type1 - Frases que usam o termo "parque de estacionamento" e querem os parques livres </example>
+		<example> Type1 - Frases para obterem lista de parques</example>
 		<example> Type2 - Frases que usam o termo "parque de estacionamento" e querem QUANTIDADE de lugares livres</example>
+    <example> Type3 - Ajuda com os parques de estacionamento</example>
 
 		<tag>out.api="SAS";</tag>
 		<one-of>
 			<item>
 				<!-- START Type 1 -->
-				<!-- Parque de estacionamento <ESTACIONAMENTO> está livre? -->
-				<!-- Quais os parque de estacionamento <ESTACIONAMENTO> que estão livres? -->
 				<tag>out.sasType="TYPE1";</tag>
         
-				<item repeat="0-1">
-					<one-of>
-						<item>O</item>
-						<item>Quais os</item>
-					</one-of>
-				</item>
+
 				<item>
 					<one-of>
-						<item>parques de estacionamento</item>
-						<item>parque de estacionamento</item>
-					</one-of>
+            
+            <item>
+              <tag>out.sasPhraseType="SUBTYPE1"</tag>
+              <item repeat="0-1">
+                <one-of>
+                  <item>Quais os</item>
+                  <item>Quais são os</item>
+                </one-of>
+              </item>
+              <item>parques de estacionamento</item>
+              <item repeat="0-1">
+                <one-of>
+                  <item>que estão livres</item>
+                  <item>livres</item>
+                </one-of>
+              </item>
+            </item>
+
+            <item>
+              <tag>out.sasPhraseType="SUBTYPE2"</tag>
+              <item>Onde posso</item>
+              <one-of>
+                <item>deixar o meu carro</item>
+                <item>
+                  <item>estacionar</item>
+                  <item repeat="0-1">o meu carro</item>
+                </item>
+              </one-of>
+            </item>
+
+          </one-of>
 				</item>
-				<item repeat="0-1">
-					<ruleref uri="#sasParkLoc"/>
-					<tag>out.sasParkLoc=rules.latest();</tag>
-				</item>
-				<item repeat="0-1">
-					<one-of>
-						<item>que estão livres</item>
-						<item>que está livre</item>
-						<item>está livre</item>
-						<item>livres</item>
-					</one-of>
-				</item>
+				
 				<!-- END Type 1 -->
 			</item>
 			<item>
 				
 				<!-- START Type 2 -->
-				<!-- Quantos lugares estão livres no parque de estacionamento <ESTACIONAMENTO>-->
-				<!-- Quantos lugares livres têm o parque de estacionamento <ESTACIONAMENTO>-->
+				
 				<tag>out.sasType="TYPE2";</tag>
         <one-of>
+          
           <item>
+            <tag>out.sasPhraseType="SUBTYPE1"</tag>
+            <item repeat="0-1">O</item>
 				    <item>
-					    Quantos lugares
+					    parque 
 				    </item>
+            <item repeat="0-1">de estacionamento</item>
+            <item>
+              <ruleref uri="#sasParkLoc"/>
+              <tag>out.sasParkLoc=rules.latest();</tag>
+            </item>
 				    <item>
 					    <one-of>
-						    <item>estão livres no</item>
-						    <item>livres tem o</item>
+						    <item>está livre</item>
+						    <item>está disponível</item>
+                <item>tem lugares livres</item>
+                <item>tem lugares disponíveis</item>
 					    </one-of>
 				    </item>
-				    <item>parque de estacionamento</item>
-				    <item>
-					    <ruleref uri="#sasParkLoc"/>
-					    <tag>out.sasParkLoc=rules.latest();</tag>
-				    </item>
           </item>
+          
           <item>
+            <tag>out.sasPhraseType="SUBTYPE2"</tag>
             <item>
-              Posso deixar o meu carro no parque
+              Posso
             </item>
+            <one-of>
+              <item>deixar o meu carro</item>
+              <item>
+                <item>estacionar</item>
+                <item repeat="0-1">o meu carro</item>
+              </item>
+            </one-of>
+            <item>no parque</item>
             <item repeat="0-1">
               de estacionamento
             </item>
@@ -157,9 +183,72 @@ root="rootRule">
               <tag>out.sasParkLoc=rules.latest();</tag>
             </item>
           </item>
+
+          <item>
+            <tag>out.sasPhraseType="SUBTYPE3"</tag>
+            <one-of>
+              <item>
+                <item repeat="0-1">O</item>
+                <item>
+                  parque
+                </item>
+                <item repeat="0-1">de estacionamento</item>
+                <item>
+                  <ruleref uri="#sasParkLoc"/>
+                  <tag>out.sasParkLoc=rules.latest();</tag>
+                </item>
+                <item>
+                  tem quantos lugares livres
+                </item>
+              </item>
+              <item>
+                <item>Quantos lugares livres</item>
+                <item>
+                  <one-of>
+                    <item>tem o</item>
+                    <item>existem no</item>
+                  </one-of>
+                </item>
+                <item>
+                  parque
+                </item>
+                <item repeat="0-1">de estacionamento</item>
+                <item>
+                  <ruleref uri="#sasParkLoc"/>
+                  <tag>out.sasParkLoc=rules.latest();</tag>
+                </item>
+              </item>
+              <item>
+                <item>Qual é a lotação do</item>
+                <item>
+                  parque
+                </item>
+                <item repeat="0-1">de estacionamento</item>
+                <item>
+                  <ruleref uri="#sasParkLoc"/>
+                  <tag>out.sasParkLoc=rules.latest();</tag>
+                </item>
+              </item>
+            </one-of>
+          </item>
+
         </one-of>
 				<!-- END Type 2 -->
 			</item>
+      <item>
+        <!-- START Type 3 -->
+        <tag>out.sasType="TYPE3";</tag>
+        <item>
+            <one-of>
+              <item>Ajuda</item>
+              <item>Ajuda-me</item>
+              <item>Preciso de ajuda</item>
+            </one-of>
+            <item>com os parques</item>
+            <item repeat="0-1">de estacionamento</item>
+          </item>
+        <!-- End Type 3 -->
+      </item>
 		</one-of>
 
 	</rule>
@@ -173,16 +262,16 @@ root="rootRule">
 				da Residência<tag>out="Residencias"</tag>
 			</item>
 			<item>
-				Subterraneo<tag>out="Subterraneo"</tag>
+				Subterrâneo<tag>out="Subterraneo"</tag>
 			</item>
 			<item>
-				Ceramica<tag>out="Ceramica"</tag>
+				de Cerâmica<tag>out="Ceramica"</tag>
 			</item>
 			<item>
 				de Línguas<tag>out="Linguas"</tag>
 			</item>
 			<item>
-				Incubadora<tag>out="Incubadora"</tag>
+				da Incubadora<tag>out="Incubadora"</tag>
 			</item>
 			<item>
 				do Isca<tag>out="ISCAA Publico"</tag>
@@ -459,12 +548,53 @@ root="rootRule">
 
 	<!-- Rules for comunicate with newsAPI -->
 	<rule id="newsAPI">
-		<tag>out.api="NEWS";</tag>
+    <example> Type1 - Todas as noticias e update da gramatica</example>
+    <example> Type2 - Detalhar uma noticias</example>
+
+    <tag>out.api="NEWS";</tag>
     <one-of>
 		  <item>
-			  <ruleref uri="#newsStart"/>
+        <tag>out.newsType="TYPE1";</tag>
+        <one-of>
+          <item>
+            <item>
+              <one-of>
+                <item>Quais são</item> <!-- se calhar tirar este-->
+                <item>Quero saber</item>
+                <item>Diz-me</item>
+              </one-of>
+            </item>
+            <item>
+              <one-of>
+                <item>as novidades</item>
+                <item>as notícias</item>
+              </one-of>
+            </item>
+            <item repeat="0-1">
+              <one-of>
+                <item>sobre a universiade</item>
+                <item>sobre o campus</item>
+              </one-of>
+            </item>
+          </item>
+          <item>
+            <item>
+              <one-of>
+                <item>Novidades</item>
+                <item>Notícias</item>
+              </one-of>
+            </item>
+            <item>
+              <one-of>
+                <item>sobre a universiade</item>
+                <item>sobre o campus</item>
+              </one-of>
+            </item>
+          </item>
+        </one-of>
 		  </item>
       <item>
+        <tag>out.newsType="TYPE2";</tag>
         <one-of>
           <item>Quero saber mais sobre</item>
           <item>Lê-me sobre</item>
@@ -479,20 +609,6 @@ root="rootRule">
 
 	</rule>
 
-	<rule id="newsStart">
-		<one-of>
-			<item>Notícias</item>
-			<item>Novidades</item>
-		</one-of>
-		<item repeat="0-1">
-			<one-of>
-				<item>de Aveiro</item>
-				<!-- humm incorreto talvez-->
-				<item>sobre a Universidade</item>
-				<item>sobre a Universidade de Aveiro</item>
-			</one-of>
-		</item>
-	</rule>
 
 	<!-- Rules for comunicate with tempoAPI -->
 	<rule id="weatherAPI">

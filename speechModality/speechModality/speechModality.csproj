@@ -105,6 +105,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="stop.grxml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -81,6 +81,7 @@ namespace AppGui
         }
 
         public void sendDynamicNews(List<string> news) {
+            Console.WriteLine("\nADD DYNAMIC\n");
             send("<DYNAMICADD>"+String.Join("|",news));
         }
 

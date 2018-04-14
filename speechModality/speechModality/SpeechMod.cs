@@ -49,7 +49,7 @@ namespace speechModality
             //load pt recognizer
             sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("pt-PT"));
             gr = new Grammar(Environment.CurrentDirectory + "\\ptG.grxml");
-
+            gr.Name = "Main Grammar";
             
             sre.LoadGrammar(gr);
 

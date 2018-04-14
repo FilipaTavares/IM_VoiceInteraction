@@ -14,27 +14,19 @@ namespace AppGui
 
         private HttpClient client;
         private DialogueManager dManager;
-        private List<NewsData> newsList;
 
         public ClientNews(DialogueManager dManager)
         {
             client = new HttpClient();
             client.BaseAddress = new Uri("http://services.sapo.pt/UA/Online/contents_xml");
             this.dManager = dManager;
-            this.newsList = new List<NewsData>();
         }
 
         public void request(string[] args) {
             string queryParams = "?jsonText=true";
 
-            if (args.Length > 0 && newsList.Count < int.Parse(args[0]))
-            {
-                dManager.manageDialogueNews(newsList, args);
-            }
-            else {
-                //because of utf-8
-                client.GetByteArrayAsync(queryParams).ContinueWith((response) => handle(Encoding.UTF8.GetString(response.Result), args));
-            }
+            //antes tinha cache das noticas mas n garantia que estavam sempre updated
+            client.GetByteArrayAsync(queryParams).ContinueWith((response) => handle(Encoding.UTF8.GetString(response.Result), args));
             
             
             //client.GetStringAsync(queryParams).ContinueWith((response) => handle(response.Result));
@@ -46,7 +38,7 @@ namespace AppGui
 
             dynamic json = JsonConvert.DeserializeObject(response);
 
-            newsList = new List<NewsData>();
+            List<NewsData> newsList = new List<NewsData>();
             foreach (dynamic item in json.rss.channel.item) {
                 NewsData news = new NewsData();
                 news.Title = item.title;
