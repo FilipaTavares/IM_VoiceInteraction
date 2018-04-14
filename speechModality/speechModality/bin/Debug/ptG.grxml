@@ -47,18 +47,91 @@ root="rootRule">
   
   <!-- Rules for comunicate with canteensAPI -->
 	<rule id="canteensAPI">
-		<tag>out.api="CANTEENS";</tag>
+    
+    <example> Type1 - Informação sobre as 2 cantinas</example>
+		<example> Type2 - Informação sobre uma cantina</example>
+    <example> Type3 - (tenho fome) Informação sobre uma cantina para hoje</example>
+    <example> Type4 - Ajuda com as cantinas</example>
 
-		<item>Qual é o</item>
-		<item>
-			<ruleref uri="#mealType"/>
-			<tag>out.mealType=rules.latest();</tag>
-		</item>
-		<item repeat="0-1">na cantina</item>
-		<item>
-			<ruleref uri="#canteens"/>
-			<tag>out.canteens=rules.latest();</tag>
-		</item>
+    
+		<tag>out.api="CANTEENS";</tag>
+    <one-of>
+      
+      <item>
+        <tag>out.canteensType="TYPE1";</tag>
+        <one-of>
+          <item>Qual é o</item>
+          <item>O que é o</item>
+        </one-of>
+        <item>
+			    <ruleref uri="#mealType"/>
+			    <tag>out.mealType=rules.latest();</tag>
+		    </item>
+        <one-of>
+          <item>nas cantinas</item>
+          <item>na cantina</item>
+        </one-of>
+        <item repeat="0-1">
+          <item>para</item>
+					<ruleref uri="#weatherDays"/>
+					<tag>out.dayType=rules.weatherDays.dayType;</tag>
+					<tag>out.dayDesc=rules.weatherDays.day;</tag>
+					<tag>out.weekDayNumber=rules.weatherDays.weekdayNumber;</tag> <!--só usado no caso do dos dias da semana -->
+				</item>
+      </item>
+        
+      <item>
+        <tag>out.canteensType="TYPE2";</tag>
+        <one-of>
+          <item>Qual é o</item>
+          <item>O que é o</item>
+        </one-of>
+        <item>
+			    <ruleref uri="#mealType"/>
+			    <tag>out.mealType=rules.latest();</tag>
+		    </item>
+        <one-of>
+          <item>na cantina do</item>
+          <item>no</item>
+        </one-of>
+        <item>
+			    <ruleref uri="#canteens"/>
+			    <tag>out.canteens=rules.latest();</tag>
+		    </item>
+        <item repeat="0-1">
+          <item>para</item>
+					<ruleref uri="#weatherDays"/>
+					<tag>out.dayType=rules.weatherDays.dayType;</tag>
+					<tag>out.dayDesc=rules.weatherDays.day;</tag>
+					<tag>out.weekDayNumber=rules.weatherDays.weekdayNumber;</tag> <!--só usado no caso do dos dias da semana -->
+				</item>
+      </item>
+    
+      <item>
+        <tag>out.canteensType="TYPE3";</tag>
+        <item repeat="0-1">
+          <one-of>
+            <item>Tenho fome</item>
+            <item>Estou com fome</item>
+          </one-of>
+        </item>
+        <item>quero</item>
+        <item>
+			    <ruleref uri="#mealType"/>
+			    <tag>out.mealType=rules.latest();</tag>
+		    </item>
+        <item  repeat="0-1">na cantina</item>
+      </item>  
+      <item>
+        <tag>out.newsType="TYPE4";</tag>
+        <one-of>
+          <item>Ajuda</item>
+          <item>Ajuda-me</item>
+          <item>Preciso de ajuda</item>
+        </one-of>
+        <item>com as cantinas</item>
+      </item>
+    </one-of>
 	</rule>
 
 	<rule id="mealType">
