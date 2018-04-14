@@ -115,3 +115,4 @@ C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\De
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\speechModality.exe
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\speechModality.pdb
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\speechModality\speechModality\obj\Debug\speechModality.csprojResolveAssemblyReference.cache
+D:\Repositorio\IM_VoiceInteraction\speechModality\speechModality\bin\Debug\yesNoGrammar.grxml

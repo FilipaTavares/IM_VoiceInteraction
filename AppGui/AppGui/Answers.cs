@@ -59,6 +59,8 @@ namespace AppGui
             "O serviço de parque de estacionamento não parece estar a funcionar"
         };
 
+        
+
         private string[] allParksFreeSTART = new string[] {
             "Podes estacionar nos seguintes parques:",
             "Os seguintes parques de estacionamento estão livres:"
@@ -69,7 +71,6 @@ namespace AppGui
             "O parque <NOME_PARQUE_ESTACIONAMENTO> tem <NUM_LIVRES> lugares disponiveis",
             "O estacionamento <NOME_PARQUE_ESTACIONAMENTO> apresenta <NUM_LIVRES> lugares livres"
         };
-
         
         private string[] parksHelpSTART = new string[] {
             "Podes efectuar qualquer questão, acerca da disponibilidade ou lotação, dos parques de estacionamento do campos.\nConheço os seguintes parques de estacionamento:",
@@ -240,6 +241,25 @@ namespace AppGui
             "A conexão ao serviço <DESC> está muito lenta. Aconselho-te a tentares mais tarde."
         };
 
+        public string[] normalConfidenceTypeNormal = new string[] {
+            "Desculpa, Percebi <COMMAND> estou correcto.\n",
+            "Percebi <COMMAND> estou correcto.\n",
+            "Disseste <COMMAND>.\n"
+        };
+        
+
+        public string[] lowConfidenceTypeNormal = new string[] {
+            "Estava destraido podes repetir.\n",
+            "Não compreendi, podes repetir.\n",
+            "Não consegui perceber, podes repetir.\n"
+        };
+
+        public string[] lowConfidenceTypeYesNo = new string[] {
+            "Não compreendi. Tu disseste <COMMAND>.\n",
+            "Não compreendi, <COMMAND>, foi isto que disseste sim ou não.\n",
+        };
+        
+
         public string getHelp() { return help[random.Next(0, help.Length)]; }
         public string getGreathings() { return greathings[random.Next(0, greathings.Length)]; }
         public string getDisableCanteen(string canteenName) {return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>",canteenName);}
@@ -396,5 +416,11 @@ namespace AppGui
         {
             return connectionTimeoutError[random.Next(0, connectionTimeoutError.Length)].Replace("<DESC>", description);
         }
+
+        public string getNormalConfidenceTypeNormal(string command){return normalConfidenceTypeNormal[random.Next(0, normalConfidenceTypeNormal.Length)].Replace("<COMMAND>", command);}
+
+        public string getLowConfidenceTypeNormal() { return lowConfidenceTypeNormal[random.Next(0, lowConfidenceTypeNormal.Length)]; }
+
+        public string getLowConfidenceTypeYesNo(string command) { return lowConfidenceTypeYesNo[random.Next(0, lowConfidenceTypeYesNo.Length)].Replace("<COMMAND>", command); }
     }
 }

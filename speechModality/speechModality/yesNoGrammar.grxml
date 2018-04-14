@@ -1,0 +1,37 @@
+﻿<?xml version="1.0"?>
+<grammar xml:lang="pt-PT"
+         version="1.0"
+         xmlns="http://www.w3.org/2001/06/grammar"
+tag-format="semantics/1.0"
+root="rootRule">
+
+  <rule id="rootRule" >
+    <one-of>
+      <item>
+        <ruleref uri="#yes"/>
+      </item>
+      <item>
+        <ruleref uri="#no"/>
+      </item>
+    </one-of>
+
+  </rule>
+
+  <rule id="yes">
+    <tag>out.api="YES";</tag>
+    <one-of>
+      <item>Sim</item>
+      <item>É isso</item>
+      <item>Estás</item>
+    </one-of>
+  </rule>
+
+  <rule id="no">
+    <tag>out.api="NO";</tag>
+    <one-of>
+      <item>Não</item>
+      <item>Não, estás enganado</item>
+    </one-of>
+  </rule>
+
+</grammar>

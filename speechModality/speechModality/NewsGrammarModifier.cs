@@ -70,10 +70,12 @@ namespace speechModality
 
             Console.WriteLine("GRAMATICAS CARREGADAS " + sr.Grammars.Count);
             foreach (Grammar grIn in sr.Grammars) {
-                grIn.Enabled = false;
+                if (grIn.Name.Equals("Main Grammar"))
+                    grIn.Enabled = false;
                 
             }
             gr.Name = "Main Grammar";
+            gr.Enabled = true;
             sr.LoadGrammar(gr);
         }
 

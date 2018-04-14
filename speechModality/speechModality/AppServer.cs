@@ -19,10 +19,13 @@ namespace speechModality
         public TextBox textBox;
         private NewsGrammarModifier grammarModifier;
 
-        public AppServer(SpeechRecognitionEngine sre, TextBox textBox)
+        private Action resetGrammar;
+
+        public AppServer(SpeechRecognitionEngine sre, TextBox textBox, Action resetGrammar)
         {
             this.sre = sre;
             this.textBox = textBox;
+            this.resetGrammar = resetGrammar;
 
             grammarModifier = new NewsGrammarModifier(sre);
         }
@@ -36,7 +39,7 @@ namespace speechModality
                 reader = new StreamReader(server);
                 server.WaitForConnection();
                 Console.WriteLine("NOVA CONEXAO");
-
+                resetGrammar();
 
                 while (true)
                 {

@@ -21,6 +21,9 @@ namespace AppGui
 
         //state of the dialogue like memory :)
         //private ...
+        private dynamic lastCommand;
+        private string lastCommandInputText;
+
         private void greathingsCallback()
         {
             t.Speak(answers.getGreathings());
@@ -39,20 +42,70 @@ namespace AppGui
 
         }
 
-        public void handleIMcommand(string command)
-        {
+        public void handleIMcommand(string command) {
             dynamic json = JsonConvert.DeserializeObject(command);
 
-            string[] array;
-            array = new string[json.recognized.Count - 1];
-            for (int i = 1; i < json.recognized.Count; i++)          //0 alredy handled
-                array[i - 1] = (string)json.recognized[i].ToString();
+            if (((string)json.type.ToString()).Equals("NORMAL"))
+            {
+                switch ((string)json.confidence.ToString())
+                {
+                    case "GOOD":
+                        lastCommand = json.recognized;
+                        handleRecognized(json.recognized);
+                        break;
+                    case "MEDIUM":
+                        lastCommand = json.recognized;
+                        lastCommandInputText = (string)json.inputText.ToString();
+                        //dizer que nao percebeu
+                        t.Speak(answers.getNormalConfidenceTypeNormal(lastCommandInputText));
+                        break;
+                    case "BAD":
+                        t.Speak(answers.getLowConfidenceTypeNormal());
+                        break;
 
-            switch ((string)json.recognized[0].ToString())
+                }
+            }
+            else if (((string)json.type.ToString()).Equals("YESNO"))
+            {
+                switch ((string)json.confidence.ToString())
+                {
+                    case "GOOD":
+                        if (((string)json.recognized[0].ToString()).Equals("YES"))
+                        {
+                            handleRecognized(lastCommand);
+                        }
+                        else {
+                            Console.WriteLine("RECEIVE Não para este comando:\n"+ lastCommand);
+                        }
+                        
+                        break;
+                    case "BAD":
+                        t.Speak(answers.getLowConfidenceTypeYesNo(lastCommandInputText));
+                        break;
+
+                }
+            }
+
+           
+
+        }
+
+
+
+        public void handleRecognized(dynamic recognized)
+        {
+            //dynamic json = JsonConvert.DeserializeObject(command);
+
+            string[] array;
+            array = new string[recognized.Count - 1];
+            for (int i = 1; i < recognized.Count; i++)          //0 alredy handled
+                array[i - 1] = (string)recognized[i].ToString();
+
+            switch ((string)recognized[0].ToString())
             {
                 case "CANTEENS":
                     //use Canteen API
-                    canteen.request((string)json.recognized[1].ToString(), (string)json.recognized[2].ToString());
+                    canteen.request((string)recognized[1].ToString(), (string)recognized[2].ToString());
 
                     break;
 
@@ -76,11 +129,6 @@ namespace AppGui
 
                 case "WEATHER":
                     Console.WriteLine("WEATHER");
-
-                    array = new string[json.recognized.Count - 1];
-                    for (int i = 1; i < json.recognized.Count; i++)
-                        array[i - 1] = (string)json.recognized[i].ToString();
-
                     weather.request(array);
                     break;
                 case "HELP":
