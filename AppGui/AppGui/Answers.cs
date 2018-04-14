@@ -70,7 +70,7 @@ namespace AppGui
             "O estacionamento <NOME_PARQUE_ESTACIONAMENTO> apresenta <NUM_LIVRES> lugares livres"
         };
 
-        private string[] ticketsDescriptionStart = new string[] {
+        
         private string[] parksHelpSTART = new string[] {
             "Podes efectuar qualquer questão, acerca da disponibilidade ou lotação, dos parques de estacionamento do campos.\nConheço os seguintes parques de estacionamento:",
             "Consigo-te dizer, a disponibildiade ou lotação, dos seguintes parques de estacionamento ao redor do campos.\n"

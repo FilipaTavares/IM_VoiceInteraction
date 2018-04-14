@@ -33,8 +33,9 @@ namespace AppGui
             tickets = new ClientSAC(this);
             news = new ClientNews(this);
             weather = new ClientWeather(this);
-            t = new Tts(greathingsCallback);
             answers = new Answers();
+            t = new Tts(greathingsCallback);
+            
 
         }
 

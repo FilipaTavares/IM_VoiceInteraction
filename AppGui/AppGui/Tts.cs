@@ -163,10 +163,12 @@ namespace AppGui
             {
                 Task.Factory.StartNew(() =>
                 {
+
+
                     //play stream in other thread 
                     player.Stream.Position = 0;
                     player.PlaySync();
-                    //player.Stream = null;  //  NEW 2015
+                    player.Stream = null;  //  NEW 2015
                     speachClient.sendTtsStop();
                 });
 

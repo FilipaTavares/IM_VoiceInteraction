@@ -112,7 +112,9 @@ root="rootRule">
               <item repeat="0-1">
                 <one-of>
                   <item>que estão livres</item>
+                  <item>que estão disponíveis</item>
                   <item>livres</item>
+                  <item>disponíveis</item>
                 </one-of>
               </item>
             </item>
