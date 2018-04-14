@@ -82,6 +82,7 @@ root="rootRule">
         
       <item>
         <tag>out.canteensType="TYPE2";</tag>
+        
         <one-of>
           <item>Qual é o</item>
           <item>O que é o</item>
@@ -98,7 +99,9 @@ root="rootRule">
 			    <ruleref uri="#canteens"/>
 			    <tag>out.canteens=rules.latest();</tag>
 		    </item>
+        <tag>out.subType="SUBTYPE1";</tag>
         <item repeat="0-1">
+          <tag>out.subType="SUBTYPE2";</tag>
           <item>para</item>
 					<ruleref uri="#weatherDays"/>
 					<tag>out.dayType=rules.weatherDays.dayType;</tag>
