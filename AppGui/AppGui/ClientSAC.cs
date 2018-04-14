@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,17 +20,50 @@ namespace AppGui
         {
             client = new HttpClient();
             client.BaseAddress = new Uri("http://services.web.ua.pt/sac/senhas");
+            client.Timeout = TimeSpan.FromSeconds(6);
             this.dManager = dManager;
         }
 
         public void request(string[] args)
         {
-            string queryParams = "?format=json";
-
-            client.GetStringAsync(queryParams).ContinueWith((response) => handleResponse(response.Result, args));
-
+            getResponse(args);
         }
 
+        async void getResponse(string[] args)
+        {
+            try
+            {
+                Task<string> getResponseTask = client.GetStringAsync("?format=json");
+
+                anotherTask(getResponseTask);
+
+                string response = await getResponseTask;
+                handleResponse(response, args);
+
+            }
+            catch (HttpRequestException e)
+            {
+                if (e.InnerException is WebException)
+                {
+                    dManager.manageDialogueWeatherConnectionErrors("web exception", "das senhas académicas");
+                }
+
+            }
+
+            catch (TaskCanceledException e)
+            {
+                dManager.manageDialogueWeatherConnectionErrors("timeout", "das senhas académicas");
+            }
+        }
+
+        private async void anotherTask(Task<string> getResponseTask)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(3));
+            if (!getResponseTask.IsCompleted)
+            {
+                dManager.manageDialogueWeatherConnectionErrors("warning timeout", "das senhas académicas");
+            }
+        }
 
         private void handleResponse(string response, string[] args)
         {

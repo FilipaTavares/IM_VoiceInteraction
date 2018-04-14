@@ -317,6 +317,7 @@ root="rootRule">
 							<one-of>
 								<item>existem</item>
 								<item>estão disponíveis</item>
+								<item>há disponíveis</item>
 							</one-of>
 						</item>
 					</item>
@@ -388,7 +389,6 @@ root="rootRule">
 						
 						<item repeat="0-1"> 
 							<one-of>
-								<item>Qual</item>
 								<item>Qual o</item>
 								<item>Qual é o</item>
 								<item>Quanto</item>
@@ -473,7 +473,7 @@ root="rootRule">
 				<one-of>
 					<item>Tenho de</item>
 					<item>Esqueci-me de</item>
-					<item>Tenho de</item>
+					<item>Quero</item>
 				</one-of>
 
 				<item>pagar as propinas</item>

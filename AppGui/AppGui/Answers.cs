@@ -25,7 +25,7 @@ namespace AppGui
             "Infelizmente a cantina do <NOME_CANTINA> está encerrada"
         };
 
-       
+
 
         private string[] parkNotFound = new string[] {
             "Lamento informar mas não encontrei nenhum parque de estacionamento com o nome <NOME_PARQUE_ESTACIONAMENTO>",
@@ -58,7 +58,7 @@ namespace AppGui
             "Estranho não consegui encontrar nenhum parque de estacionamento",
             "O serviço de parque de estacionamento não parece estar a funcionar"
         };
-    
+
         private string[] allParksFreeSTART = new string[] {
             "Podes estacionar nos seguintes parques:",
             "Os seguintes parques de estacionamento estão livres:"
@@ -70,6 +70,7 @@ namespace AppGui
             "O estacionamento <NOME_PARQUE_ESTACIONAMENTO> apresenta <NUM_LIVRES> lugares livres"
         };
 
+        private string[] ticketsDescriptionStart = new string[] {
         private string[] parksHelpSTART = new string[] {
             "Podes efectuar qualquer questão, acerca da disponibilidade ou lotação, dos parques de estacionamento do campos.\nConheço os seguintes parques de estacionamento:",
             "Consigo-te dizer, a disponibildiade ou lotação, dos seguintes parques de estacionamento ao redor do campos.\n"
@@ -90,7 +91,7 @@ namespace AppGui
             "A fila <NOME_DA_FILA> que trata de assuntos <DESCRIÇÃO> vai no número <NÚMERO_DA_SENHA>. \n"
         };
 
-         private string[] ticketNotFound = new string[] {
+        private string[] ticketNotFound = new string[] {
             "Lamento informar mas não encontrei nenhuma senha da fila <NOME_DA_FILA> em funcionamento",
             "Infelizmente não encontrei nenhuma fila em atendimento com a descrição <NOME_DA_FILA>",
             "A fila <NOME_DA_FILA> não está aberta"
@@ -108,14 +109,14 @@ namespace AppGui
         };
 
         // ver plural e singular
-         private string[] ticketAverageWaitingTime = new string[] {
+        private string[] ticketAverageWaitingTime = new string[] {
             "Na fila <NOME_DA_FILA> o tempo médio de espera é de <TEMPO_ESPERA> minutos e o tempo médio de atendimento é de <TEMPO_ATENDIMENTO> minutos",
             "Na fila de atendimento <NOME_DA_FILA> demora-se cerca de <TEMPO_ESPERA> minutos à espera e <TEMPO_ATENDIMENTO> minutos a ser atendido",
             "Neste momento, na fila <NOME_DA_FILA> espera-se cerca de <TEMPO_ESPERA> minutos e é-se atendido em <TEMPO_ATENDIMENTO> minutos",
             "Vais ter de esperar <TEMPO_ESPERA> minutos na fila <NOME_DA_FILA> para seres atendido em cerca de <TEMPO_ATENDIMENTO> minutos"
         };
 
-        private string[] ticketPeopleWaiting = new string[] 
+        private string[] ticketPeopleWaiting = new string[]
         {
             "Para a fila <NOME_DA_FILA> estão à espera <CLIENTES_EM_ESPERA> pessoas",
             "<CLIENTES_EM_ESPERA> pessoas estão à espera na fila <NOME_DA_FILA>",
@@ -128,14 +129,16 @@ namespace AppGui
         {
             "Para pagares as propinas podes tirar uma senha da fila <NOME_DA_FILA> que trata de assuntos de <DESC>," +
             " e que vai no número <NÚMERO_DA_SENHA>",
-            "Podes pagar as propinas "
+            "Podes pagar as propinas com uma senha da fila <NOME_DA_FILA> que trata de assuntos de <DESC>," +
+            " e que vai no número <NÚMERO_DA_SENHA>"
         };
 
         private string[] ticketLineAClosed = new string[]
         {
-
+            "Estás com azar, a fila <NOME_DA_FILA> que trata de assuntos de <DESC> não está aberta",
+            "Estás com azar, a fila <NOME_DA_FILA> que trata de assuntos de <DESC> está fechada",
+            "A fila <NOME_DA_FILA> que trata de assuntos de <DESC> não está em atendimento"
         };
-
 
         /*
          * FRASES PARA NEWS 
@@ -159,7 +162,7 @@ namespace AppGui
 
         // 13 14 31 0 chuva moderada domingo 15/04/2018 00:00:00
         // return minTemp + " " + maxTemp + " " + windSpeed + " " + humidity + " " + description + " " + dayDescription
-            //    + " " + Date.ToString();
+        //    + " " + Date.ToString();
 
         private string[] weatherInDay = new string[]
         {
@@ -198,7 +201,7 @@ namespace AppGui
          * Greathings
          */
         private string[] greathings = new string[]{
-            "Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"", 
+            "Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"",
         };
 
         /*
@@ -208,6 +211,24 @@ namespace AppGui
         private string[] help = new string[]{
             "Podes questionar-me acerca das refeições nas cantinas.\nEstado das filas das senhas académicas.\nLotação dos parques de estacionamento do campos.\n As últimas notícias acerca da Universidade.\n E o estado do tempo\n",
         };
+
+        public string[] connectionError = new string[] {
+            "Desculpa, mas não consigo contactar o serviço <DESC>. Poderá ser um problema de internet ou então o serviço está em baixo.",
+            "Infelizmente, não consigo contactar o serviço <DESC>. Será talvez um problema de internet ou então o serviço está em baixo."
+        };
+
+        public string[] warningSlowConnection = new string[] {
+            "Desculpa, a conexão ao serviço <DESC> está a demorar um pouco. Assim que tiver a resposta informo-te.",
+            "Infelizmente, a conexão ao serviço <DESC> está a demorar um pouco. Assim que puder já te respondo.",
+            "A conexão ao serviço <DESC> está um pouco lenta. Não saias daí, assim que conseguir já te respondo."
+        };
+
+        public string[] connectionTimeoutError = new string[] {
+            "Desculpa, a conexão ao serviço <DESC> demorou muito. Aconselho-te a tentares mais tarde.",
+            "Infelizmente, a conexão ao serviço <DESC> demorou muito. Poderás tentar mais tarde.",
+            "A conexão ao serviço <DESC> está muito lenta. Aconselho-te a tentares mais tarde."
+        };
+
         public string getHelp() { return help[random.Next(0, help.Length)]; }
         public string getGreathings() { return greathings[random.Next(0, greathings.Length)]; }
         public string getDisableCanteen(string canteenName) {return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>",canteenName);}
@@ -320,10 +341,8 @@ namespace AppGui
             {
                 return getWeatherRainAnswer(weather, weatherRainFalse);
             }
-           
-               
-
-            }
+                 
+        }
 
         private string getWeatherRainAnswer(WeatherData weather, string[] rainArray)
         {
@@ -337,6 +356,32 @@ namespace AppGui
                 return rainArray[random.Next(0, rainArray.Length)].Replace("<DIA>", weather.DayDescription + ", no dia " + weather.Date.Day).Replace("<DESC>", weather.Description);
             }
         }
-    }
 
+        public string getTicketLineA(TicketData ticket)
+        {
+            return ticketLineA[random.Next(0, ticketLineA.Length)].Replace("<NOME_DA_FILA>", ticket.Letter)
+                .Replace("<DESC>", ticket.Description).Replace("<NÚMERO_DA_SENHA>", ticket.Latest.ToString());
+        }
+
+        public string getTicketLineAClosed(TicketData ticket)
+        {
+            return ticketLineAClosed[random.Next(0, ticketLineAClosed.Length)].Replace("<NOME_DA_FILA>", ticket.Letter)
+                .Replace("<DESC>", ticket.Description);
+        }
+
+        public string getConnectionError(string description)
+        {
+            return connectionError[random.Next(0, connectionError.Length)].Replace("<DESC>", description);
+        }
+
+        public string getWarningSlowConnection(string description)
+        {
+            return warningSlowConnection[random.Next(0, warningSlowConnection.Length)].Replace("<DESC>", description);
+        }
+
+        public string getConnectionTimeoutError(string description)
+        {
+            return connectionTimeoutError[random.Next(0, connectionTimeoutError.Length)].Replace("<DESC>", description);
+        }
     }
+}

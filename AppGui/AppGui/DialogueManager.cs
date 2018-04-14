@@ -208,7 +208,6 @@ namespace AppGui
 
             if (ticket.Enabled)
             {
-
                 Console.WriteLine("ENABLED");
 
                 if (type.Equals("TYPE2"))
@@ -231,7 +230,7 @@ namespace AppGui
 
                 else if (type.Equals("TYPE5"))
                 {
-                    //phrase = answers.getTicketPeopleWaiting(ticket);
+                    phrase = answers.getTicketLineA(ticket);
                     Console.WriteLine("GET INFO ABOUT TICKET A TO PAY FEES");
                 }
 
@@ -239,8 +238,17 @@ namespace AppGui
 
             else
             {
-                phrase = answers.getTicketNotFound(ticket);
-                Console.WriteLine("TICKET NOT FOUND");
+                if (type.Equals("TYPE5"))
+                {
+                    phrase = answers.getTicketLineAClosed(ticket);
+                    Console.WriteLine("TICKET A CLOSED - PROPINAS");
+                }
+
+                else
+                {
+                    phrase = answers.getTicketNotFound(ticket);
+                    Console.WriteLine("TICKET NOT FOUND");
+                }
             }
             
             t.Speak(phrase);
@@ -313,6 +321,28 @@ namespace AppGui
 
         public void manageDialogueHelp() {
             t.Speak(answers.getHelp());
+        }
+
+        public void manageDialogueWeatherConnectionErrors(string error, string description)
+        {
+            string phrase = "";
+
+            switch (error)
+            {
+                case "web exception":
+                    phrase = answers.getConnectionError(description);
+                    break;
+
+                case "warning timeout":
+                    phrase = answers.getWarningSlowConnection(description);
+                    break;
+
+                case "timeout":
+                    phrase = answers.getConnectionTimeoutError(description);
+                    break;
+            }
+
+            t.Speak(phrase);
         }
 
     }
