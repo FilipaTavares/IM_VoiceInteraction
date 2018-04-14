@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace AppGui
         {
             client = new HttpClient();
             client.BaseAddress = new Uri("http://services.web.ua.pt/parques/parques");
+            client.Timeout = TimeSpan.FromSeconds(6);
+
             this.dManager = dManager;
             this.invalidParks = new HashSet<string>();
             invalidParks.Add("ZTC");
@@ -38,8 +41,43 @@ namespace AppGui
 
         public void request(string[] args)
         {
-            client.GetStringAsync("").ContinueWith((response) => handleResponse(response.Result, args));
+            getResponse(args);
+            
 
+        }
+
+        async void getResponse(string[] args) {
+            try
+            {
+                Task<string> getResponseTask = client.GetStringAsync("");
+
+                anotherTask(getResponseTask);
+
+                string response = await getResponseTask;
+                handleResponse(response, args);
+
+            }
+            catch (HttpRequestException e)
+            {
+                if (e.InnerException is WebException)
+                {
+                    dManager.manageDialogueWeatherConnectionErrors("web exception", "dos parques de estacionamento");
+                }
+
+            }
+            catch (TaskCanceledException e)
+            {
+                dManager.manageDialogueWeatherConnectionErrors("timeout", "dos parques de estacionamento");
+            }
+        }
+
+        private async void anotherTask(Task<string> getResponseTask)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(3));
+            if (!getResponseTask.IsCompleted)
+            {
+                dManager.manageDialogueWeatherConnectionErrors("warning timeout", "dos parques de estacionamento");
+            }
         }
 
         private void handleResponse(string response, string[] args)

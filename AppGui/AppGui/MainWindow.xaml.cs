@@ -45,7 +45,7 @@ namespace AppGui
             Console.WriteLine(e.Message);
             var doc = XDocument.Parse(e.Message);
             var com = doc.Descendants("command").FirstOrDefault().Value;
-
+          
             dManager.handleIMcommand(com);
 
         }

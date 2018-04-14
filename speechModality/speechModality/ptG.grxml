@@ -186,7 +186,8 @@ root="rootRule">
                   <item>Quais são os</item>
                 </one-of>
               </item>
-              <item>parques de estacionamento</item>
+              <item>parques</item>
+              <item repeat="0-1"> de estacionamento</item>
               <item repeat="0-1">
                 <one-of>
                   <item>que estão livres</item>

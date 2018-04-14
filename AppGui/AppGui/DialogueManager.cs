@@ -151,7 +151,7 @@ namespace AppGui
 
         public void manageDialogueSAS(List<ParkData> park, string[] args) {
             string phrase = "";
-
+            Console.WriteLine("ENTER DIALOGUE SAS");
             if (park.Count > 0) {
                 if (args[0].Equals("TYPE1"))
                     phrase = answers.getAllParksFree(park);
