@@ -18,6 +18,8 @@ namespace AppGui
         private string fish;
         private string diet;
         private string vegetarian;
+        private string option;
+        private string dayDescription;
 
         public string Canteen
         {
@@ -146,6 +148,31 @@ namespace AppGui
             set
             {
                 vegetarian = value;
+            }
+        }
+
+        public string Option
+        {
+            get
+            {
+                return option;
+            }
+
+            set
+            {
+                option = value;
+            }
+        }
+        public string DayDescription
+        {
+            get
+            {
+                return dayDescription;
+            }
+
+            set
+            {
+                dayDescription = value;
             }
         }
     }

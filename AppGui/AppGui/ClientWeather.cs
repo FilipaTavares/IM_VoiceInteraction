@@ -114,15 +114,16 @@ namespace AppGui
                 {
                     TimeSpan diff1 = date.Subtract(today);
 
-                    if (diff1.Days > 16)
+                    if (diff1.Days > int.Parse(json.cnt.ToString()) - 1)
                     {
                         Console.WriteLine(diff1.Days);
-                        dManager.manageDialogueWeather(date, "out of range");
+                        dManager.manageDialogueWeatherOutOfRangeDay(date, int.Parse(json.cnt.ToString()));
                         return;
                     }
 
                     else
                     {
+                        Console.WriteLine(diff1.Days);
                         weather = GetWeather(json, diff1.Days, "no dia " + day, date);
                     }
 
@@ -131,7 +132,7 @@ namespace AppGui
                 else
                 {
                     Console.WriteLine("NAO FEZ PARSE");
-                    dManager.manageDialogueWeather(weather.Date, "invalid");
+                    dManager.manageDialogueWeatherInvalidDate(day, month);
                     return;
                 }
             }
@@ -157,7 +158,7 @@ namespace AppGui
             return weather;
         }
 
-        public static int getNextWeekday(DateTime start, int day)
+        private static int getNextWeekday(DateTime start, int day)
         {
             return (day - (int)DateTime.Today.DayOfWeek + 7) % 7;
         }

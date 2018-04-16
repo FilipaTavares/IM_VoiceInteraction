@@ -25,7 +25,15 @@ namespace AppGui
             "Infelizmente a cantina do <NOME_CANTINA> está encerrada"
         };
 
+        private string[] canteenMeals = new string[] {
+            "<DIA> para o almoço <REFEIÇÃO> podes comer <CARNE>\n<PEIXE>\n<OPÇÃO>\n<DIETA>\n<VEGETARIANO>."
+        };
 
+        private string[] canteenMealsDayInvalid = new string[] // exemplo 30 de fevereiro
+        {
+            "Desculpa, mas o dia que pediste <DIA> não existe",
+            "Desculpa, mas o dia que pediste <DIA> é inválido"
+        };
 
         private string[] parkNotFound = new string[] {
             "Lamento informar mas não encontrei nenhum parque de estacionamento com o nome <NOME_PARQUE_ESTACIONAMENTO>",
@@ -189,8 +197,8 @@ namespace AppGui
 
         private string[] weatherDayOutOfRange = new string[]
         {
-            "Desculpa, não consigo ver o tempo para o dia <DIA>.\nA previsão é só até 17 dias",
-            "Estás com azar, para o dia <DIA> não é possível saber o tempo.\nA previsão só vai até 17 dias"
+            "Desculpa, não consigo ver o tempo para o dia <DIA>.\nA previsão é só até <DIAS> dias",
+            "Estás com azar, para o dia <DIA> não é possível saber o tempo.\nA previsão só vai até <DIAS> dias"
         };
 
         private string[] weatherRainTrue = new string[]
@@ -242,28 +250,50 @@ namespace AppGui
         };
 
         public string[] normalConfidenceTypeNormal = new string[] {
-            "Desculpa, Percebi <COMMAND> estou correcto.\n",
-            "Percebi <COMMAND> estou correcto.\n",
-            "Disseste <COMMAND>.\n"
+            "Desculpa, Percebi <COMMAND>.\n Estou correcto?\n",
+            "Percebi <COMMAND>.\n Estou correcto?\n",
+            "Disseste <COMMAND>?\n"
         };
         
 
         public string[] lowConfidenceTypeNormal = new string[] {
-            "Estava destraido podes repetir.\n",
-            "Não compreendi, podes repetir.\n",
-            "Não consegui perceber, podes repetir.\n"
+            "Estava distraído podes repetir?\n",
+            "Não compreendi, podes repetir?\n",
+            "Não consegui perceber, podes repetir?\n"
         };
 
         public string[] lowConfidenceTypeYesNo = new string[] {
-            "Não compreendi. Tu disseste <COMMAND>.\n",
-            "Não compreendi, <COMMAND>, foi isto que disseste sim ou não.\n",
+            "Não compreendi. Tu disseste <COMMAND>?\n",
+            "Não compreendi, <COMMAND>, foi isto que disseste sim ou não?\n",
         };
         
 
         public string getHelp() { return help[random.Next(0, help.Length)]; }
+
         public string getGreathings() { return greathings[random.Next(0, greathings.Length)]; }
+
         public string getDisableCanteen(string canteenName) {return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>",canteenName);}
+
+        public string getCanteenMeals(CanteenData canteen)
+        {
+            StringBuilder sb = new StringBuilder(canteenMeals[random.Next(0, canteenMeals.Length)]);
+
+            sb.Replace("<DIA>", canteen.DayDescription);
+            sb.Replace("<REFEIÇÃO>", canteen.Meal);
+            sb.Replace("<CARNE>", !canteen.Meat.Equals("0") ? canteen.Meat : "");
+            sb.Replace("<PEIXE>", !canteen.Fish.Equals("0") ? canteen.Fish : "");
+            sb.Replace("<OPÇÃO>", !canteen.Option.Equals("0") ? canteen.Option : "");
+            sb.Replace("<DIETA>", !canteen.Diet.Equals("0") ? canteen.Diet : "");
+            sb.Replace("<VEGETARIANO>", !canteen.Vegetarian.Equals("0") ? canteen.Vegetarian : "");
+
+            return sb.ToString();
+
+        }
+
+        public string getCanteenMealsDayInvalid(int day, int month) { return canteenMealsDayInvalid[random.Next(0, canteenMealsDayInvalid.Length)].Replace("<DIA>", day.ToString() + " de " + culture.DateTimeFormat.GetMonthName(month)); }
+
         public string getParkNotFound(string parkName){return parkNotFound[random.Next(0, parkNotFound.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", parkName);}
+
         public string getParkIsFree(ParkData park) {return parkIsFree[random.Next(0, parkIsFree.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", park.Nome).Replace("<NUM_LIVRES>", park.Livre.ToString());}
 
         public string getParkIsNotFree(ParkData park) {return parkIsNotFree[random.Next(0, parkIsNotFree.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", park.Nome);}
@@ -360,9 +390,9 @@ namespace AppGui
 
         }
 
-        public string getWeatherDayOutOfRange(DateTime date) { return weatherDayOutOfRange[random.Next(0, weatherDayOutOfRange.Length)].Replace("<DIA>", date.Day + " de " + culture.DateTimeFormat.GetMonthName(date.Month)); }
+        public string getWeatherDayOutOfRange(DateTime date, int days) { return weatherDayOutOfRange[random.Next(0, weatherDayOutOfRange.Length)].Replace("<DIA>", date.Day + " de " + culture.DateTimeFormat.GetMonthName(date.Month)).Replace("<DIAS>", days.ToString()); }
 
-        public string getWeatherDayInvalid(DateTime date) { return weatherDayInvalid[random.Next(0, weatherDayInvalid.Length)].Replace("<DIA>", date.Day + " de " + culture.DateTimeFormat.GetMonthName(date.Month)); }
+        public string getWeatherDayInvalid(int day, int month) { return weatherDayInvalid[random.Next(0, weatherDayInvalid.Length)].Replace("<DIA>", day.ToString() + " de " + culture.DateTimeFormat.GetMonthName(month)); }
 
         public string getWeatherRain(WeatherData weather) {
             if (weather.Description.Contains("chuva"))

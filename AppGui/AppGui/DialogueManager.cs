@@ -85,28 +85,21 @@ namespace AppGui
 
                 }
             }
-
-           
-
         }
-
-
 
         public void handleRecognized(dynamic recognized)
         {
             //dynamic json = JsonConvert.DeserializeObject(command);
 
-            string[] array;
-            array = new string[recognized.Count - 1];
+            string[] array = new string[recognized.Count - 1];
             for (int i = 1; i < recognized.Count; i++)          //0 alredy handled
                 array[i - 1] = (string)recognized[i].ToString();
 
             switch ((string)recognized[0].ToString())
             {
                 case "CANTEENS":
-                    //use Canteen API
-                    canteen.request((string)recognized[1].ToString(), (string)recognized[2].ToString());
-
+                    Console.WriteLine("CANTEENS");
+                    canteen.request(array);
                     break;
 
                 case "SAS":
@@ -150,15 +143,31 @@ namespace AppGui
 
             string phrase = "";
 
-            if (canteen.Disabled.Equals("0"))
-            {
-                //cantina aberta
-            }
-            else {
-                phrase = answers.getDisableCanteen(canteen.Canteen);
+            /*
+            if (canteen) 
+            { 
+                um valor default para nnao ter encontrado data
             }
 
+            */
+
+            if (canteen.Disabled.Equals("0"))
+            {
+                phrase = answers.getCanteenMeals(canteen);
+            }
+
+            else
+            {
+                phrase = answers.getDisableCanteen(canteen.Canteen);
+            }
             
+            t.Speak(phrase);
+        }
+
+
+        public void manageDialogueCanteenInvalidDate(int day, int month)
+        {
+            string phrase = answers.getCanteenMealsDayInvalid(day, month);
             t.Speak(phrase);
         }
 
@@ -353,16 +362,17 @@ namespace AppGui
             Console.WriteLine(phrase);
         }
 
-        public void manageDialogueWeather(DateTime date, string flag)
+        public void manageDialogueWeatherOutOfRangeDay(DateTime date, int days)
         {
-            string phrase = "";
-            if (flag.Equals("invalid"))
-                phrase = answers.getWeatherDayInvalid(date);
-        
-            else
-            {
-                phrase = answers.getWeatherDayOutOfRange(date);
-            }
+            string phrase = answers.getWeatherDayOutOfRange(date, days);
+            t.Speak(phrase);
+            Console.WriteLine(phrase);
+
+        }
+
+        public void manageDialogueWeatherInvalidDate(int day, int month)
+        {
+            string phrase = answers.getWeatherDayInvalid(day, month);
             t.Speak(phrase);
             Console.WriteLine(phrase);
 
