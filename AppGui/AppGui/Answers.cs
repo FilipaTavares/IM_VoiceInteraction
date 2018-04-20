@@ -19,22 +19,6 @@ namespace AppGui
             this.culture = new CultureInfo("pt-PT");
         }
 
-        private string[] canteenDisable = new string[] {
-            "Parece que a cantina do <NOME_CANTINA> está encerrada",
-            "Lamento informar mas a cantina está encerrada",
-            "Infelizmente a cantina do <NOME_CANTINA> está encerrada"
-        };
-
-        private string[] canteenMeals = new string[] {
-            "<DIA> para o almoço <REFEIÇÃO> podes comer <CARNE>\n<PEIXE>\n<OPÇÃO>\n<DIETA>\n<VEGETARIANO>."
-        };
-
-        private string[] canteenMealsDayInvalid = new string[] // exemplo 30 de fevereiro
-        {
-            "Desculpa, mas o dia que pediste <DIA> não existe",
-            "Desculpa, mas o dia que pediste <DIA> é inválido"
-        };
-
         private string[] parkNotFound = new string[] {
             "Lamento informar mas não encontrei nenhum parque de estacionamento com o nome <NOME_PARQUE_ESTACIONAMENTO>",
             "Infelizmente não localizei o parque de estacionamento <NOME_PARQUE_ESTACIONAMENTO>"
@@ -221,7 +205,8 @@ namespace AppGui
          * Greathings
          */
         private string[] greathings = new string[]{
-            "Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"",
+            //"Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"",
+            "MUDAR"
         };
 
         /*
@@ -266,13 +251,40 @@ namespace AppGui
             "Não compreendi. Tu disseste <COMMAND>?\n",
             "Não compreendi, <COMMAND>, foi isto que disseste sim ou não?\n",
         };
-        
+
+        //CANTEEN
+
+        private string[] canteenDisable = new string[] {
+            "Parece que a cantina do <NOME_CANTINA> está encerrada durante o <REFEIÇÃO> <DIA> ",
+            "Infelizmente a cantina do <NOME_CANTINA> está encerrada durante o <REFEIÇÃO> <DIA> "
+        };
+
+        private string[] canteenMeals = new string[] {
+            "<DIA> para o <REFEIÇÃO>, na cantina do <NOME_CANTINA> podes comer <CARNE>\n<PEIXE>\n<OPÇÃO>\n<DIETA>\n<VEGETARIANO>.",
+            "<DIA> a cantina do <NOME_CANTINA> está a servir para o <REFEIÇÃO>, <CARNE>\n<PEIXE>\n<OPÇÃO>\n<DIETA>\n<VEGETARIANO>."
+        };
+
+        private string[] canteenNotFound = new string[] {
+            "Não existem registos de refeições da cantina do <NOME_CANTINA> durante o <MEAL_TIME> do dia <DIA> de <MES>\n ",
+            "A cantina do <NOME_CANTINA> não está a servir <MEAL_TIME> do dia <DIA> de <MES>\n",
+        };
+
+        private string[] canteenMealsDayInvalid = new string[] // exemplo 30 de fevereiro
+        {
+            "Desculpa, mas o dia que pediste <DIA> não existe",
+            "Desculpa, mas o dia que pediste <DIA> é inválido"
+        };
+
+        private string[] canteensHelp = new string[] {
+            "Podes efectuar qualquer questão, acerca do almoço ou jantar nas cantinas do Crasto ou San Tiago, para qualquer dia.",
+            "Consigo-te dizer, o almoço ou jantar nas cantinas do Crasto ou San Tiago, para qualquer dia."
+        };
 
         public string getHelp() { return help[random.Next(0, help.Length)]; }
 
         public string getGreathings() { return greathings[random.Next(0, greathings.Length)]; }
 
-        public string getDisableCanteen(string canteenName) {return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>",canteenName);}
+        public string getDisableCanteen(CanteenData canteen) {return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>", canteen.Canteen).Replace("<REFEIÇÃO>", canteen.Meal).Replace("<DIA>", canteen.DayDescription); }
 
         public string getCanteenMeals(CanteenData canteen)
         {
@@ -280,6 +292,7 @@ namespace AppGui
 
             sb.Replace("<DIA>", canteen.DayDescription);
             sb.Replace("<REFEIÇÃO>", canteen.Meal);
+            sb.Replace("<NOME_CANTINA>", canteen.Canteen);
             sb.Replace("<CARNE>", !canteen.Meat.Equals("0") ? canteen.Meat : "");
             sb.Replace("<PEIXE>", !canteen.Fish.Equals("0") ? canteen.Fish : "");
             sb.Replace("<OPÇÃO>", !canteen.Option.Equals("0") ? canteen.Option : "");
@@ -289,6 +302,8 @@ namespace AppGui
             return sb.ToString();
 
         }
+
+        public string getCanteensHelp() { return canteensHelp[random.Next(0, canteensHelp.Length)]; }
 
         public string getCanteenMealsDayInvalid(int day, int month) { return canteenMealsDayInvalid[random.Next(0, canteenMealsDayInvalid.Length)].Replace("<DIA>", day.ToString() + " de " + culture.DateTimeFormat.GetMonthName(month)); }
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" 
          version="1.0" 
          xmlns="http://www.w3.org/2001/06/grammar"
@@ -847,8 +847,14 @@ root="rootRule">
 	</rule>
 
 
-  <rule id="dynamicNews">
-    <item>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</item>
-  </rule>
-
+<rule id="dynamicNews">
+<one-of>
+<item><sapi:subset sapi:match="ordered-subset">A UA explica e se a Terra parasse?</sapi:subset><tag>out="0"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">AAUAv campeã nacional universitária de hóquei em patins</sapi:subset><tag>out="1"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Provas do Programa Doutoral em Biologia de António Miguel de</sapi:subset><tag>out="2"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Dia Mundial do Livro e dos Direitos de Autor assinalado</sapi:subset><tag>out="3"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Bolsa de Pós-Doutoramento no âmbito do projeto/instituição de I e D SMART</sapi:subset><tag>out="4"</tag></item>
+<item><sapi:subset sapi:match="ordered-subset">Bolsa de Investigação no âmbito do projeto/instituição de I e D SMART</sapi:subset><tag>out="5"</tag></item>
+</one-of>
+</rule>
 </grammar>

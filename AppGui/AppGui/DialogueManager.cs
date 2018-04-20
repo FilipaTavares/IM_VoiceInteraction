@@ -139,32 +139,28 @@ namespace AppGui
             t.close();
         }
 
-        public void manageDialogueCanteen(CanteenData canteen) {
+        public void manageDialogueCanteen(List<CanteenData> canteens) {
 
-            string phrase = "";
+            StringBuilder phrase = new StringBuilder();
 
-            /*
-            if (canteen) 
-            { 
-                um valor default para nnao ter encontrado data
+            foreach (var canteen in canteens) {
+                if (canteen.Disabled.Equals("0"))
+                {
+                    phrase.Append(answers.getCanteenMeals(canteen));
+                } else
+                {
+                    phrase.Append(answers.getDisableCanteen(canteen));
+                }
+                phrase.Append("\n");
             }
-
-            */
-
-            if (canteen.Disabled.Equals("0"))
-            {
-                phrase = answers.getCanteenMeals(canteen);
-            }
-
-            else
-            {
-                phrase = answers.getDisableCanteen(canteen.Canteen);
-            }
-            
-            t.Speak(phrase);
+      
+            t.Speak(phrase.ToString());
         }
 
-
+        public void manageDialogueCanteenHelp()
+        {
+            t.Speak(answers.getCanteensHelp());
+        }
         public void manageDialogueCanteenInvalidDate(int day, int month)
         {
             string phrase = answers.getCanteenMealsDayInvalid(day, month);
