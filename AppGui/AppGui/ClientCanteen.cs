@@ -17,17 +17,17 @@ namespace AppGui
         private DialogueManager dManager;
 
         public ClientCanteen(DialogueManager dManager) {
-            HttpClient client = new HttpClient();
+            client = new HttpClient();
             client.BaseAddress = new Uri("http://services.web.ua.pt/sas/ementas?date=week&place=santiago");
             this.dManager = dManager;
         }
 
-        public void request(string mealType, string canteen) {
-            client.GetStringAsync("").ContinueWith((response) => handleResponse(response.Result,mealType,canteen));
+        public void request(string[] args) {
+            client.GetStringAsync("").ContinueWith((response) => handleResponse(response.Result, args));
         }
 
 
-        private void handleResponse(string response, string mealType, string canteen)
+        private void handleResponse(string response, string[] args)
         {
             XDocument document = XDocument.Load(new StringReader(response));
             List<CanteenData> meals = (from r in document.Descendants("menu")
@@ -49,7 +49,7 @@ namespace AppGui
                                            Vegetarian = d.Descendants("item").ElementAt(4).IsEmpty ? "0" : (string)d.Descendants("item").ElementAt(4).Value
                                        }).ToList<CanteenData>();
 
-
+            /*
             foreach (var r in meals)
             {
                 Console.WriteLine("---------------------------------------------- " + r.Canteen);
@@ -62,8 +62,9 @@ namespace AppGui
                 Console.WriteLine("---------------------------------------------- " + r.Fish);
                 Console.WriteLine("---------------------------------------------- " + r.Diet);
                 Console.WriteLine("---------------------------------------------- " + r.Vegetarian);
-            }
+            }*/
 
+            dManager.manageDialogueCanteen( meals, args);
         }
     }
 }

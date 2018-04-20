@@ -105,7 +105,7 @@ namespace AppGui
             {
                 case "CANTEENS":
                     //use Canteen API
-                    canteen.request((string)recognized[1].ToString(), (string)recognized[2].ToString());
+                    canteen.request(array);
 
                     break;
 
@@ -146,20 +146,43 @@ namespace AppGui
             t.close();
         }
 
-        public void manageDialogueCanteen(CanteenData canteen) {
-
-            string phrase = "";
-
-            if (canteen.Disabled.Equals("0"))
-            {
-                //cantina aberta
-            }
-            else {
-                phrase = answers.getDisableCanteen(canteen.Canteen);
-            }
-
+        public void manageDialogueCanteen(List<CanteenData> canteens, string[] args) {
             
+            string phrase = "";
+            switch (args[0]) {
+                case "TYPE1":
+                case "TYPE3":
+                    break;
+                case "TYPE2":
+                    if (args[3].Equals("SUBTYPE1"))
+                        phrase = getCanteen(canteens, args[1], args[2], DateTime.Today.Day);
+                    else //subtype2
+                    {
+                        if (args[4].Equals("numberOfDay"))
+                            phrase = getCanteen(canteens, args[1], args[2], int.Parse(args[5]));
+                    }
+                    break;
+                case "TYPE4":
+                    break;
+            }
+
             t.Speak(phrase);
+        }
+
+        private string getCanteen(List<CanteenData> canteens, string mealType, string canteen, int day)
+        {
+            foreach (CanteenData c in canteens) {
+                if (c.Canteen.Contains(canteen) && c.Meal.Equals(mealType) && c.intWeekDay() == day) {
+                    
+                    if (!c.Disabled.Equals("0"))
+                        return answers.getDisableCanteen(c.Canteen);
+                    else {
+                        return answers.getCanteanMeals(c);
+                    }
+                }
+            }
+
+            return answers.getNotFoundCanteen(canteen, mealType, day);
         }
 
         public void manageDialogueSAS(ParkData park, string[] args)

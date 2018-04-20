@@ -19,6 +19,12 @@ namespace AppGui
         private string diet;
         private string vegetarian;
 
+        public int intWeekDay() {
+            //fast way, but i dont know if 1 appers in 01 format
+            //return int.Parse(date.Substring(5, 2));
+            return int.Parse(date.Split(' ')[1]); //slower that^^ 
+        }
+
         public string Canteen
         {
             get
@@ -148,5 +154,6 @@ namespace AppGui
                 vegetarian = value;
             }
         }
+
     }
 }

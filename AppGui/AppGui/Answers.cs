@@ -19,11 +19,7 @@ namespace AppGui
             this.culture = new CultureInfo("pt-PT");
         }
 
-        private string[] canteenDisable = new string[] {
-            "Parece que a cantina do <NOME_CANTINA> está encerrada",
-            "Lamento informar mas a cantina está encerrada",
-            "Infelizmente a cantina do <NOME_CANTINA> está encerrada"
-        };
+
 
 
 
@@ -213,7 +209,8 @@ namespace AppGui
          * Greathings
          */
         private string[] greathings = new string[]{
-            "Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"",
+            //"Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"",
+            "Versao curta, depois tirar!!!"
         };
 
         /*
@@ -258,11 +255,48 @@ namespace AppGui
             "Não compreendi. Tu disseste <COMMAND>.\n",
             "Não compreendi, <COMMAND>, foi isto que disseste sim ou não.\n",
         };
-        
+
+        //CANTINAS!!!
+
+        private string[] canteenDisable = new string[] {
+            "Parece que a cantina do <NOME_CANTINA> está encerrada",
+            "Lamento informar mas a cantina está encerrada",
+            "Infelizmente a cantina do <NOME_CANTINA> está encerrada"
+        };
+
+        private string[] canteenMeals = new string[] {
+            "Parece que a cantina do <NOME_CANTINA> está a servir\n ",
+            "A cantina do <NOME_CANTINA> está a servir",
+            "A cantina do <NOME_CANTINA> tem como"
+        };
+
+        private string[] canteenNotFound = new string[] {
+            "Não existem registo para a cantina do <NOME_CANTINA> durante o <MEAL_TIME> do dia <DIA>\n ",
+            "A cantina do <NOME_CANTINA> não está a servir <MEAL_TIME> do dia <DIA>",
+        };
+
 
         public string getHelp() { return help[random.Next(0, help.Length)]; }
         public string getGreathings() { return greathings[random.Next(0, greathings.Length)]; }
+
+        public string getCanteanMeals(CanteenData c)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(canteenMeals[random.Next(0, canteenMeals.Length)].Replace("<NOME_CANTINA>", c.Canteen));
+            if (!c.Meat.Equals("0")) sb.Append("Prato de carne, "+c.Meat + "\n");
+            if (!c.Fish.Equals("0")) sb.Append("Prato de peixe, " + c.Fish + "\n");
+            if (!c.Diet.Equals("0")) sb.Append("Prato dieta, " + c.Diet + "\n");
+
+            return sb.ToString();
+        }
+
+
+        public string getNotFoundCanteen(string canteen, string mealType, int day){ return canteenNotFound[random.Next(0, canteenNotFound.Length)].Replace("<NOME_CANTINA>", canteen).Replace("<MEAL_TIME>", mealType).Replace("<DIA>", day.ToString()); }
+
+
         public string getDisableCanteen(string canteenName) {return canteenDisable[random.Next(0, canteenDisable.Length)].Replace("<NOME_CANTINA>",canteenName);}
+
+
         public string getParkNotFound(string parkName){return parkNotFound[random.Next(0, parkNotFound.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", parkName);}
         public string getParkIsFree(ParkData park) {return parkIsFree[random.Next(0, parkIsFree.Length)].Replace("<NOME_PARQUE_ESTACIONAMENTO>", park.Nome).Replace("<NUM_LIVRES>", park.Livre.ToString());}
 
