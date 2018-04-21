@@ -218,9 +218,17 @@ namespace AppGui
             t.Speak(phrase);
         }
 
-        public void manageDialogueSAC()
+        public void manageDialogueSAC(string type, bool available)
         {
-            string phrase = answers.getTicketsServiceUnavailable();
+            string phrase = "";
+            if (type.Equals("service not available")) {
+                phrase = answers.getTicketsServiceUnavailable();
+            }
+
+            else  //help para senhas
+            {
+                phrase = answers.getSacsHelp(available);
+            }
 
             t.Speak(phrase);
 
@@ -372,6 +380,11 @@ namespace AppGui
             t.Speak(phrase);
             Console.WriteLine(phrase);
 
+        }
+
+        public void manageDialogueWeatherHelp()
+        {
+            t.Speak(answers.getWeatherHelp());
         }
 
         public void manageDialogueHelp() {

@@ -68,6 +68,14 @@ namespace AppGui
 
         private void handleResponse(string response, string[] args)
         {
+
+            if (args.Length == 1 && args[0].ToString().Equals("TYPE3"))
+            {
+                dManager.manageDialogueWeatherHelp();
+                return;
+
+            }
+
             dynamic json = JsonConvert.DeserializeObject(response);
 
             WeatherData weather = null;

@@ -133,6 +133,12 @@ namespace AppGui
             "A fila <NOME_DA_FILA> que trata de assuntos de <DESC> não está em atendimento"
         };
 
+        private string[] sacsHelp = new string[] {
+            "Podes perguntar-me que senhas existem e do que tratam, em que número vai uma determinada fila, qual o tempo de espera de uma qualquer fila e quantas pessoas estão à espera. Neste momento, o serviço está <SERV>",
+            "Consigo-te dizer que senhas existem e do que tratam, em que senha vai uma determinada fila, qual o tempo de espera de uma qualquer fila e quantas pessoas estão à espera. Neste momento, o serviço está <SERV>",
+            "Relativamente às senhas posso-te dizer quais as senhas existem e o assunto que tratam, em que senha vai uma determinada fila, qual o tempo de espera de uma qualquer fila e quantas pessoas estão à espera. Neste momento, o serviço está <SERV>"
+        };
+
         /*
          * FRASES PARA NEWS 
          */
@@ -195,6 +201,12 @@ namespace AppGui
         {
             "Não.\n<DIA> a previsão é de <DESC>.",
             "Não.\nPodes deixar o guarda-chuva em casa.\n<DIA> a previsão é de <DESC>"
+        };
+
+        private string[] weatherHelp = new string[] {
+            "Podes perguntar-me como vai estar o tempo num determinado dia em Aveiro e se chove. ",
+            "Consigo-te dizer em Aveiro se chove num dia bem como uma previsão do tempo mais detalhada para um dia",
+            "Relativamente ao tempo em Aveiro posso te dizer como vai estar num dia e também me podes perguntar se vai chover."
         };
 
         /*
@@ -419,7 +431,10 @@ namespace AppGui
             {
                 return getWeatherRainAnswer(weather, weatherRainFalse);
             }
-                 
+        }
+        public string getWeatherHelp()
+        {
+            return weatherHelp[random.Next(0, weatherHelp.Length)];
         }
 
         private string getWeatherRainAnswer(WeatherData weather, string[] rainArray)
@@ -445,6 +460,13 @@ namespace AppGui
         {
             return ticketLineAClosed[random.Next(0, ticketLineAClosed.Length)].Replace("<NOME_DA_FILA>", ticket.Letter)
                 .Replace("<DESC>", ticket.Description);
+        }
+
+        public string getSacsHelp (bool available) {
+            StringBuilder sb = new StringBuilder(sacsHelp[random.Next(0, sacsHelp.Length)]);
+            sb.Replace("<SERV>", available ? "aberto" : "fechado");
+            return sb.ToString();
+
         }
 
         public string getConnectionError(string description)

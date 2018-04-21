@@ -132,7 +132,7 @@ root="rootRule">
         <item  repeat="0-1">na cantina</item>
       </item>  
       <item>
-        <tag>out.newsType="TYPE4";</tag>
+        <tag>out.canteensType="TYPE4";</tag>
         <one-of>
           <item>Ajuda</item>
           <item>Ajuda-me</item>
@@ -376,8 +376,6 @@ root="rootRule">
 				     Quais são as senhas que existem
 					 Que senhas existem
 					 Que senhas estão disponiveis
-					 Preciso de ajuda com as senhas
-					 Ajuda-me com as senhas 
 				-->	
 				
 				<one-of>
@@ -406,15 +404,6 @@ root="rootRule">
 							</one-of>
 						</item>
 					</item>
-					
-					<item>
-						<one-of>
-							<item>Preciso de ajuda</item>
-							<item>Ajuda-me</item>
-						</one-of>
-						com as senhas		
-					</item>			
-			
 				</one-of>
 			</item>
 			
@@ -564,6 +553,16 @@ root="rootRule">
 				<item>pagar as propinas</item>
 				
 			</item>
+		
+			<item>
+				<tag>out.sacType="TYPE6";</tag>
+				<one-of>
+				  <item>Ajuda</item>
+				  <item>Ajuda-me</item>
+				  <item>Preciso de ajuda</item>
+				</one-of>
+				<item>com as senhas</item>
+			</item>
 		</one-of>
 	</rule>
 
@@ -711,7 +710,7 @@ root="rootRule">
 		<tag>out.api="WEATHER";</tag>
 		<one-of>
 			<item>
-				<tag>out.sacType="TYPE1";</tag>
+				<tag>out.weatherType="TYPE1";</tag>
 				<one-of>
 					<item>Como vai estar o tempo</item>
 					<item>Qual a previsão do tempo</item>
@@ -726,7 +725,7 @@ root="rootRule">
 			</item>
 		
 			<item>
-				<tag>out.sacType="TYPE2";</tag>
+				<tag>out.weatherType="TYPE2";</tag>
 				<one-of>
 					<item>Preciso do meu guarda-chuva</item>
 					<item>Chove</item>
@@ -740,6 +739,20 @@ root="rootRule">
 					<tag>out.dayDesc=rules.weatherDays.day;</tag>
 					<tag>out.weekDayNumber=rules.weatherDays.weekdayNumber;</tag> <!--só usado no caso do dos dias da semana -->
 				</item>
+			</item>
+			
+			<item>
+				<tag>out.weatherType="TYPE3";</tag>
+				<one-of>
+				  <item>Ajuda</item>
+				  <item>Ajuda-me</item>
+				  <item>Preciso de ajuda</item>
+				</one-of>
+				<item>com</item>
+				<one-of>
+					<item>a previsão do tempo</item>
+					<item>o tempo</item>
+				</one-of>
 			</item>
 	
 	
