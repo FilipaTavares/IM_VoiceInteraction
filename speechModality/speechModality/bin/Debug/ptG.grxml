@@ -29,6 +29,9 @@ root="rootRule">
       <item>
         <ruleref uri="#help"/>
       </item>
+      <item>
+        <ruleref uri="#repeat"/>
+      </item>
 		</one-of>
 	</rule>
 
@@ -44,6 +47,17 @@ root="rootRule">
     </item>
   </rule>
   
+  <!-- Rules for repeat last sentence -->
+  <rule id="repeat">
+    <tag>out.api="REPEAT";</tag>
+    <item>
+      <one-of>
+        <item>Podes repetir</item>
+        <item>Não percebi, podes repetir</item>
+        <item>Não ouvi, podes repetir</item>
+      </one-of>
+    </item>
+  </rule>
   
   <!-- Rules for comunicate with canteensAPI -->
 	<rule id="canteensAPI">

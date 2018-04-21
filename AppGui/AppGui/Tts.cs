@@ -13,15 +13,18 @@ namespace AppGui
         SpeechSynthesizer tts = null;
         static SoundPlayer player = new SoundPlayer();
         private SpeachClient speachClient;
+        private Random random;
+        private string lastSentence = "Ainda não pediste nada";
 
+        private string[] startReapeat = new string[] { "Sim. ","Claro que sim. ","Claro. "};
         /*
          * Text to Speech
          */
         public Tts(Action greathingsCallback)
         {
-            
-            
 
+
+            random = new Random();
             Console.WriteLine("TTS constructor called");
 
 
@@ -118,10 +121,17 @@ namespace AppGui
             //create audio stream with speech
             player.Stream = new System.IO.MemoryStream();
             tts.SetOutputToWaveStream(player.Stream);
+            lastSentence = text;
             tts.SpeakAsync(text);
 
             //attention blocking method, another thread?
             speachClient.sendTtsStart();
+        }
+
+        public void SpeakRepeat()
+        {
+            Speak(startReapeat[random.Next(0, startReapeat.Length)]+lastSentence);
+            
         }
 
         public void Speak(string text, int rate)
@@ -144,11 +154,14 @@ namespace AppGui
 
             Console.WriteLine("... calling  SpeakSsmlAsync()");
 
+            lastSentence = text;
             tts.SpeakSsmlAsync(text);
 
             Console.WriteLine("done  SpeakSsmlAsync().\n");
 
         }
+
+        
 
         public void addNewsToGrammar(List<string> news) {
             speachClient.sendDynamicNews(news);

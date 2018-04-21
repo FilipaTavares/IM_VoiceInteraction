@@ -127,7 +127,11 @@ namespace AppGui
                 case "HELP":
                     Console.WriteLine("HELP");
                     manageDialogueHelp();
+                    break;
 
+                case "REPEAT":
+                    Console.WriteLine("REPEAT");
+                    manageDialogueRepeat();
 
                     break;
             }
@@ -390,6 +394,12 @@ namespace AppGui
         public void manageDialogueHelp() {
             t.Speak(answers.getHelp());
         }
+
+        public void manageDialogueRepeat()
+        {
+            t.SpeakRepeat();
+        }
+
 
         public void manageDialogueWeatherConnectionErrors(string error, string description)
         {
