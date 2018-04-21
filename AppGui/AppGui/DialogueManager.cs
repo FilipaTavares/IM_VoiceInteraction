@@ -85,28 +85,21 @@ namespace AppGui
 
                 }
             }
-
-           
-
         }
-
-
 
         public void handleRecognized(dynamic recognized)
         {
             //dynamic json = JsonConvert.DeserializeObject(command);
 
-            string[] array;
-            array = new string[recognized.Count - 1];
+            string[] array = new string[recognized.Count - 1];
             for (int i = 1; i < recognized.Count; i++)          //0 alredy handled
                 array[i - 1] = (string)recognized[i].ToString();
 
             switch ((string)recognized[0].ToString())
             {
                 case "CANTEENS":
-                    //use Canteen API
-                    canteen.request((string)recognized[1].ToString(), (string)recognized[2].ToString());
-
+                    Console.WriteLine("CANTEENS");
+                    canteen.request(array);
                     break;
 
                 case "SAS":
@@ -146,19 +139,31 @@ namespace AppGui
             t.close();
         }
 
-        public void manageDialogueCanteen(CanteenData canteen) {
+        public void manageDialogueCanteen(List<CanteenData> canteens) {
 
-            string phrase = "";
+            StringBuilder phrase = new StringBuilder();
 
-            if (canteen.Disabled.Equals("0"))
-            {
-                //cantina aberta
+            foreach (var canteen in canteens) {
+                if (canteen.Disabled.Equals("0"))
+                {
+                    phrase.Append(answers.getCanteenMeals(canteen));
+                } else
+                {
+                    phrase.Append(answers.getDisableCanteen(canteen));
+                }
+                phrase.Append("\n");
             }
-            else {
-                phrase = answers.getDisableCanteen(canteen.Canteen);
-            }
+      
+            t.Speak(phrase.ToString());
+        }
 
-            
+        public void manageDialogueCanteenHelp()
+        {
+            t.Speak(answers.getCanteensHelp());
+        }
+        public void manageDialogueCanteenInvalidDate(int day, int month)
+        {
+            string phrase = answers.getCanteenMealsDayInvalid(day, month);
             t.Speak(phrase);
         }
 
@@ -213,9 +218,17 @@ namespace AppGui
             t.Speak(phrase);
         }
 
-        public void manageDialogueSAC()
+        public void manageDialogueSAC(string type, bool available)
         {
-            string phrase = answers.getTicketsServiceUnavailable();
+            string phrase = "";
+            if (type.Equals("service not available")) {
+                phrase = answers.getTicketsServiceUnavailable();
+            }
+
+            else  //help para senhas
+            {
+                phrase = answers.getSacsHelp(available);
+            }
 
             t.Speak(phrase);
 
@@ -353,19 +366,25 @@ namespace AppGui
             Console.WriteLine(phrase);
         }
 
-        public void manageDialogueWeather(DateTime date, string flag)
+        public void manageDialogueWeatherOutOfRangeDay(DateTime date, int days)
         {
-            string phrase = "";
-            if (flag.Equals("invalid"))
-                phrase = answers.getWeatherDayInvalid(date);
-        
-            else
-            {
-                phrase = answers.getWeatherDayOutOfRange(date);
-            }
+            string phrase = answers.getWeatherDayOutOfRange(date, days);
             t.Speak(phrase);
             Console.WriteLine(phrase);
 
+        }
+
+        public void manageDialogueWeatherInvalidDate(int day, int month)
+        {
+            string phrase = answers.getWeatherDayInvalid(day, month);
+            t.Speak(phrase);
+            Console.WriteLine(phrase);
+
+        }
+
+        public void manageDialogueWeatherHelp()
+        {
+            t.Speak(answers.getWeatherHelp());
         }
 
         public void manageDialogueHelp() {

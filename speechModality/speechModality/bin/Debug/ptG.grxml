@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" 
          version="1.0" 
          xmlns="http://www.w3.org/2001/06/grammar"
@@ -49,69 +49,73 @@ root="rootRule">
 	<rule id="canteensAPI">
     
     <example> Type1 - Informação sobre as 2 cantinas</example>
-		<example> Type2 - Informação sobre uma cantina</example>
+	<example> Type2 - Informação sobre uma cantina</example>
     <example> Type3 - (tenho fome) Informação sobre uma cantina para hoje</example>
     <example> Type4 - Ajuda com as cantinas</example>
-
-    
 		<tag>out.api="CANTEENS";</tag>
-    <one-of>
-      
-      <item>
-        <tag>out.canteensType="TYPE1";</tag>
-        <one-of>
-          <item>Qual é o</item>
-          <item>O que é o</item>
-        </one-of>
-        <item>
-			    <ruleref uri="#mealType"/>
-			    <tag>out.mealType=rules.latest();</tag>
-		    </item>
-        <one-of>
-          <item>nas cantinas</item>
-          <item>na cantina</item>
-        </one-of>
-        <tag>out.subType="SUBTYPE1";</tag>
-        <item repeat="0-1">
-          <tag>out.subType="SUBTYPE2";</tag> <!-- override -->
-          <item repeat="0-1">para</item>
+		<one-of>
+			<item>
+				<tag>out.canteensType="TYPE1";</tag>
+				<one-of>
+					<item>Qual é o</item>
+					<item>O que é o</item>
+				</one-of>
+				
+				<item>
+					<ruleref uri="#mealType"/>
+					<tag>out.mealType=rules.latest();</tag>
+				</item>
+        
+				<one-of>
+					<item>nas cantinas</item>
+					<item>na cantina</item>
+				</one-of>
+        
+				<tag>out.subType="SUBTYPE1";</tag>
+				<item repeat="0-1">
+					<tag>out.subType="SUBTYPE2";</tag> <!-- override -->
+					<item repeat="0-1">para</item>
 					<ruleref uri="#weatherDays"/>
 					<tag>out.dayType=rules.weatherDays.dayType;</tag>
 					<tag>out.dayDesc=rules.weatherDays.day;</tag>
 					<tag>out.weekDayNumber=rules.weatherDays.weekdayNumber;</tag> <!--só usado no caso do dos dias da semana -->
 				</item>
-      </item>
+			</item>
         
-      <item>
-        <tag>out.canteensType="TYPE2";</tag>
+			<item>
+				<tag>out.canteensType="TYPE2";</tag>
         
-        <one-of>
-          <item>Qual é o</item>
-          <item>O que é o</item>
-        </one-of>
-        <item>
-			    <ruleref uri="#mealType"/>
-			    <tag>out.mealType=rules.latest();</tag>
-		    </item>
-        <one-of>
-          <item>na cantina do</item>
-          <item>no</item>
-        </one-of>
-        <item>
+				<one-of>
+					<item>Qual é o</item>
+					<item>O que é o</item>
+				</one-of>
+        
+				<item>
+					<ruleref uri="#mealType"/>
+					<tag>out.mealType=rules.latest();</tag>
+				</item>
+        
+			<one-of>
+				<item>na cantina do</item>
+				<item>no</item>
+			</one-of>
+			
+			<item>
 			    <ruleref uri="#canteens"/>
 			    <tag>out.canteens=rules.latest();</tag>
 		    </item>
-        <tag>out.subType="SUBTYPE1";</tag>
-        <item repeat="0-1">
-          <tag>out.subType="SUBTYPE2";</tag> <!-- override -->
-          <item repeat="0-1">para</item>
+        
+			<tag>out.subType="SUBTYPE1";</tag>
+			<item repeat="0-1">
+				<tag>out.subType="SUBTYPE2";</tag> <!-- override -->
+				<item repeat="0-1">para</item>
 					<ruleref uri="#weatherDays"/>
 					<tag>out.dayType=rules.weatherDays.dayType;</tag>
 					<tag>out.dayDesc=rules.weatherDays.day;</tag>
 					<tag>out.weekDayNumber=rules.weatherDays.weekdayNumber;</tag> <!--só usado no caso do dos dias da semana -->
 				</item>
-      </item>
-    
+			</item>
+			
       <item>
         <tag>out.canteensType="TYPE3";</tag>
         <item repeat="0-1">
@@ -128,7 +132,7 @@ root="rootRule">
         <item  repeat="0-1">na cantina</item>
       </item>  
       <item>
-        <tag>out.newsType="TYPE4";</tag>
+        <tag>out.canteensType="TYPE4";</tag>
         <one-of>
           <item>Ajuda</item>
           <item>Ajuda-me</item>
@@ -372,8 +376,6 @@ root="rootRule">
 				     Quais são as senhas que existem
 					 Que senhas existem
 					 Que senhas estão disponiveis
-					 Preciso de ajuda com as senhas
-					 Ajuda-me com as senhas 
 				-->	
 				
 				<one-of>
@@ -402,15 +404,6 @@ root="rootRule">
 							</one-of>
 						</item>
 					</item>
-					
-					<item>
-						<one-of>
-							<item>Preciso de ajuda</item>
-							<item>Ajuda-me</item>
-						</one-of>
-						com as senhas		
-					</item>			
-			
 				</one-of>
 			</item>
 			
@@ -560,6 +553,16 @@ root="rootRule">
 				<item>pagar as propinas</item>
 				
 			</item>
+		
+			<item>
+				<tag>out.sacType="TYPE6";</tag>
+				<one-of>
+				  <item>Ajuda</item>
+				  <item>Ajuda-me</item>
+				  <item>Preciso de ajuda</item>
+				</one-of>
+				<item>com as senhas</item>
+			</item>
 		</one-of>
 	</rule>
 
@@ -707,7 +710,7 @@ root="rootRule">
 		<tag>out.api="WEATHER";</tag>
 		<one-of>
 			<item>
-				<tag>out.sacType="TYPE1";</tag>
+				<tag>out.weatherType="TYPE1";</tag>
 				<one-of>
 					<item>Como vai estar o tempo</item>
 					<item>Qual a previsão do tempo</item>
@@ -722,7 +725,7 @@ root="rootRule">
 			</item>
 		
 			<item>
-				<tag>out.sacType="TYPE2";</tag>
+				<tag>out.weatherType="TYPE2";</tag>
 				<one-of>
 					<item>Preciso do meu guarda-chuva</item>
 					<item>Chove</item>
@@ -736,6 +739,20 @@ root="rootRule">
 					<tag>out.dayDesc=rules.weatherDays.day;</tag>
 					<tag>out.weekDayNumber=rules.weatherDays.weekdayNumber;</tag> <!--só usado no caso do dos dias da semana -->
 				</item>
+			</item>
+			
+			<item>
+				<tag>out.weatherType="TYPE3";</tag>
+				<one-of>
+				  <item>Ajuda</item>
+				  <item>Ajuda-me</item>
+				  <item>Preciso de ajuda</item>
+				</one-of>
+				<item>com</item>
+				<one-of>
+					<item>a previsão do tempo</item>
+					<item>o tempo</item>
+				</one-of>
 			</item>
 	
 	
@@ -843,14 +860,8 @@ root="rootRule">
 	</rule>
 
 
-<rule id="dynamicNews">
-<one-of>
-<item><sapi:subset sapi:match="ordered-subset">A UA explica como fazer dinheiro nas minas digitais?</sapi:subset><tag>out="0"</tag></item>
-<item><sapi:subset sapi:match="ordered-subset">Workshop de Auto Maquilhagem</sapi:subset><tag>out="1"</tag></item>
-<item><sapi:subset sapi:match="ordered-subset">Candidatura a bolsa de estudo para estudantes com incapacidade igual</sapi:subset><tag>out="2"</tag></item>
-<item><sapi:subset sapi:match="ordered-subset">Oportunidade para a área de I e D para a Universidade da</sapi:subset><tag>out="3"</tag></item>
-<item><sapi:subset sapi:match="ordered-subset">Bolsa de Investigação (Mestre) na área da Biotecnologia</sapi:subset><tag>out="4"</tag></item>
-<item><sapi:subset sapi:match="ordered-subset">Aula aberta sobre "Código Contributivo" realiza-se no ISCA-UA</sapi:subset><tag>out="5"</tag></item>
-</one-of>
-</rule>
+  <rule id="dynamicNews">
+    <item>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</item>
+  </rule>
+
 </grammar>

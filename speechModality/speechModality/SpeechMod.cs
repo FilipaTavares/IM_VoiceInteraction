@@ -120,7 +120,7 @@ namespace speechModality
                 resetGrammar();
                 json.Append("\"type\":\"NORMAL\",");
 
-                if (e.Result.Confidence > 0.90)
+                if (e.Result.Confidence > 0.70)
                 {
                     json.Append("\"confidence\":\"GOOD\",");
                 }

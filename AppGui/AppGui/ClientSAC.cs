@@ -69,14 +69,15 @@ namespace AppGui
         {
             dynamic json = JsonConvert.DeserializeObject(response);
 
-            if (!isServiceAvailable(json))
+            bool serviceAvailable = isServiceAvailable(json);
+
+            if (args.Length == 1 && args[0].ToString().Equals("TYPE6"))
             {
-                dManager.manageDialogueSAC();
+                dManager.manageDialogueSAC(args[0].ToString(), serviceAvailable);
             }
-
-            else
+            
+            else if (serviceAvailable)
             {
-
                 if (args.Length == 1 && args[0].ToString().Equals("TYPE1"))
                 {
                     dManager.manageDialogueSAC(getAllTicketsInfo(json));
@@ -89,9 +90,15 @@ namespace AppGui
 
                 else
                 {
-                    dManager.manageDialogueSAC(getTicket(json, "A", args[2]), args[0]);
+                    Console.WriteLine("ENTROU");
+                    dManager.manageDialogueSAC(getTicket(json, args[1], args[2]), args[0]);
                 }
 
+            }
+
+            else
+            {
+                dManager.manageDialogueSAC("service not available", false);
             }
         }
 
@@ -106,8 +113,7 @@ namespace AppGui
         private TicketData getTicket(dynamic json, string letter, string description)
         {
             string s = json.items.item[0]["@attributes"].enabled;
-            Console.WriteLine("TESTEEE");
-            Console.WriteLine(letter);
+           
             for (int i = 0; i < json.items.item.Count; i++)
             {
                 if (int.Parse(json.items.item[i]["@attributes"].enabled.ToString()) == 1 && json.items.item[i].letter.ToString().Equals(letter))
