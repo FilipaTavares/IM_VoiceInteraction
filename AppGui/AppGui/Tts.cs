@@ -116,7 +116,7 @@ namespace AppGui
          * 
          * @param text - text to convert
          */
-        public void Speak(string text)
+        public void Speak(string text, bool saveLast = true)
         {
             while (player.Stream != null)
             {
@@ -126,7 +126,7 @@ namespace AppGui
             //create audio stream with speech
             player.Stream = new System.IO.MemoryStream();
             tts.SetOutputToWaveStream(player.Stream);
-            lastSentence = text;
+            if (saveLast) lastSentence = text;
             tts.SpeakAsync(text);
 
             //attention blocking method, another thread?
@@ -135,7 +135,7 @@ namespace AppGui
 
         public void SpeakRepeat()
         {
-            Speak(startReapeat[random.Next(0, startReapeat.Length)]+lastSentence);
+            Speak(startReapeat[random.Next(0, startReapeat.Length)]+lastSentence,false);
             
         }
 

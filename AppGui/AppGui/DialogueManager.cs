@@ -57,7 +57,7 @@ namespace AppGui
                         lastCommand = json.recognized;
                         lastCommandInputText = (string)json.inputText.ToString();
                         //dizer que nao percebeu
-                        t.Speak(answers.getNormalConfidenceTypeNormal(lastCommandInputText));
+                        t.Speak(answers.getNormalConfidenceTypeNormal(lastCommandInputText),false);
                         break;
                     case "BAD":
                         t.Speak(answers.getLowConfidenceTypeNormal());
@@ -80,7 +80,7 @@ namespace AppGui
                         
                         break;
                     case "BAD":
-                        t.Speak(answers.getLowConfidenceTypeYesNo(lastCommandInputText));
+                        t.Speak(answers.getLowConfidenceTypeYesNo(lastCommandInputText),false);
                         break;
 
                 }
