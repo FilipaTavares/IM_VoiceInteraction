@@ -112,3 +112,5 @@ C:\Users\Filipa\Desktop\IM_VoiceInteraction\AppGui\AppGui\obj\Debug\AppGui.pdb
 C:\Users\Filipa\Desktop\IM_VoiceInteraction\AppGui\AppGui\obj\Debug\AppGui.csprojResolveAssemblyReference.cache
 D:\Repositorio\IM_VoiceInteraction\AppGui\AppGui\bin\Debug\Gif\speaker.gif
 D:\Repositorio\IM_VoiceInteraction\AppGui\AppGui\bin\Debug\Gif\waveform.gif
+C:\Users\Filipa\Desktop\IM_VoiceInteraction\AppGui\AppGui\bin\Debug\Gif\speaker.gif
+C:\Users\Filipa\Desktop\IM_VoiceInteraction\AppGui\AppGui\bin\Debug\Gif\waveform.gif

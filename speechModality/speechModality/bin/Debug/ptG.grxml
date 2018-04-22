@@ -140,8 +140,8 @@ root="rootRule">
         </item>
         <item>quero</item>
         <item>
-			    <ruleref uri="#mealType"/>
-			    <tag>out.mealType=rules.latest();</tag>
+			<ruleref uri="#mealAction"/>
+			<tag>out.mealType=rules.latest();</tag>
 		    </item>
         <item  repeat="0-1">na cantina</item>
       </item>  
@@ -161,6 +161,17 @@ root="rootRule">
 		<one-of>
 			<item>
 				almoço<tag>out="Almoço"</tag>
+			</item>
+			<item>
+				jantar<tag>out="Jantar"</tag>
+			</item>
+		</one-of>
+	</rule>
+
+	<rule id="mealAction">
+		<one-of>
+			<item>
+				almoçar<tag>out="Almoço"</tag>
 			</item>
 			<item>
 				jantar<tag>out="Jantar"</tag>
