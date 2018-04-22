@@ -57,7 +57,7 @@ namespace AppGui
                         lastCommand = json.recognized;
                         lastCommandInputText = (string)json.inputText.ToString();
                         //dizer que nao percebeu
-                        t.Speak(answers.getNormalConfidenceTypeNormal(lastCommandInputText));
+                        t.Speak(answers.getNormalConfidenceTypeNormal(lastCommandInputText),false);
                         break;
                     case "BAD":
                         t.Speak(answers.getLowConfidenceTypeNormal());
@@ -75,12 +75,12 @@ namespace AppGui
                             handleRecognized(lastCommand);
                         }
                         else {
-                            Console.WriteLine("RECEIVE Não para este comando:\n"+ lastCommand);
+                            t.Speak(answers.getOk(), false);
                         }
                         
                         break;
                     case "BAD":
-                        t.Speak(answers.getLowConfidenceTypeYesNo(lastCommandInputText));
+                        t.Speak(answers.getLowConfidenceTypeYesNo(lastCommandInputText),false);
                         break;
 
                 }
