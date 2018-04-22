@@ -5,14 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppGui"
         mc:Ignorable="d"
-        Title="MainWindow" Height="169.052" Width="240.116"
+        Title="MainWindow" Height="400" Width="600"
         >
     <Grid>
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Rectangle x:Name="rectangle" Width="50" Height="50" Fill="Gray" Margin="10"></Rectangle>
-            <Ellipse x:Name="circle" Width="50" Height="50" Fill="Gray" Margin="10"></Ellipse>
-            <Polygon x:Name="triangle" Width="50" Height="50" Fill="Gray" Points="25,0 50,50 0,50" Margin="10"></Polygon>
-        </StackPanel>
-
+        <Rectangle HorizontalAlignment="Stretch" Margin="15,0,40,0" Fill="Blue" Height="2"/>
+        <MediaElement x:Name="myGif" Source="Gif/waveform.gif" Height="377" VerticalAlignment="Top" Margin="0,0,0,-62" MediaEnded="MediaElement_MediaEnded" UnloadedBehavior="Manual" Visibility="Collapsed" />
     </Grid>
 </Window>

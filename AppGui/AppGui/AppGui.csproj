@@ -119,5 +119,21 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Gif\speaker.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Gif\speaker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Gif\speaker.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Gif\waveform.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

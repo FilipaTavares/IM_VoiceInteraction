@@ -17,12 +17,17 @@ namespace AppGui
         private string lastSentence = "Ainda não pediste nada";
 
         private string[] startReapeat = new string[] { "Sim. ","Claro que sim. ","Claro. "};
+
+        private Action showSpeaker;
+        private Action colapseSpeaker;
+
         /*
          * Text to Speech
          */
-        public Tts(Action greathingsCallback)
+        public Tts(Action greathingsCallback,Action showSpeaker,Action colapseSpeaker)
         {
-
+            this.showSpeaker = showSpeaker;
+            this.colapseSpeaker = colapseSpeaker;
 
             random = new Random();
             Console.WriteLine("TTS constructor called");
@@ -180,7 +185,9 @@ namespace AppGui
 
                     //play stream in other thread 
                     player.Stream.Position = 0;
+                    showSpeaker();
                     player.PlaySync();
+                    colapseSpeaker();
                     player.Stream = null;  //  NEW 2015
                     speachClient.sendTtsStop();
                 });

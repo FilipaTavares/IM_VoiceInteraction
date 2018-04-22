@@ -26,13 +26,33 @@ namespace AppGui
             InitializeComponent();
 
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
-            dManager = new DialogueManager();
+            dManager = new DialogueManager(showSpearker,colapseSpearker);
 
             mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
             mmiC.Message += MmiC_Message;
             mmiC.Start();
             
 
+        }
+
+        private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            myGif.Position = new TimeSpan(0, 0, 1);
+            myGif.Play();
+        }
+
+        private void showSpearker()
+        {
+            myGif.Dispatcher.BeginInvoke((Action)(() => {
+                myGif.Visibility = Visibility.Visible;
+            }));
+        }
+
+        private void colapseSpearker()
+        {
+            myGif.Dispatcher.BeginInvoke((Action)(() => {
+                myGif.Visibility = Visibility.Collapsed;
+            }));
         }
 
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)

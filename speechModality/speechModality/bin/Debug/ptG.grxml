@@ -53,8 +53,8 @@ root="rootRule">
     <item>
       <one-of>
         <item>Podes repetir</item>
-        <item>Não percebi, podes repetir</item>
-        <item>Não ouvi, podes repetir</item>
+        <item>Não percebi podes repetir</item>
+        <item>Não ouvi podes repetir</item>
       </one-of>
     </item>
   </rule>

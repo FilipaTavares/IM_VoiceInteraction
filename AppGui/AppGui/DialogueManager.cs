@@ -29,7 +29,7 @@ namespace AppGui
             t.Speak(answers.getGreathings());
         }
 
-        public DialogueManager()
+        public DialogueManager(Action showSpeaker, Action colapseSpeaker)
         {
             canteen = new ClientCanteen(this);
             parking = new ClientSAS(this);
@@ -37,7 +37,7 @@ namespace AppGui
             news = new ClientNews(this);
             weather = new ClientWeather(this);
             answers = new Answers();
-            t = new Tts(greathingsCallback);
+            t = new Tts(greathingsCallback, showSpeaker, colapseSpeaker);
             
 
         }
