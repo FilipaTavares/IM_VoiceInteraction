@@ -217,7 +217,7 @@ namespace AppGui
          * Greathings
          */
         private string[] greathings = new string[]{
-            "Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"",
+            "Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"\nSe por acaso não conseguires perceber alguma informação, devido ao barulho de fundo, podes pedir para repetir",
             //"MUDAR"
         };
 
@@ -226,7 +226,7 @@ namespace AppGui
          */
 
         private string[] help = new string[]{
-            "Podes questionar-me acerca das refeições nas cantinas.\nEstado das filas das senhas académicas.\nLotação dos parques de estacionamento do campos.\n As últimas notícias acerca da Universidade.\n E o estado do tempo\n",
+            "Podes questionar-me acerca das refeições nas cantinas.\nEstado das filas das senhas académicas.\nLotação dos parques de estacionamento do campos.\n As últimas notícias acerca da Universidade.\n E o estado do tempo\nSe por acaso não conseguires perceber alguma informação, devido ao barulho, de fundo podes pedir para repetir",
         };
 
         public string[] connectionError = new string[] {
