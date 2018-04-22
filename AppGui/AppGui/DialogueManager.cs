@@ -75,7 +75,7 @@ namespace AppGui
                             handleRecognized(lastCommand);
                         }
                         else {
-                            Console.WriteLine("RECEIVE Não para este comando:\n"+ lastCommand);
+                            t.Speak(answers.getOk(), false);
                         }
                         
                         break;

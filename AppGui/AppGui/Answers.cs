@@ -292,6 +292,14 @@ namespace AppGui
             "Consigo-te dizer, o almoço ou jantar nas cantinas do Crasto ou San Tiago, para qualquer dia."
         };
 
+        private string[] ok = new string[] {
+            "Ok.",
+            "Está bem.",
+            "O capa"
+        };
+
+        public string getOk() { return ok[random.Next(0, ok.Length)]; }
+
         public string getHelp() { return help[random.Next(0, help.Length)]; }
 
         public string getGreathings() { return greathings[random.Next(0, greathings.Length)]; }
