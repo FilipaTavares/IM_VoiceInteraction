@@ -66,7 +66,7 @@ namespace AppGui
         
         private string[] parksHelpSTART = new string[] {
             "Podes efectuar qualquer questão, acerca da disponibilidade ou lotação, dos parques de estacionamento do campos.\nConheço os seguintes parques de estacionamento:",
-            "Consigo-te dizer, a disponibildiade ou lotação, dos seguintes parques de estacionamento ao redor do campos.\n"
+            "Consigo-te dizer, a disponibilidade ou lotação, dos seguintes parques de estacionamento ao redor do campos.\n"
         };
 
         private string[] allParks = new string[] {
@@ -217,8 +217,8 @@ namespace AppGui
          * Greathings
          */
         private string[] greathings = new string[]{
-            //"Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"",
-            "MUDAR"
+            "Olá, sou um assistente virtual. Consigo ajudar-te com senhas académicas, refeições nas cantinas, parques de estacionamento do campos, as últimas notícias acerca da Universidade, e o estado do tempo\nEm caso de dúvidas basta pedir \"ajuda\"",
+            //"MUDAR"
         };
 
         /*
